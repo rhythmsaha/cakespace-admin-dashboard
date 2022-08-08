@@ -1,4 +1,12 @@
-function Avatar() {
-    return <div>Avatar</div>;
+/* eslint-disable @next/next/no-img-element */
+
+function Avatar({ size = 10 }) {
+    return (
+        <img
+            className={`inline-block h-${size} w-${size} rounded-full`}
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+        />
+    );
 }
 export default Avatar;

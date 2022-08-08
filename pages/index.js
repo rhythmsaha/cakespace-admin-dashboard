@@ -68,39 +68,7 @@ function Home() {
 
             <section>
                 <section className="grid gap-4 w-full grid-cols-3">
-                    <section className="bg-white p-6 rounded-2xl shadow-1">
-                        <div>
-                            <Chart
-                                options={data.options}
-                                series={data.series1}
-                                type="line"
-                                width={data.width}
-                                height={data.height}
-                            />
-                        </div>
-                    </section>
-                    <section className="bg-white p-6 rounded-2xl shadow-1">
-                        <div className="">
-                            <Chart
-                                options={data.options}
-                                series={data.series2}
-                                type="line"
-                                width={data.width}
-                                height={data.height}
-                            />
-                        </div>
-                    </section>
-                    <section className="bg-white p-6 rounded-2xl shadow-1">
-                        <div className="relative">
-                            <Chart
-                                options={data.options}
-                                series={data.series3}
-                                type="line"
-                                width={data.width}
-                                height={data.height}
-                            />
-                        </div>
-                    </section>
+                    <section className="bg-white p-6 rounded-2xl shadow-1"></section>
                 </section>
             </section>
         </>
@@ -112,3 +80,15 @@ Home.getLayout = function getLayout(page) {
 };
 
 export default Home;
+
+{
+    /* <div>
+<Chart
+    options={data.options}
+    series={data.series1}
+    type="line"
+    width={data.width}
+    height={data.height}
+/>
+</div> */
+}
