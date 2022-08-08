@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-white font-public-sans;
+    }
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    background: lightgray;
+}
