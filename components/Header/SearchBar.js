@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { BiSearch } from "react-icons/bi";
 import { motion } from "framer-motion";
-import useClickOutside from "../../hooks/useClickOutside";
+import { useClickAway } from "react-use";
 
 const SearchBar = ({ onClose }) => {
     const ref = useRef();
 
-    useClickOutside(ref, () => onClose(false));
+    useClickAway(ref, () => {
+        onClose(false);
+    });
 
     return (
         <motion.section

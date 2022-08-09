@@ -3,7 +3,7 @@
 function Avatar({ size = 10 }) {
     return (
         <img
-            className={`inline-block h-${size} w-${size} rounded-full`}
+            className={`h-${size} w-${size} rounded-full object-contain`}
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             alt=""
         />

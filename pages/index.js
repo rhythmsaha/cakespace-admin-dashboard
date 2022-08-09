@@ -67,9 +67,7 @@ function Home() {
             </Head>
 
             <section>
-                <section className="grid gap-4 w-full grid-cols-3">
-                    <section className="bg-white p-6 rounded-2xl shadow-1"></section>
-                </section>
+                <section className="grid gap-4 w-full grid-cols-3"></section>
             </section>
         </>
     );

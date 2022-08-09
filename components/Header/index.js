@@ -37,9 +37,9 @@ function Header() {
                     </div>
                 )}
 
-                <div className="px-2 ml-auto">
+                <div className="px-2 ml-auto h-9">
                     <button>
-                        <Avatar size={9} />
+                        <Avatar size="9" />
                     </button>
                 </div>
             </header>
