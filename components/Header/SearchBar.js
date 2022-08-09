@@ -7,7 +7,7 @@ const SearchBar = ({ onClose }) => {
     const ref = useRef();
 
     useClickAway(ref, () => {
-        onClose(false);
+        onClose();
     });
 
     return (

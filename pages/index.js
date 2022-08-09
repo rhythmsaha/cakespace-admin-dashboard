@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { BiTrendingUp } from "react-icons/bi";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Chart from "../components/ui/Chart";
 
@@ -55,8 +56,12 @@ const data = {
         },
     },
 
-    height: 80,
-    width: 120,
+    height: 50,
+    width: 80,
+};
+
+Home.getLayout = function getLayout(page) {
+    return <DashboardLayout>{page}</DashboardLayout>;
 };
 
 function Home() {
@@ -67,26 +72,86 @@ function Home() {
             </Head>
 
             <section>
-                <section className="grid gap-4 w-full grid-cols-3"></section>
+                <section className="grid gap-4 w-full lg:grid-cols-3">
+                    <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
+                        <div className="space-y-4">
+                            <h4 className="text-gray-600 font-medium">Product Sold</h4>
+                            <h2 className="text-2xl font-bold text-gray-700">765</h2>
+
+                            <div className="flex items-center gap-2 text-sm">
+                                <span className="bg-emerald-100 inline-flex items-center justify-center rounded-full h-6 w-6 text-sm text-green-600">
+                                    <BiTrendingUp className="" />
+                                </span>
+
+                                <p className="text-gray-500">
+                                    <span className="font-semibold text-gray-700">+2.6% </span> than last week
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <Chart
+                                options={data.options}
+                                series={data.series1}
+                                type="line"
+                                width={data.width}
+                                height={data.height}
+                            />
+                        </div>
+                    </div>
+                    <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
+                        <div className="space-y-4">
+                            <h4 className="text-gray-600 font-medium">Product Sold</h4>
+                            <h2 className="text-2xl font-bold text-gray-700">765</h2>
+
+                            <div className="flex items-center gap-2 text-sm">
+                                <span className="bg-emerald-100 inline-flex items-center justify-center rounded-full h-6 w-6 text-sm text-green-600">
+                                    <BiTrendingUp className="" />
+                                </span>
+
+                                <p className="text-gray-500">
+                                    <span className="font-semibold text-gray-700">+2.6% </span> than last week
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <Chart
+                                options={data.options}
+                                series={data.series1}
+                                type="line"
+                                width={data.width}
+                                height={data.height}
+                            />
+                        </div>
+                    </div>
+                    <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
+                        <div className="space-y-4">
+                            <h4 className="text-gray-600 font-medium">Product Sold</h4>
+                            <h2 className="text-2xl font-bold text-gray-700">765</h2>
+
+                            <div className="flex items-center gap-2 text-sm">
+                                <span className="bg-emerald-100 inline-flex items-center justify-center rounded-full h-6 w-6 text-sm text-green-600">
+                                    <BiTrendingUp className="" />
+                                </span>
+
+                                <p className="text-gray-500">
+                                    <span className="font-semibold text-gray-700">+2.6% </span> than last week
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <Chart
+                                options={data.options}
+                                series={data.series1}
+                                type="line"
+                                width={data.width}
+                                height={data.height}
+                            />
+                        </div>
+                    </div>
+                </section>
             </section>
         </>
     );
 }
 
-Home.getLayout = function getLayout(page) {
-    return <DashboardLayout>{page}</DashboardLayout>;
-};
-
 export default Home;
-
-{
-    /* <div>
-<Chart
-    options={data.options}
-    series={data.series1}
-    type="line"
-    width={data.width}
-    height={data.height}
-/>
-</div> */
-}
