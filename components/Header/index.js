@@ -1,45 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
 import Avatar from "../ui/Avatar";
-import SearchBar from "./SearchBar";
-import { AnimatePresence } from "framer-motion";
 import { useWindowSize } from "react-use";
+import { useEffect } from "react";
 
 function Header() {
-    const [showSearchBar, setShowSearchBar] = useState(false);
     const { width } = useWindowSize();
 
-    const openSearchBar = () => {
-        setShowSearchBar(true);
-    };
-
-    const closeSearchBarHandler = () => {
-        setShowSearchBar(false);
-    };
+    useEffect(() => {
+        console.log("Run!");
+    }, []);
 
     return (
         <>
-            <AnimatePresence>{showSearchBar && <SearchBar onClose={closeSearchBarHandler} />}</AnimatePresence>
-
-            <header className="sticky top-0 px-4 h-20 flex items-center justify-between lg:px-8 backdrop-blur-sm z-10 shadow-0 bg-white bg-opacity-80">
-                {!showSearchBar && (
-                    <div className="flex gap-2">
-                        {width < 1200 && (
-                            <button className="h-10 w-10 flex items-center justify-center hover:bg-gray-100 transition rounded-full active:bg-gray-200">
-                                <AiOutlineMenu className="text-xl" />
-                            </button>
-                        )}
-
-                        <button
-                            className="h-10 w-10 flex items-center justify-center hover:bg-gray-100 transition rounded-full active:bg-gray-200"
-                            onClick={openSearchBar}
-                        >
-                            <BiSearch className="text-xl" />
+            <header className="sticky top-0 px-4 h-20 flex items-center justify-between lg:px-8 backdrop-blur-sm z-10 bg-white bg-opacity-80">
+                <div className="flex gap-2">
+                    {width < 1200 && (
+                        <button className="h-10 w-10 flex items-center justify-center hover:bg-gray-100 transition rounded-full active:bg-gray-200">
+                            <AiOutlineMenu className="text-xl" />
                         </button>
-                    </div>
-                )}
+                    )}
+                </div>
 
                 <div className="px-2 ml-auto h-9">
                     <button>

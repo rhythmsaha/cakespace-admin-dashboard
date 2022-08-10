@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { MdSpeed } from "react-icons/md";
+import { AiOutlineUser } from "react-icons/ai";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import User from "./User";
 import SidebarItem from "./SidebarItem";
+import sidebarConfig from "../../utils/sidebarConfig";
 
 const Sidebar = () => {
     return (
@@ -27,14 +29,17 @@ const Sidebar = () => {
                 <User />
             </header>
 
-            <nav className="mt-5 px-4">
-                <h2 className="text-xs px-4 font-bold text-gray-700 ">GENERAL</h2>
+            {sidebarConfig.map(({ id, menus, type }) => (
+                <nav className="mt-9 p-4" key={id}>
+                    <h2 className="text-xs px-4 font-bold text-gray-700 uppercase">{type}</h2>
 
-                <div className="mt-2 space-y-2">
-                    <SidebarItem Icon={MdSpeed} />
-                    <SidebarItem Icon={MdSpeed} />
-                </div>
-            </nav>
+                    <div className="mt-2 space-y-2">
+                        {menus.map((link) => (
+                            <SidebarItem Icon={link.icon} key={link.id} title={link.title} path={link.path} />
+                        ))}
+                    </div>
+                </nav>
+            ))}
         </SimpleBar>
     );
 };

@@ -1,78 +1,25 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
 import Link from "../ui/Link";
 
-function SidebarItem({ Icon, menu }) {
+function SidebarItem({ Icon, title, path }) {
     const [expanded, setExpanded] = useState(false);
 
-    if (menu?.children) {
-        return (
-            <Link
-                href=""
-                className="w-full flex items-center gap-4 px-4 py-4 text-sm text-emerald-500 bg-emerald-50 hover:bg-gray-100  rounded-lg"
-            >
-                <Icon className="text-xl " />
-                <p className="font-semibold">Dashboard</p>
-            </Link>
-        );
-    }
+    const router = useRouter();
 
     return (
-        <div>
-            <div
-                onClick={() => setExpanded((prev) => !prev)}
-                className="w-full flex items-center gap-4 px-4 py-4 text-sm text-emerald-500 bg-emerald-50 hover:bg-gray-100  rounded-lg cursor-pointer"
-            >
-                <Icon className="text-xl " />
-                <p className="font-semibold">Dashboard</p>
-            </div>
-
-            <AnimatePresence>
-                {expanded && (
-                    <motion.div
-                        key="content"
-                        initial="collapsed"
-                        animate="open"
-                        exit="collapsed"
-                        variants={{
-                            open: { height: "auto" },
-                            collapsed: { height: 0 },
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="bg-white overflow-hidden"
-                    >
-                        <Link
-                            href=""
-                            className="w-full flex items-center gap-6 px-6 py-4 text-sm text-gray-500 hover:bg-gray-100  rounded-lg"
-                        >
-                            <span> • </span>
-                            <p className="font-semibold">Dashboard</p>
-                        </Link>
-                        <Link
-                            href=""
-                            className="w-full flex items-center gap-6 px-6 py-4 text-sm text-gray-500 hover:bg-gray-100  rounded-lg"
-                        >
-                            <span> • </span>
-                            <p className="font-semibold">Dashboard</p>
-                        </Link>
-                        <Link
-                            href=""
-                            className="w-full flex items-center gap-6 px-6 py-4 text-sm text-gray-500 hover:bg-gray-100  rounded-lg"
-                        >
-                            <span> • </span>
-                            <p className="font-semibold">Dashboard</p>
-                        </Link>
-                        <Link
-                            href=""
-                            className="w-full flex items-center gap-6 px-6 py-4 text-sm text-gray-500 hover:bg-gray-100  rounded-lg"
-                        >
-                            <span> • </span>
-                            <p className="font-semibold">Dashboard</p>
-                        </Link>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
+        <Link
+            href={path}
+            className={`w-full flex items-center gap-4 px-4 py-4 text-sm transition-all duration-300 rounded-lg ${
+                router.pathname === path
+                    ? "text-emerald-600 bg-emerald-50"
+                    : "text-gray-500 active:bg-gray-200 hover:bg-gray-100"
+            }`}
+        >
+            <Icon className="text-xl " />
+            <p className="font-semibold">{title}</p>
+        </Link>
     );
 }
 
