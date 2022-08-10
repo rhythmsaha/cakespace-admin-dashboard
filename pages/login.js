@@ -2,9 +2,14 @@
 import { BeatLoader } from "react-spinners";
 import { useState } from "react";
 import Link from "../components/ui/Link";
+import GuestGuard from "../components/layouts/GuestGuard";
+
+Login.getLayout = function getLayout(page) {
+    return <GuestGuard>{page}</GuestGuard>;
+};
 
 export default function Login() {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const submitHandler = (e) => {
         e.preventDefault();

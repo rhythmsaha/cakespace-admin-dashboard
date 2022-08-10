@@ -1,7 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-
-import { MdSpeed } from "react-icons/md";
-import { AiOutlineUser } from "react-icons/ai";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
