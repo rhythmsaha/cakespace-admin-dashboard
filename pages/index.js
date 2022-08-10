@@ -106,8 +106,6 @@ Home.getLayout = function getLayout(page) {
 };
 
 function Home() {
-    console.log(d);
-
     return (
         <>
             <Head>
@@ -116,7 +114,7 @@ function Home() {
 
             <section>
                 <section className="grid gap-4 w-full lg:grid-cols-3">
-                    <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
+                    <div className="bg-white rounded-xl shadow-0 p-5 flex items-center justify-between">
                         <div className="space-y-4">
                             <h4 className="text-gray-600 font-medium">Product Sold</h4>
                             <h2 className="text-2xl font-bold text-gray-700">765</h2>
@@ -141,7 +139,7 @@ function Home() {
                             />
                         </div>
                     </div>
-                    <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
+                    <div className="bg-white rounded-xl shadow-0 p-5 flex items-center justify-between">
                         <div className="space-y-4">
                             <h4 className="text-gray-600 font-medium">Product Sold</h4>
                             <h2 className="text-2xl font-bold text-gray-700">765</h2>
@@ -167,7 +165,7 @@ function Home() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
+                    <div className="bg-white rounded-xl shadow-0 p-5 flex items-center justify-between">
                         <div className="space-y-4">
                             <h4 className="text-gray-600 font-medium">Product Sold</h4>
                             <h2 className="text-2xl font-bold text-gray-700">765</h2>
@@ -195,7 +193,7 @@ function Home() {
                 </section>
 
                 <section>
-                    <div className="bg-white p-8 shadow-1 rounded-xl mt-8">
+                    <div className="bg-white p-8 shadow-0 rounded-xl mt-8">
                         <Chart type="area" series={CHART_DATA[0].data} options={chartOptions} height={364} />
                     </div>
                 </section>

@@ -23,7 +23,7 @@ function Header() {
         <>
             <AnimatePresence>{showSearchBar && <SearchBar onClose={closeSearchBarHandler} />}</AnimatePresence>
 
-            <header className="sticky top-0 px-4 h-20 flex items-center justify-between lg:px-8">
+            <header className="sticky top-0 px-4 h-20 flex items-center justify-between lg:px-8 backdrop-blur-sm z-10 shadow-0 bg-white bg-opacity-80">
                 {!showSearchBar && (
                     <div className="flex gap-2">
                         {width < 1200 && (
