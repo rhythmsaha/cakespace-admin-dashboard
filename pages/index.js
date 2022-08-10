@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { BiTrendingUp } from "react-icons/bi";
+import { BiTrendingDown, BiTrendingUp } from "react-icons/bi";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Chart from "../components/ui/Chart";
 
@@ -60,11 +60,54 @@ const data = {
     width: 80,
 };
 
+const CHART_DATA = [
+    {
+        year: 2019,
+        data: [
+            { name: "Total Income", data: [10, 41, 35, 151, 49, 62, 69, 91, 48] },
+            { name: "Total Expenses", data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
+        ],
+    },
+    {
+        year: 2020,
+        data: [
+            { name: "Total Income", data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
+            { name: "Total Expenses", data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
+        ],
+    },
+];
+
+const chartOptions = {
+    chart: {
+        animation: { enabled: true },
+        fontFamily: "Public Sans, sans-serif",
+        toolbar: { show: false },
+        zoom: { enabled: false },
+    },
+    fill: {
+        gradient: {
+            opacityFrom: 0.4,
+            opacityTo: 0,
+            shadeIntensity: 0,
+            stops: [0, 100],
+            type: "vertical",
+        },
+        opacity: 1,
+    },
+    dataLabels: { enabled: false },
+    legend: { position: "top", horizontalAlign: "right" },
+    xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+    },
+};
+
 Home.getLayout = function getLayout(page) {
     return <DashboardLayout>{page}</DashboardLayout>;
 };
 
 function Home() {
+    console.log(d);
+
     return (
         <>
             <Head>
@@ -104,8 +147,8 @@ function Home() {
                             <h2 className="text-2xl font-bold text-gray-700">765</h2>
 
                             <div className="flex items-center gap-2 text-sm">
-                                <span className="bg-emerald-100 inline-flex items-center justify-center rounded-full h-6 w-6 text-sm text-green-600">
-                                    <BiTrendingUp className="" />
+                                <span className="bg-red-100 inline-flex items-center justify-center rounded-full h-6 w-6 text-sm text-red-600">
+                                    <BiTrendingDown className="" />
                                 </span>
 
                                 <p className="text-gray-500">
@@ -123,6 +166,7 @@ function Home() {
                             />
                         </div>
                     </div>
+
                     <div className="bg-white rounded-xl shadow-1 p-5 flex items-center justify-between">
                         <div className="space-y-4">
                             <h4 className="text-gray-600 font-medium">Product Sold</h4>
@@ -147,6 +191,12 @@ function Home() {
                                 height={data.height}
                             />
                         </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div className="bg-white p-8 shadow-1 rounded-xl mt-8">
+                        <Chart type="area" series={CHART_DATA[0].data} options={chartOptions} height={364} />
                     </div>
                 </section>
             </section>
