@@ -17,7 +17,7 @@ const sidebarConfig = [
             { id: "link2", title: "User", icon: AiOutlineUser, path: "/user" },
             { id: "link3", title: "Categories", icon: BiCategory, path: "/categories" },
             { id: "link5", title: "Cakes", icon: MdCake, path: "/cakes" },
-            { id: "link4", title: "Invoices", icon: IoDocumentText, path: "invoices" },
+            { id: "link4", title: "Invoices", icon: IoDocumentText, path: "/invoices" },
         ],
     },
 ];

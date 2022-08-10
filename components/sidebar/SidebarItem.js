@@ -1,11 +1,8 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 import Link from "../ui/Link";
 
 function SidebarItem({ Icon, title, path }) {
-    const [expanded, setExpanded] = useState(false);
-
     const router = useRouter();
 
     return (
@@ -13,7 +10,7 @@ function SidebarItem({ Icon, title, path }) {
             href={path}
             className={`w-full flex items-center gap-4 px-4 py-4 text-sm transition-all duration-300 rounded-lg ${
                 router.pathname === path
-                    ? "text-emerald-600 bg-emerald-50"
+                    ? "text-emerald-500 bg-emerald-50"
                     : "text-gray-500 active:bg-gray-200 hover:bg-gray-100"
             }`}
         >

@@ -30,10 +30,10 @@ const Sidebar = () => {
             </header>
 
             {sidebarConfig.map(({ id, menus, type }) => (
-                <nav className="mt-9 p-4" key={id}>
+                <nav className="mt-5 p-4" key={id}>
                     <h2 className="text-xs px-4 font-bold text-gray-700 uppercase">{type}</h2>
 
-                    <div className="mt-2 space-y-2">
+                    <div className="mt-2 space-y-1">
                         {menus.map((link) => (
                             <SidebarItem Icon={link.icon} key={link.id} title={link.title} path={link.path} />
                         ))}

@@ -1,7 +1,15 @@
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import Head from "next/head";
 
 function Cakes() {
-    return <div>Cakes</div>;
+    return (
+        <div>
+            <Head>
+                <title>Cakespace - Cakes</title>
+            </Head>
+            Cakes
+        </div>
+    );
 }
 export default Cakes;
 
