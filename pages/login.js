@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { BeatLoader } from "react-spinners";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "../components/ui/Link";
 import GuestGuard from "../components/layouts/GuestGuard";
+
+import { useForm } from "react-hook-form";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -11,8 +13,19 @@ Login.getLayout = function getLayout(page) {
 export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = useForm({});
+
+    const submitHandler = (data) => {
+        console.log(data);
+        setError("password", {
+            type: "server",
+            message: "test",
+        });
     };
 
     return (
@@ -24,27 +37,36 @@ export default function Login() {
                 </h2>
             </div>
 
-            <form className="mt-8" onSubmit={submitHandler}>
+            <form className="mt-8" onSubmit={handleSubmit(submitHandler)}>
                 <div className="space-y-4">
                     <input
-                        id="email-address"
-                        name="email"
-                        type="email"
+                        name="Email"
+                        type="text"
                         autoComplete="email"
-                        required
-                        className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
+                        className={`appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none ${
+                            errors.email
+                                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                                : "focus:ring-emerald-500 focus:border-emerald-500"
+                        } focus:z-10 sm:text-sm`}
                         placeholder="Email address"
+                        {...register("email", { required: "Please enter a valid email address!" })}
                     />
+                    {errors.email && <span className="text-red-600 text-xs px-2">{errors.email?.message}</span>}
 
                     <input
                         id="password"
                         name="password"
                         type="password"
                         autoComplete="current-password"
-                        required
-                        className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
                         placeholder="Password"
+                        className={`appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none ${
+                            errors.password
+                                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                                : "focus:ring-emerald-500 focus:border-emerald-500"
+                        } focus:z-10 sm:text-sm`}
+                        {...register("password", { required: "Invalid Password!" })}
                     />
+                    {errors.password && <span className="text-red-600 text-xs px-2">{errors.password?.message}</span>}
                 </div>
 
                 <div className="flex items-center justify-between py-4 select-none">

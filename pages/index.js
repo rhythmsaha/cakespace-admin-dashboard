@@ -77,6 +77,7 @@ const CHART_DATA = [
     },
 ];
 
+/** @type {import('apexcharts').ApexOptions} */
 const chartOptions = {
     chart: {
         animation: { enabled: true },
