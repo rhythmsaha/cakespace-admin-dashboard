@@ -63,15 +63,29 @@ function AuthProvider({ children }) {
         const initialize = async () => {
             try {
                 const accessToken = window.localStorage.getItem("accessToken");
-                if (accessToken && isValidToken(accessToken)) {
-                    const response = await axios.get("/api/account/my-account");
-                    const { user } = response.data;
+                console.log(accessToken);
 
+                if (accessToken && isValidToken(accessToken)) {
+                    const response = await axios.get("/auth/seller/me", {
+                        headers: {
+                            Authorization: "Bearer " + accessToken,
+                        },
+                    });
+                    const { user } = response.data;
+                    console.log(user);
                     dispatch({
                         type: "INITIALIZE",
                         payload: {
                             isAuthenticated: true,
                             user,
+                        },
+                    });
+                } else {
+                    dispatch({
+                        type: "INITIALIZE",
+                        payload: {
+                            isAuthenticated: false,
+                            user: null,
                         },
                     });
                 }
@@ -91,14 +105,14 @@ function AuthProvider({ children }) {
     }, []);
 
     const login = async (email, password) => {
-        const response = await axios.post("/api/account/login", {
+        const response = await axios.post("/auth/seller/login", {
             email,
             password,
         });
 
-        const { accessToken, user } = response.data;
+        const { JWT_TOKEN, user } = await response.data;
 
-        setSession(accessToken);
+        setSession(JWT_TOKEN);
 
         dispatch({
             type: "LOGIN",

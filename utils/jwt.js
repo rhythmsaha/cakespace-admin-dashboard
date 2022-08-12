@@ -3,7 +3,7 @@ import axios from "./axios";
 
 const isValidToken = (accessToken) => {
     if (!accessToken) return false;
-    if (!accessToken?.exp) return false;
+    // if (!accessToken?.exp) return false;
 
     const decoded = jwtDecode(accessToken);
     const currentTime = Date.now() / 1000;

@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { BeatLoader } from "react-spinners";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "../components/ui/Link";
-import GuestGuard from "../components/layouts/GuestGuard";
+import GuestGuard from "../components/guards/GuestGuard";
 
 import { useForm } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -13,6 +14,8 @@ Login.getLayout = function getLayout(page) {
 export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
+    const { login } = useAuth();
+
     const {
         register,
         handleSubmit,
@@ -20,12 +23,12 @@ export default function Login() {
         setError,
     } = useForm({});
 
-    const submitHandler = (data) => {
-        console.log(data);
-        setError("password", {
-            type: "server",
-            message: "test",
-        });
+    const submitHandler = ({ email, password }) => {
+        login(email, password);
+        // setError("password", {
+        //     type: "server",
+        //     message: "test",
+        // });
     };
 
     return (
