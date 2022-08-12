@@ -2,12 +2,11 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../ui/Avatar";
 import { useWindowSize } from "react-use";
-import { Fragment, useEffect } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import Link from "../ui/Link";
+import useAuth from "../../hooks/useAuth";
 
 function Header() {
     const { width } = useWindowSize();
+    const { logout } = useAuth();
 
     return (
         <>
@@ -21,8 +20,8 @@ function Header() {
                 </div>
 
                 <div className="px-2 ml-auto h-9">
-                    <button>
-                        <Avatar size="9" />
+                    <button onClick={logout}>
+                        <Avatar size="10" />
                     </button>
                 </div>
             </header>

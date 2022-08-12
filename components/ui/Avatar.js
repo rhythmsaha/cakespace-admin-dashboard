@@ -1,12 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
+import { AiOutlineUser } from "react-icons/ai";
 
-function Avatar({ size = 10 }) {
+function Avatar({ size = 10, avatarUrl }) {
     return (
-        <img
-            className={`h-${size} w-${size} rounded-full object-contain`}
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-        />
+        <span className={`h-${size} w-${size} rounded-full overflow-hidden flex items-center justify-center`}>
+            {avatarUrl ? (
+                <img className={`h-full w-full object-contain`} src={avatarUrl} alt="" />
+            ) : (
+                <span className="w-full h-full flex items-center justify-center bg-gray-200">
+                    <AiOutlineUser className="text-xl text-gray-500" />
+                </span>
+            )}
+        </span>
     );
 }
 export default Avatar;

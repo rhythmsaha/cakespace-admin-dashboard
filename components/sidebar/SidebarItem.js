@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import Link from "../ui/Link";
 
-function SidebarItem({ Icon, title, path }) {
+function SidebarItem({ Icon, title, path, expanded }) {
     const router = useRouter();
 
     return (
@@ -14,8 +14,8 @@ function SidebarItem({ Icon, title, path }) {
                     : "text-gray-500 active:bg-gray-200 hover:bg-gray-100"
             }`}
         >
-            <Icon className="text-xl " />
-            <p className="font-semibold">{title}</p>
+            <Icon className="text-xl" />
+            {expanded && <p className="">{title}</p>}
         </Link>
     );
 }
