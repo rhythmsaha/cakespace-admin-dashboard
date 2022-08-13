@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply bg-white font-public-sans;
-    }
+  body {
+    @apply bg-white font-public-sans;
+  }
 }
 
 .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
-    background: lightgray;
+  background: lightgray;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }

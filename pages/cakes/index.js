@@ -1,18 +1,18 @@
-import DashboardLayout from "../../components/layouts/DashboardLayout";
-import Head from "next/head";
+import DashboardLayout from '../../components/layouts/DashboardLayout'
+import Head from 'next/head'
 
 function Cakes() {
-    return (
-        <div>
-            <Head>
-                <title>Cakespace - Cakes</title>
-            </Head>
-            Cakes
-        </div>
-    );
+  return (
+    <div>
+      <Head>
+        <title>Cakespace - Cakes</title>
+      </Head>
+      Cakes
+    </div>
+  )
 }
-export default Cakes;
+export default Cakes
 
 Cakes.getLayout = function getLayout(page) {
-    return <DashboardLayout>{page}</DashboardLayout>;
-};
+  return <DashboardLayout>{page}</DashboardLayout>
+}

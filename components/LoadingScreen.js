@@ -1,10 +1,10 @@
-import Spinner from "./ui/Spinner";
+import Spinner from './ui/Spinner'
 
 function LoadingScreen() {
-    return (
-        <div className="flex items-center justify-center h-screen">
-            <Spinner className="animate-spin h-10 text-emerald-500" />
-        </div>
-    );
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <Spinner className="h-10 animate-spin text-emerald-500" />
+    </div>
+  )
 }
-export default LoadingScreen;
+export default LoadingScreen

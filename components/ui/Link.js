@@ -1,10 +1,10 @@
-import * as NextLink from "next/link";
+import * as NextLink from 'next/link'
 
 function Link({ children, href, className }) {
-    return (
-        <NextLink href={href}>
-            <a className={className}>{children}</a>
-        </NextLink>
-    );
+  return (
+    <NextLink href={href}>
+      <a className={className}>{children}</a>
+    </NextLink>
+  )
 }
-export default Link;
+export default Link

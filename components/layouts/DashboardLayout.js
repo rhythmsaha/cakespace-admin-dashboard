@@ -8,14 +8,14 @@ const DashboardLayout = ({ children }) => {
 
     return (
         <AuthGuard>
-            <section className="flex overflow-hidden h-screen">
+            <main className="flex h-screen overflow-hidden">
                 {width >= 1200 && <Sidebar />}
 
-                <main className="flex-1 overflow-auto relative">
+                <main className="relative flex-1 overflow-y-auto overflow-x-hidden">
                     <Header />
-                    <section className="my-8 mx-8">{children}</section>
+                    <section className="w-11/12 mx-auto">{children}</section>
                 </main>
-            </section>
+            </main>
         </AuthGuard>
     );
 };
