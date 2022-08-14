@@ -27,6 +27,13 @@ function UploadImage({ user }) {
     };
 
     const createImageBlob = (e) => {
+        const f = e.target.files[0];
+        console.log(f);
+        if (!f) {
+            console.log("No file!");
+            return;
+        }
+
         const imageBlob = Object.assign(e.target.files[0], {
             preview: URL.createObjectURL(e.target.files[0]),
         });

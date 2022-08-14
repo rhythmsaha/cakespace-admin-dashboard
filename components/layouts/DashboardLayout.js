@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }) => {
 
                 <main className="relative flex-1 overflow-y-auto overflow-x-hidden">
                     <Header />
-                    <section className="w-11/12 mx-auto">{children}</section>
+                    <section className="w-11/12 mx-auto mb-20 mt-4">{children}</section>
                 </main>
             </main>
         </AuthGuard>

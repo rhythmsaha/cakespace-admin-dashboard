@@ -44,8 +44,8 @@ export default function Login() {
                         autoComplete="email"
                         className={`relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:outline-none ${
                             errors.email
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                                : "focus:border-emerald-500 focus:ring-emerald-500"
+                                ? "border-error-main focus:border-error-main focus:ring-error-main"
+                                : "focus:border-primary-main focus:ring-primary-main"
                         } focus:z-10 sm:text-sm`}
                         placeholder="Email address"
                         {...register("email", {
@@ -62,8 +62,8 @@ export default function Login() {
                         placeholder="Password"
                         className={`relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:outline-none ${
                             errors.password
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                                : "focus:border-emerald-500 focus:ring-emerald-500"
+                                ? "border-error-main focus:border-error-main focus:ring-error-main"
+                                : "focus:border-primary-main focus:ring-primary-main"
                         } focus:z-10 sm:text-sm`}
                         {...register("password", { required: "Invalid Password!" })}
                     />
@@ -79,14 +79,14 @@ export default function Login() {
                             id="remember"
                             name="remember"
                             type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                            className="h-4 w-4 rounded border-gray-300 text-primary-main focus:ring-primary-main"
                         />
                         Remember me
                     </label>
 
                     <Link
                         href="#"
-                        className="text-xs font-medium text-emerald-600 hover:text-emerald-500 hover:underline sm:text-sm"
+                        className="text-xs sm:text-sm font-medium text-primary-main hover:text-primary-light hover:underline transition"
                     >
                         Forgot your password?
                     </Link>
@@ -95,7 +95,7 @@ export default function Login() {
                 <div>
                     <button
                         type="submit"
-                        className="group relative flex h-10 w-full items-center justify-center rounded-md border border-transparent bg-emerald-600 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                        className="group relative flex h-10 w-full items-center justify-center rounded-md border border-transparent bg-primary-main py-2 px-4 text-sm font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark focus:ring-offset-2"
                     >
                         {isLoading ? <BeatLoader color="white" size={8} /> : "Sign in"}
                     </button>
