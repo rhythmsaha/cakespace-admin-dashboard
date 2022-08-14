@@ -4,6 +4,7 @@ import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import SidebarHeader from "./SidebarHeader";
 import SidebarLinks from "./SidebarLinks";
+import User from "./User";
 
 const Sidebar = () => {
     const [expanded, setExpanded] = useState(true); //Sidebar Expand State
@@ -16,10 +17,11 @@ const Sidebar = () => {
     return (
         <SimpleBar
             style={{ maxHeight: "100%", scrollBehavior: "smooth" }}
-            className={`${expanded ? "w-[280px]" : "w-[86px]"} 
-            select-none border-r border-dashed transition-all`}
+            className={`${expanded ? "w-[280px]" : "w-[87px]"} 
+            select-none border-r border-dashed transition-all px-5 py-6`}
         >
             <SidebarHeader onClose={toggleSidebar} expanded={expanded} />
+            <User expanded={expanded} />
 
             <SidebarLinks expanded={expanded} />
         </SimpleBar>

@@ -24,7 +24,6 @@ export default function Login() {
 
     const submitHandler = ({ email, password }) => {
         login(email, password);
-        toast.success("Login Successfull");
     };
 
     return (
@@ -95,7 +94,7 @@ export default function Login() {
                 <div>
                     <button
                         type="submit"
-                        className="group relative flex h-10 w-full items-center justify-center rounded-md border border-transparent bg-primary-main py-2 px-4 text-sm font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark focus:ring-offset-2"
+                        className="flex h-10 w-full items-center justify-center rounded-md  bg-primary-main active:bg-primary-dark py-2 px-4 text-sm font-medium text-white hover:shadow-buttonPrimary transition duration-200"
                     >
                         {isLoading ? <BeatLoader color="white" size={8} /> : "Sign in"}
                     </button>

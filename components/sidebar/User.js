@@ -9,8 +9,8 @@ function User({ expanded = true }) {
     return (
         <Link
             href="/account"
-            className={`mx-auto flex min-w-min items-center overflow-hidden rounded-xl ${
-                expanded ? "gap-4 bg-gray-100 py-5 px-5" : "justify-center"
+            className={`mt-6 min-w-min flex items-center gap-4 rounded-xl overflow-hidden min-h-[76px] py-4 ${
+                expanded ? "bg-grey-500 bg-opacity-[0.08] px-5" : "justify-center"
             }`}
         >
             <Avatar
@@ -19,9 +19,9 @@ function User({ expanded = true }) {
             />
 
             {expanded && (
-                <div className="min-w-min overflow-hidden">
-                    <h3 className="min-w-min whitespace-nowrap text-sm font-bold text-gray-600">{user?.fullName}</h3>
-                    <p className="text-sm font-medium text-gray-500">admin</p>
+                <div className="min-w-min overflow-hidden text-sm leading-[22px]">
+                    <h3 className="min-w-min whitespace-nowrap font-semibold text-grey-800">{user?.fullName}</h3>
+                    <p className="font-normal text-grey-600">Admin</p>
                 </div>
             )}
         </Link>

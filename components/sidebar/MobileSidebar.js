@@ -7,6 +7,7 @@ import { useClickAway } from "react-use";
 import SidebarHeader from "./SidebarHeader";
 import "simplebar/dist/simplebar.min.css";
 import SidebarLinks from "./SidebarLinks";
+import User from "./User";
 
 function MobileSidebar({ onClose }) {
     const ref = useRef();
@@ -28,9 +29,10 @@ function MobileSidebar({ onClose }) {
         >
             <SimpleBar
                 style={{ maxHeight: "100%", scrollBehavior: "smooth" }}
-                className="h-full w-full select-none transition-all"
+                className="h-full w-full select-none transition-all px-5 py-6"
             >
                 <SidebarHeader onClose={onClose} />
+                <User />
                 <SidebarLinks />
             </SimpleBar>
         </motion.aside>

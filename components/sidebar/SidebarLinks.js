@@ -3,13 +3,18 @@ import SidebarItem from "./SidebarItem";
 
 function SidebarLinks({ expanded = true }) {
     return (
-        <>
+        <section className="mt-4 space-y-1 -mx-1">
             {sidebarConfig.map(({ id, menus, type }) => (
-                <nav className="p-4" key={id}>
-                    {expanded && <h2 className="px-4 text-xs font-bold uppercase text-gray-700">{type}</h2>}
-                    {!expanded && <hr className="my-4 border-gray-100" />}
+                <nav key={id}>
+                    <div className="w-full h-[50px]">
+                        {expanded && (
+                            <h2 className="px-4 text-xs leading-[18px] pt-6 pb-2 font-bold uppercase text-grey-800">
+                                {type}
+                            </h2>
+                        )}
+                    </div>
 
-                    <div className="mt-2 space-y-1">
+                    <div className="space-y-1">
                         {menus.map((link) => (
                             <SidebarItem
                                 Icon={link.icon}
@@ -22,7 +27,7 @@ function SidebarLinks({ expanded = true }) {
                     </div>
                 </nav>
             ))}
-        </>
+        </section>
     );
 }
 export default SidebarLinks;

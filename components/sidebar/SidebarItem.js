@@ -8,14 +8,14 @@ function SidebarItem({ Icon, title, path, expanded = true }) {
     return (
         <Link
             href={path}
-            className={`flex min-w-min items-center gap-4 overflow-hidden rounded-lg px-4 py-4 text-sm transition-all duration-300 ${
+            className={`min-w-min flex items-center gap-4 px-4 py-[13px] rounded-lg transition-all duration-300 overflow-hidden ${
                 router.pathname === path
-                    ? "bg-green-500 bg-opacity-10 text-green-500"
-                    : "text-gray-500 hover:bg-gray-100 active:bg-gray-200"
+                    ? "bg-primary-main bg-opacity-[0.08] text-primary-main"
+                    : "text-grey-600 hover:bg-grey-100 active:bg-grey-300"
             }`}
         >
-            <Icon className="h-5 w-5 text-xl" />
-            {expanded && <p className="">{title}</p>}
+            <Icon className="h-[22px] w-[22px] " />
+            {expanded && <p className="text-sm leading-[22px]">{title}</p>}
         </Link>
     );
 }
