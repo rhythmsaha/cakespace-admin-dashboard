@@ -2,10 +2,11 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
 function UploadImage({ user }) {
     const [image, setImage] = useState("");
-    const [url, setUrl] = useState(user?.avatar);
+    const [url, setUrl] = useState("");
     const [hoverState, setHoverState] = useState(false);
 
     const uploadToCloudinary = (file) => {
@@ -26,13 +27,11 @@ function UploadImage({ user }) {
     };
 
     const createImageBlob = (e) => {
-        if (!e.target.files.length !== 0) {
-            const imageBlob = Object.assign(e.target.files[0], {
-                preview: URL.createObjectURL(e.target.files[0]),
-            });
+        const imageBlob = Object.assign(e.target.files[0], {
+            preview: URL.createObjectURL(e.target.files[0]),
+        });
 
-            setImage(imageBlob.preview);
-        }
+        setImage(imageBlob.preview);
     };
 
     return (
@@ -55,9 +54,13 @@ function UploadImage({ user }) {
                     </motion.span>
                 )}
 
-                <img src={image || url} className="object-contain h-full w-full rounded-full border" alt="" />
+                {image || url ? (
+                    <img src={image || url} className="object-cover h-full w-full rounded-full border" alt="" />
+                ) : (
+                    <FaUser className=" text-gray-400 border h-full w-full rounded-full p-10" />
+                )}
 
-                <input id="test" type="file" onChange={createImageBlob} className="hidden" />
+                <input id="test" type="file" onChange={(e) => createImageBlob(e)} className="hidden" />
             </label>
 
             <h2 className="text-sm mt-2 font-bold text-gray-500">Profile Picture</h2>
