@@ -6,6 +6,7 @@ import GuestGuard from "../components/guards/GuestGuard";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
+import Button from "../components/ui/Button";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -78,7 +79,7 @@ export default function Login() {
                             id="remember"
                             name="remember"
                             type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-primary-main focus:ring-primary-main"
+                            className="h-4 w-4 rounded border-gray-300 text-primary-main focus:ring-transparent outline-none focus:outline-none cursor-pointer transition-all duration-300  ease-in-out"
                         />
                         Remember me
                     </label>
@@ -92,12 +93,9 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <button
-                        type="submit"
-                        className="flex h-10 w-full items-center justify-center rounded-md  bg-primary-main active:bg-primary-dark py-2 px-4 text-sm font-medium text-white hover:shadow-button-primary transition duration-200"
-                    >
+                    <Button type="submit" variant="primary" size="lg" width="100%">
                         {isLoading ? <BeatLoader color="white" size={8} /> : "Sign in"}
-                    </button>
+                    </Button>
                 </div>
             </form>
         </div>

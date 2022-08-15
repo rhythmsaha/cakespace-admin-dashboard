@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 
 function UploadImage({ user }) {
     const [image, setImage] = useState("");
-    const [url, setUrl] = useState("");
+    const [url, setUrl] = useState(user?.avatar);
     const [hoverState, setHoverState] = useState(false);
 
     const uploadToCloudinary = (file) => {
@@ -54,9 +54,9 @@ function UploadImage({ user }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.25, type: "just" }}
-                        className="top-2 bottom-2 left-2 right-2 flex flex-col items-center justify-center gap-2 bg-black bg-opacity-70 rounded-full text-gray-300 absolute "
+                        className="flex flex-col items-center justify-center gap-2 bg-grey-900 bg-opacity-70 rounded-full text-grey-300 absolute inset-2"
                     >
-                        <MdAddAPhoto className="text-2xl " />
+                        <MdAddAPhoto className="text-2xl" />
                         <p className="text-xs">Update Photo</p>
                     </motion.span>
                 )}
@@ -64,15 +64,15 @@ function UploadImage({ user }) {
                 {image || url ? (
                     <img src={image || url} className="object-cover h-full w-full rounded-full border" alt="" />
                 ) : (
-                    <FaUser className=" text-gray-400 border h-full w-full rounded-full p-10" />
+                    <FaUser className="text-grey-500 border h-full w-full rounded-full p-10" />
                 )}
 
                 <input id="test" type="file" onChange={(e) => createImageBlob(e)} className="hidden" />
             </label>
 
-            <h2 className="text-sm mt-2 font-bold text-gray-500">Profile Picture</h2>
+            <h2 className="text-sm mt-2 font-bold text-grey-600">Profile Picture</h2>
 
-            <p className="text-center text-xs text-gray-400 font-medium mt-5">
+            <p className="text-center text-xs text-grey-500 font-medium mt-5">
                 Allowed *.jpeg, *.jpg, *.png, *.gif <br /> max size of 3.1 MB
             </p>
         </div>
