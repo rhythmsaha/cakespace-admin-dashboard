@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { AiOutlineUser } from "react-icons/ai";
 
-function Avatar({ size = 10, avatarUrl }) {
+function Avatar({ size, avatarUrl }) {
     return (
         <span className={`h-${size} w-${size} flex min-w-min items-center justify-center overflow-hidden rounded-full`}>
             {avatarUrl ? (

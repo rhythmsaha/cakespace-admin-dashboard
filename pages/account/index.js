@@ -16,7 +16,7 @@ function User() {
             <PageName name="Account Settings" />
 
             <main className="mt-10 space-y-8">
-                <section className="grid lg:grid-cols-12 gap-10 items-start bg-white shadow-0 p-8 rounded-2xl ">
+                <section className="grid lg:grid-cols-12 gap-10 items-start bg-white shadow-card-primary p-8 rounded-2xl ">
                     <div className="lg:col-span-12">
                         <h3 className="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
                         <p className="mt-1 text-sm text-gray-600">Use a permanent email where you can receive mail.</p>
@@ -44,7 +44,7 @@ function User() {
 
                             <button
                                 type="button"
-                                className=" bg-emerald-500 text-white py-2 px-4 w-40 rounded-lg hover:bg-emerald-600 transition-all active:bg-emerald-700"
+                                className="bg-primary-main hover:shadow-button-primary  active:bg-primary-dark text-white w-40 py-2 px-4 rounded-lg transition-all"
                             >
                                 Save
                             </button>
@@ -52,7 +52,7 @@ function User() {
 
                         <div className="mt-8">
                             <button
-                                className="text-red-400 py-1 hover:bg-red-500 hover:text-white px-2 flex items-center gap-1 text-sm rounded transition duration-250"
+                                className="flex items-center gap-1 w-40 px-2 py-2 border border-error-main text-error-main hover:text-white hover:bg-error-main hover:shadow-button-primary hover:shadow-error-lighter text-sm rounded-lg transition duration-250"
                                 onClick={() => setOpen(true)}
                             >
                                 <BiKey className="text-xl" /> Change Password
@@ -63,7 +63,7 @@ function User() {
                     </section>
                 </section>
 
-                <section className="bg-white shadow-0 p-8 rounded-2xl">
+                <section className="bg-white shadow-card-primary p-8 rounded-2xl">
                     <div>
                         <h3 className="text-lg font-medium leading-6 text-gray-900">Notifications Settins</h3>
                         <p className="mt-1 text-sm text-gray-600">
@@ -101,7 +101,7 @@ function User() {
 
                         <button
                             type="button"
-                            className=" bg-emerald-500 text-white py-2 px-4 w-40 rounded-lg hover:bg-emerald-600 transition-all active:bg-emerald-700"
+                            className="bg-primary-main hover:shadow-button-primary active:bg-primary-dark text-white w-40 py-2 px-4 rounded-lg transition-all"
                         >
                             Save
                         </button>

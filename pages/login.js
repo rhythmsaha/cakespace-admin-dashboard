@@ -94,7 +94,7 @@ export default function Login() {
                 <div>
                     <button
                         type="submit"
-                        className="flex h-10 w-full items-center justify-center rounded-md  bg-primary-main active:bg-primary-dark py-2 px-4 text-sm font-medium text-white hover:shadow-buttonPrimary transition duration-200"
+                        className="flex h-10 w-full items-center justify-center rounded-md  bg-primary-main active:bg-primary-dark py-2 px-4 text-sm font-medium text-white hover:shadow-button-primary transition duration-200"
                     >
                         {isLoading ? <BeatLoader color="white" size={8} /> : "Sign in"}
                     </button>
