@@ -8,7 +8,7 @@ function User() {
     const { user } = useAuth();
 
     return (
-        <div className="">
+        <div>
             <PageName name="Account Settings" />
 
             <main className="mt-10 space-y-8">

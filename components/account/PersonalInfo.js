@@ -15,13 +15,13 @@ function PersonalInfo({ user }) {
             <Card>
                 <CardHeading heading="Personal Information" desc="Use a permanent email where you can receive mail." />
 
-                <section className="grid lg:grid-cols-12 gap-10 items-start mt-8">
+                <section className="grid lg:grid-cols-12 gap-10 items-start mt-8  ">
                     <section className="border rounded-xl lg:col-span-6 xl:col-span-5">
                         <UploadImage user={user} />
                     </section>
 
                     <section className="lg:col-span-6 xl:col-span-7">
-                        <form className="space-y-4">
+                        <form className="space-y-4 ">
                             <Input label="First Name" />
                             <Input label="Email" type="email" />
 
