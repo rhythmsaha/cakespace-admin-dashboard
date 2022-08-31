@@ -22,7 +22,7 @@ function PersonalInfo({ user }) {
 
                     <section className="lg:col-span-6 xl:col-span-7">
                         <form className="space-y-4 ">
-                            <Input label="First Name" />
+                            <Input label="Full Name" />
                             <Input label="Email" type="email" />
 
                             <div className="flex gap-4">
