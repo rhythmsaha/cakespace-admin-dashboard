@@ -12,8 +12,8 @@ export default function MyApp({ Component, pageProps }) {
                 <title>CakeSpace</title>
             </Head>
 
-            <Toaster position="top-center" reverseOrder={false} />
             <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
+            <Toaster position="top-center" reverseOrder={false} />
         </>
     );
 }

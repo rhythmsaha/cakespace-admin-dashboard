@@ -1,6 +1,7 @@
-function Button({ type = "button", onClick, children, size = "sm", variant = "primary", width, height }) {
+function Button({ type = "button", onClick, children, size = "sm", variant = "primary", width, height, disabled }) {
     return (
         <button
+            disabled={disabled}
             style={{ width: width || "auto", height: height || "auto" }}
             type={type}
             onClick={onClick}

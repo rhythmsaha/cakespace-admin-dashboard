@@ -103,13 +103,13 @@ function AuthProvider({ children }) {
         initialize();
     }, []);
 
-    const login = async (email, password) => {
-        const response = await axios.post("/auth/seller/login", {
-            email,
-            password,
-        });
+    const login = async (JWT_TOKEN, user) => {
+        // const response = await axios.post("/auth/seller/login", {
+        //     email,
+        //     password,
+        // });
 
-        const { JWT_TOKEN, user } = await response.data;
+        // const { JWT_TOKEN, user } = await response.data;
 
         setSession(JWT_TOKEN);
 

@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { BeatLoader } from "react-spinners";
-import { useState } from "react";
-import Link from "../components/ui/Link";
-import GuestGuard from "../components/guards/GuestGuard";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import Link from "../components/ui/Link";
+import GuestGuard from "../components/guards/GuestGuard";
 import useAuth from "../hooks/useAuth";
 import Button from "../components/ui/Button";
+import axios from "../utils/axios";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -20,11 +21,51 @@ export default function Login() {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
+        setValue,
     } = useForm({});
 
-    const submitHandler = ({ email, password }) => {
-        login(email, password);
+    useEffect(() => {
+        const credentials = localStorage.getItem("credentials");
+        if (credentials) {
+            const decoded = atob(credentials);
+            const { email, password } = JSON.parse(decoded);
+            setValue("email", email, { shouldValidate: true });
+            setValue("password", password, { shouldValidate: true });
+            setValue("remember", true);
+        }
+    }, [setValue]);
+
+    const submitHandler = async ({ email, password, remember }) => {
+        if (isLoading) return;
+        toast.dismiss();
+
+        if (remember) {
+            const credentials = { email, password };
+            const encoded = btoa(JSON.stringify(credentials));
+            localStorage.setItem("credentials", encoded);
+        } else {
+            localStorage.removeItem("credentials");
+        }
+
+        setIsLoading(true);
+        console.log(remember);
+
+        try {
+            const response = await axios.post("/auth/seller/login", {
+                email,
+                password,
+            });
+            const { JWT_TOKEN, user, message } = await response.data;
+            toast.success(message);
+            login(JWT_TOKEN, user);
+        } catch (error) {
+            setError(error.type, { type: error?.type, message: error.message });
+            setError(error.type, { type: error?.type, message: error.message });
+        }
+
+        setIsLoading(false);
     };
 
     return (
@@ -52,6 +93,7 @@ export default function Login() {
                             required: "Please enter a valid email address!",
                         })}
                     />
+
                     {errors.email && <span className="px-2 text-xs text-red-600">{errors.email?.message}</span>}
 
                     <input
@@ -80,6 +122,7 @@ export default function Login() {
                             name="remember"
                             type="checkbox"
                             className="h-4 w-4 rounded border-gray-300 text-primary-main focus:ring-transparent outline-none focus:outline-none cursor-pointer transition-all duration-300  ease-in-out"
+                            {...register("remember")}
                         />
                         Remember me
                     </label>
@@ -93,8 +136,8 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <Button type="submit" variant="primary" size="lg" width="100%">
-                        {isLoading ? <BeatLoader color="white" size={8} /> : "Sign in"}
+                    <Button type="submit" variant="primary" size="lg" width="100%" disabled={isLoading}>
+                        {isLoading ? <BeatLoader color="white" size={10} className="py-1.5" /> : "Sign in"}
                     </Button>
                 </div>
             </form>
