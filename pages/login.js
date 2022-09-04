@@ -8,6 +8,7 @@ import GuestGuard from "../components/guards/GuestGuard";
 import useAuth from "../hooks/useAuth";
 import Button from "../components/ui/Button";
 import axios from "../utils/axios";
+import { API_URLS } from "../utils/config";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -57,7 +58,7 @@ export default function Login() {
 
         try {
             // Post login request to server
-            const response = await axios.post("/auth/seller/login", {
+            const response = await axios.post(API_URLS.login, {
                 email,
                 password,
             });
@@ -68,11 +69,15 @@ export default function Login() {
 
             login(JWT_TOKEN, user); // Calls the login method from auth context to update current user state
         } catch (error) {
-            if (error.type === "error") {
-                toast.error(error.message);
+            if (error.type) {
+                if (error.type === "error") {
+                    toast.error(error.message);
+                } else {
+                    setError(error.type, { type: error?.type, message: error.message });
+                }
             } else {
-                setError(error.type, { type: error?.type, message: error.message });
-                setError(error.type, { type: error?.type, message: error.message });
+                if (error.response) toast.error(error.response.data.message);
+                else toast.error(error || error.message);
             }
         }
 

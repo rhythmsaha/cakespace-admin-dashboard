@@ -1,15 +1,15 @@
 import { useId } from "react";
 
-function CheckBoxInput({ label, description, name }) {
+function CheckBoxInput({ label, description, defaultChecked, name, register, ...rest }) {
     const id = useId();
     return (
         <div className="flex gap-2">
             <input
-                name={name}
                 id={id}
                 type="checkbox"
-                onChange={(e) => console.log(e.target.checked)}
+                defaultChecked={defaultChecked}
                 className="h-4 w-4 rounded border-gray-300 text-primary-main focus:ring-transparent border-2 hover:border-primary-main outline-none focus:outline-none cursor-pointer transition-all duration-300  ease-in-out"
+                {...register(name)}
             />
 
             {label && (

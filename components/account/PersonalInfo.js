@@ -11,12 +11,12 @@ import axios from "../../utils/axios";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 
-function PersonalInfo({ user }) {
+function PersonalInfo() {
     const [passwordModal, setPasswordModal] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
-    const { update } = useAuth();
+    const { update, user } = useAuth();
 
     const {
         register,
@@ -47,9 +47,6 @@ function PersonalInfo({ user }) {
 
                 return;
             }
-            console.log(error);
-            // console.log(error);
-            // toast.error(error.message);
         }
 
         setIsLoading(false);
@@ -83,8 +80,6 @@ function PersonalInfo({ user }) {
                                 disabled={true}
                                 value={user?.email}
                                 register={register}
-                                // required={{ required: "Please provide a valid email address!" }}
-                                // error={errors.email?.message}
                             />
 
                             <div className="flex gap-4">
