@@ -54,6 +54,7 @@ const AuthContext = createContext({
     login: () => Promise.resolve(),
     logout: () => Promise.resolve(),
     register: () => Promise.resolve(),
+    update: () => {},
 });
 
 function AuthProvider({ children }) {
@@ -134,12 +135,24 @@ function AuthProvider({ children }) {
         });
     };
 
+    const update = (user) => {
+        dispatch({
+            type: "INITIALIZE",
+            payload: {
+                isAuthenticated: true,
+                user,
+            },
+        });
+    };
+
     const logout = async () => {
         setSession(null);
         dispatch({ type: "LOGOUT" });
     };
 
-    return <AuthContext.Provider value={{ ...state, login, logout, register }}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={{ ...state, login, logout, register, update }}>{children}</AuthContext.Provider>
+    );
 }
 
 export default AuthProvider;

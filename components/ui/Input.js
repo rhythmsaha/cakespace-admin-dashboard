@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-function Input({ type, label, placeholder, name, error, register, value, required, ...rest }) {
+function Input({ type, label, placeholder, name, disabled, error, register, value, required, ...rest }) {
     const id = useId();
     return (
         <div className="space-y-1">
@@ -14,6 +14,7 @@ function Input({ type, label, placeholder, name, error, register, value, require
                 type={type || "text"}
                 placeholder={placeholder}
                 defaultValue={value}
+                disabled={disabled}
                 className={`w-full rounded-lg outline-none transition-all duration-200 py-2.5 px-4 text-grey-700 ${
                     !error
                         ? "border-grey-300 focus:ring-primary-main focus:border-primary-main"

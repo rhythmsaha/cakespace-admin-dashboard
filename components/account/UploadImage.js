@@ -4,9 +4,12 @@ import { useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
-function UploadImage({ user }) {
-    const [image, setImage] = useState(user?.avatar);
+function UploadImage({ avatarUrl, setAvatarUrl }) {
+    const [image, setImage] = useState(avatarUrl);
     const [hoverState, setHoverState] = useState(false);
+
+    const suppoertedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    const maxSize = 2 * 1024 * 1024; //2 MB
 
     const uploadToCloudinary = (file) => {
         const data = new FormData();
@@ -19,9 +22,12 @@ function UploadImage({ user }) {
             body: data,
         })
             .then((res) => res.json())
-            .then((data) => setUrl(data.url))
+            .then((data) => {
+                setImage(data.url);
+                setAvatarUrl(data.url);
+            })
             .catch((err) => {
-                setImage(null);
+                setImage(avatarUrl);
             });
     };
 
@@ -30,15 +36,18 @@ function UploadImage({ user }) {
             const file = e.target.files[0];
 
             if (!file) return console.log("No file selected");
+            if (!suppoertedTypes.includes(file.type)) return;
+            if (file.size > maxSize) return;
 
             const imageBlob = Object.assign(file, {
                 preview: URL.createObjectURL(file),
             });
 
             setImage(imageBlob.preview);
-        } catch (error) {}
-
-        // uploadToCloudinary(imageBlob);
+            uploadToCloudinary(imageBlob);
+        } catch (error) {
+            return;
+        }
     };
 
     return (
@@ -61,7 +70,7 @@ function UploadImage({ user }) {
                     </motion.span>
                 )}
 
-                {image || url ? (
+                {image ? (
                     <img src={image} className="object-cover h-full w-full rounded-full border" alt="" />
                 ) : (
                     <FaUser className="text-grey-500 border h-full w-full rounded-full p-10" />
@@ -73,7 +82,7 @@ function UploadImage({ user }) {
             <h2 className="text-sm mt-2 font-bold text-grey-600">Profile Picture</h2>
 
             <p className="text-center text-xs text-grey-500 font-medium mt-5">
-                Allowed *.jpeg, *.jpg, *.png, *.gif <br /> max size of 3.1 MB
+                Allowed *.jpeg, *.jpg, *.png <br /> max size of 2 MB
             </p>
         </div>
     );

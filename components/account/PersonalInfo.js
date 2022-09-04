@@ -7,11 +7,16 @@ import CardHeading from "./CardHeading";
 import ChangePassword from "./ChangePassword";
 import UploadImage from "./UploadImage";
 import { useForm } from "react-hook-form";
+import axios from "../../utils/axios";
+import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 function PersonalInfo({ user }) {
     const [passwordModal, setPasswordModal] = useState(false);
-    // const [image, setImage] = useState("");
-    // const [url, setUrl] = useState(user?.avatar);
+    const [avatarUrl, setAvatarUrl] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { update } = useAuth();
 
     const {
         register,
@@ -21,7 +26,34 @@ function PersonalInfo({ user }) {
         setError,
     } = useForm();
 
-    const submitHandler = async ({ name, email }) => {};
+    const submitHandler = async ({ fullName, email }) => {
+        if (isLoading) return; // does nothing if isloading is true
+        toast.dismiss(); // dismiss any other toasts
+        setIsLoading(true); // set the loading state to true
+
+        const body = { fullName };
+        if (avatarUrl) body.avatar = avatarUrl;
+
+        try {
+            const response = await axios.post("/auth/seller/updateinfo", body);
+            const data = await response.data;
+            update(data?.user);
+            toast.success(data.message);
+        } catch (error) {
+            if (error?.fields) {
+                error.fields.forEach(({ field, message }) => {
+                    setError(field, { type: field, message: message });
+                });
+
+                return;
+            }
+            console.log(error);
+            // console.log(error);
+            // toast.error(error.message);
+        }
+
+        setIsLoading(false);
+    };
 
     return (
         <>
@@ -30,15 +62,15 @@ function PersonalInfo({ user }) {
 
                 <section className="grid lg:grid-cols-12 gap-10 items-start mt-8  ">
                     <section className="border rounded-xl lg:col-span-6 xl:col-span-5">
-                        <UploadImage user={user} />
+                        <UploadImage avatarUrl={user?.avatar} setAvatarUrl={setAvatarUrl} />
                     </section>
 
                     <section className="lg:col-span-6 xl:col-span-7">
                         <form className="space-y-4" onSubmit={handleSubmit(submitHandler)}>
                             <Input
                                 label="Full Name"
-                                name="name"
-                                error={errors.name?.message}
+                                name="fullName"
+                                error={errors.fullName?.message}
                                 value={user?.fullName}
                                 register={register}
                                 required={{ required: "Name is required!" }}
@@ -48,14 +80,15 @@ function PersonalInfo({ user }) {
                                 label="Email"
                                 name="email"
                                 type="email"
+                                disabled={true}
                                 value={user?.email}
                                 register={register}
-                                required={{ required: "Please provide a valid email address!" }}
-                                error={errors.email?.message}
+                                // required={{ required: "Please provide a valid email address!" }}
+                                // error={errors.email?.message}
                             />
 
                             <div className="flex gap-4">
-                                <Button variant="primary" size="lg" width="10rem" type="submit">
+                                <Button variant="primary" size="lg" width="10rem" type="submit" disabled={isLoading}>
                                     Save
                                 </Button>
 

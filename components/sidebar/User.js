@@ -18,7 +18,7 @@ function User({ expanded = true }) {
             {expanded && (
                 <div className="min-w-min overflow-hidden text-sm leading-[22px]">
                     <h3 className="min-w-min whitespace-nowrap font-semibold text-grey-800">{user?.fullName}</h3>
-                    <p className="font-normal text-grey-600">{user?.role}</p>
+                    <p className="font-normal text-grey-600">admin</p>
                 </div>
             )}
         </Link>
