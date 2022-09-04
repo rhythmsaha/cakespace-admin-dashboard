@@ -2,221 +2,112 @@
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
+import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
 
 function Categories() {
     return (
         <div>
-            <PageName name="Categories" />
+            <PageName name="Categories & Flavours" />
 
-            <section className="w-full mt-8 grid grid-cols-2 gap-8">
+            <section className="w-full mt-8 grid 2xl:grid-cols-2 gap-x-4 gap-y-8 ">
                 <Card>
-                    <table className="table table-auto w-full border-collapse text-center">
-                        <thead className="">
-                            <tr className="bg-grey-200 w-full">
-                                <th className="p-4 rounded-l-xl text-left">Category</th>
-                                <th className="p-4">Status</th>
-                                <th className="p-4">Edit</th>
-                                <th className="p-4 rounded-r-xl">Delete</th>
-                            </tr>
-                        </thead>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Categories</h3>
 
-                        <tbody className="">
-                            {[...Array(6)].map((el, idx) => (
-                                <tr className="hover:bg-grey-200 transition duration-300" key={idx}>
-                                    <td className="p-4 rounded-l-xl text-left">
-                                        <div className="flex items-center gap-4">
-                                            <img
-                                                src="https://res.cloudinary.com/desihzeid/image/upload/v1660382475/cld-sample-5.jpg"
-                                                alt=""
-                                                className="h-12 w-12 rounded-xl"
-                                            />
-                                            Birthday Cakes
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-center">
-                                        <div className="flex items-center justify-center">
-                                            <span className="bg-primary-main text-primary-main px-6 py-1 rounded-full text-xs bg-opacity-[0.08]">
-                                                active
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-center">
-                                        <div className="flex items-center justify-center">
-                                            <button className="">
-                                                <AiFillEdit className="text-primary-main text-2xl" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-center rounded-r-xl">
-                                        <div className="flex items-center justify-center">
-                                            <button>
-                                                <AiFillDelete className="text-error-main text-2xl" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </Card>
+                        <Button variant="primary" size="md" width="6rem">
+                            Add New
+                        </Button>
+                    </div>
 
-                <Card>
-                    <table className="table table-auto w-full border-collapse text-center">
-                        <thead className="">
-                            <tr className="bg-grey-200 w-full">
-                                <th className="p-4 rounded-l-xl text-left">Category</th>
-                                <th className="p-4">Status</th>
-                                <th className="p-4">Edit</th>
-                                <th className="p-4 rounded-r-xl">Delete</th>
-                            </tr>
-                        </thead>
-
-                        <tbody className="">
-                            {[...Array(6)].map((el, idx) => (
-                                <tr className="hover:bg-grey-200 transition duration-300" key={idx}>
-                                    <td className="p-4 rounded-l-xl text-left">
-                                        <div className="flex items-center gap-4">
-                                            <img
-                                                src="https://res.cloudinary.com/desihzeid/image/upload/v1660382475/cld-sample-5.jpg"
-                                                alt=""
-                                                className="h-12 w-12 rounded-xl"
-                                            />
-                                            Birthday Cakes
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-center">
-                                        <div className="flex items-center justify-center">
-                                            <span className="bg-primary-main text-primary-main px-6 py-1 rounded-full text-xs bg-opacity-[0.08]">
-                                                active
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-center">
-                                        <div className="flex items-center justify-center">
-                                            <button className="">
-                                                <AiFillEdit className="text-primary-main text-2xl" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-center rounded-r-xl">
-                                        <div className="flex items-center justify-center">
-                                            <button>
-                                                <AiFillDelete className="text-error-main text-2xl" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </Card>
-
-                <div className="col-span-2">
-                    <Card>
+                    <div className="overflow-x-auto py-4 rounded-md">
                         <table className="table table-auto w-full border-collapse text-center">
                             <thead className="">
                                 <tr className="bg-grey-200 w-full">
-                                    <th className="p-4 rounded-l-xl text-left">Category</th>
-                                    <th className="p-4">Status</th>
-                                    <th className="p-4">Edit</th>
-                                    <th className="p-4 rounded-r-xl">Delete</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base rounded-l-md">Name</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base">Slug</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base">Edit</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base rounded-r-md">Delete</th>
                                 </tr>
                             </thead>
 
                             <tbody className="">
                                 {[...Array(6)].map((el, idx) => (
                                     <tr className="hover:bg-grey-200 transition duration-300" key={idx}>
-                                        <td className="p-4 rounded-l-xl text-left">
-                                            <div className="flex items-center gap-4">
-                                                <img
-                                                    src="https://res.cloudinary.com/desihzeid/image/upload/v1660382475/cld-sample-5.jpg"
-                                                    alt=""
-                                                    className="h-12 w-12 rounded-xl"
-                                                />
-                                                Birthday Cakes
-                                            </div>
+                                        <td className="p-4 rounded-l-xl ">
+                                            <p className="text-xs whitespace-nowrap">Birthday Cakes</p>
                                         </td>
-                                        <td className="p-4 text-center">
-                                            <div className="flex items-center justify-center">
-                                                <span className="bg-primary-main text-primary-main px-6 py-1 rounded-full text-xs bg-opacity-[0.08]">
-                                                    active
-                                                </span>
-                                            </div>
+
+                                        <td className="p-4 ">
+                                            <p className="text-xs whitespace-nowrap">birthday_cakes</p>
                                         </td>
-                                        <td className="p-4 text-center">
-                                            <div className="flex items-center justify-center">
-                                                <button className="">
-                                                    <AiFillEdit className="text-primary-main text-2xl" />
-                                                </button>
-                                            </div>
+
+                                        <td className="p-4 ">
+                                            <button className="">
+                                                <AiFillEdit className="text-primary-main text-xl" />
+                                            </button>
                                         </td>
-                                        <td className="p-4 text-center rounded-r-xl">
-                                            <div className="flex items-center justify-center">
-                                                <button>
-                                                    <AiFillDelete className="text-error-main text-2xl" />
-                                                </button>
-                                            </div>
+
+                                        <td className="p-4 rounded-r-xl">
+                                            <button>
+                                                <AiFillDelete className="text-error-main text-xl" />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                    </Card>
-                </div>
+                    </div>
+                </Card>
 
-                <div className="col-span-2">
-                    <Card>
+                <Card>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Flavours</h3>
+
+                        <Button variant="primary" size="md" width="6rem">
+                            Add New
+                        </Button>
+                    </div>
+
+                    <div className="overflow-x-auto py-4 rounded-md">
                         <table className="table table-auto w-full border-collapse text-center">
                             <thead className="">
                                 <tr className="bg-grey-200 w-full">
-                                    <th className="p-4 rounded-l-xl text-left">Category</th>
-                                    <th className="p-4">Status</th>
-                                    <th className="p-4">Edit</th>
-                                    <th className="p-4 rounded-r-xl">Delete</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base rounded-l-md">Name</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base">Slug</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base">Edit</th>
+                                    <th className="py-4 px-4 text-sm text-center lg:text-base rounded-r-md">Delete</th>
                                 </tr>
                             </thead>
 
                             <tbody className="">
                                 {[...Array(6)].map((el, idx) => (
                                     <tr className="hover:bg-grey-200 transition duration-300" key={idx}>
-                                        <td className="p-4 rounded-l-xl text-left">
-                                            <div className="flex items-center gap-4">
-                                                <img
-                                                    src="https://res.cloudinary.com/desihzeid/image/upload/v1660382475/cld-sample-5.jpg"
-                                                    alt=""
-                                                    className="h-12 w-12 rounded-xl"
-                                                />
-                                                Birthday Cakes
-                                            </div>
+                                        <td className="p-4 rounded-l-xl ">
+                                            <p className="text-xs whitespace-nowrap">Birthday Cakes</p>
                                         </td>
-                                        <td className="p-4 text-center">
-                                            <div className="flex items-center justify-center">
-                                                <span className="bg-primary-main text-primary-main px-6 py-1 rounded-full text-xs bg-opacity-[0.08]">
-                                                    active
-                                                </span>
-                                            </div>
+
+                                        <td className="p-4 ">
+                                            <p className="text-xs whitespace-nowrap">birthday_cakes</p>
                                         </td>
-                                        <td className="p-4 text-center">
-                                            <div className="flex items-center justify-center">
-                                                <button className="">
-                                                    <AiFillEdit className="text-primary-main text-2xl" />
-                                                </button>
-                                            </div>
+
+                                        <td className="p-4 ">
+                                            <button className="">
+                                                <AiFillEdit className="text-primary-main text-xl" />
+                                            </button>
                                         </td>
-                                        <td className="p-4 text-center rounded-r-xl">
-                                            <div className="flex items-center justify-center">
-                                                <button>
-                                                    <AiFillDelete className="text-error-main text-2xl" />
-                                                </button>
-                                            </div>
+
+                                        <td className="p-4 rounded-r-xl">
+                                            <button>
+                                                <AiFillDelete className="text-error-main text-xl" />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                    </Card>
-                </div>
+                    </div>
+                </Card>
             </section>
         </div>
     );

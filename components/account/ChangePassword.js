@@ -1,11 +1,32 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
+import { useForm } from "react-hook-form";
 
 function ChangePassword({ open, setOpen }) {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        setError,
+    } = useForm();
+
+    function closeModal() {
+        setOpen(false);
+        setValue("oldPassword", "");
+        setValue("newPassword", "");
+        setValue("confirmPassword", "");
+
+        setError("oldPassword", "");
+        setError("newPassword", "");
+        setError("confirmPassword", "");
+    }
+
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={setOpen}>
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -30,33 +51,50 @@ function ChangePassword({ open, setOpen }) {
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
-                                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                    <div className="sm:flex sm:items-start">
-                                        <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                            <Dialog.Title
-                                                as="h3"
-                                                className="text-lg leading-6 font-medium text-gray-900"
-                                            >
-                                                Deactivate account
-                                            </Dialog.Title>
-                                            <div className="mt-2">
-                                                <p className="text-sm text-gray-500">
-                                                    Are you sure you want to deactivate your account? All of your data
-                                                    will be permanently removed. This action cannot be undone.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <form
+                                    onSubmit={handleSubmit(() => {
+                                        console.log("done");
+                                    })}
+                                >
+                                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 space-y-4">
+                                        <Input
+                                            type="password"
+                                            placeholder="Current Password"
+                                            name="oldPassword"
+                                            error={errors.oldPassword?.message}
+                                            register={register}
+                                            required={{ required: "Current Password is required!" }}
+                                        />
 
-                                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                                    <Button variant="error" size="md" width="8rem" onClick={() => setOpen(false)}>
-                                        Cancel
-                                    </Button>
-                                    <Button variant="primary" size="md" width="8rem" onClick={() => setOpen(false)}>
-                                        Update
-                                    </Button>
-                                </div>
+                                        <Input
+                                            type="password"
+                                            placeholder="New Password"
+                                            name="newPassword"
+                                            error={errors.newPassword?.message}
+                                            register={register}
+                                            required={{ required: "New Password is required!" }}
+                                        />
+
+                                        <Input
+                                            type="password"
+                                            placeholder="Confirm Password"
+                                            name="confirmPassword"
+                                            error={errors.confirmPassword?.message}
+                                            register={register}
+                                            required={{ required: "Confirm Password is required!" }}
+                                        />
+                                    </div>
+
+                                    <div className="bg-gray-100 px-4 py-3 sm:px-6 flex items-center justify-center sm:flex-row sm:justify-end gap-2">
+                                        <Button variant="primary" size="md" width="8rem" type="submit">
+                                            Update
+                                        </Button>
+
+                                        <Button variant="error" size="md" width="8rem" onClick={closeModal}>
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </form>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
