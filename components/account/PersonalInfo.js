@@ -6,9 +6,22 @@ import Input from "../ui/Input";
 import CardHeading from "./CardHeading";
 import ChangePassword from "./ChangePassword";
 import UploadImage from "./UploadImage";
+import { useForm } from "react-hook-form";
 
 function PersonalInfo({ user }) {
-    const [open, setOpen] = useState(false);
+    const [passwordModal, setPasswordModal] = useState(false);
+    // const [image, setImage] = useState("");
+    // const [url, setUrl] = useState(user?.avatar);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        setError,
+    } = useForm();
+
+    const submitHandler = async ({ name, email }) => {};
 
     return (
         <>
@@ -21,15 +34,32 @@ function PersonalInfo({ user }) {
                     </section>
 
                     <section className="lg:col-span-6 xl:col-span-7">
-                        <form className="space-y-4 ">
-                            <Input label="Full Name" />
-                            <Input label="Email" type="email" />
+                        <form className="space-y-4" onSubmit={handleSubmit(submitHandler)}>
+                            <Input
+                                label="Full Name"
+                                name="name"
+                                error={errors.name?.message}
+                                value={user?.fullName}
+                                register={register}
+                                required={{ required: "Name is required!" }}
+                            />
+
+                            <Input
+                                label="Email"
+                                name="email"
+                                type="email"
+                                value={user?.email}
+                                register={register}
+                                required={{ required: "Please provide a valid email address!" }}
+                                error={errors.email?.message}
+                            />
 
                             <div className="flex gap-4">
-                                <Button variant="primary" size="lg" width="10rem">
+                                <Button variant="primary" size="lg" width="10rem" type="submit">
                                     Save
                                 </Button>
-                                <Button variant="error-outlined" size="md" onClick={() => setOpen(true)}>
+
+                                <Button variant="error-outlined" size="md" onClick={() => setPasswordModal(true)}>
                                     <BiKey className="text-xl" /> Change Password
                                 </Button>
                             </div>
@@ -38,7 +68,7 @@ function PersonalInfo({ user }) {
                 </section>
             </Card>
 
-            <ChangePassword open={open} setOpen={setOpen} />
+            <ChangePassword open={passwordModal} setOpen={setPasswordModal} />
         </>
     );
 }

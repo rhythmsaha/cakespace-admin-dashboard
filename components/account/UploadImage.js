@@ -5,8 +5,7 @@ import { MdAddAPhoto } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
 function UploadImage({ user }) {
-    const [image, setImage] = useState("");
-    const [url, setUrl] = useState(user?.avatar);
+    const [image, setImage] = useState(user?.avatar);
     const [hoverState, setHoverState] = useState(false);
 
     const uploadToCloudinary = (file) => {
@@ -27,18 +26,19 @@ function UploadImage({ user }) {
     };
 
     const createImageBlob = (e) => {
-        const f = e.target.files[0];
-        console.log(f);
-        if (!f) {
-            console.log("No file!");
-            return;
-        }
+        try {
+            const file = e.target.files[0];
 
-        const imageBlob = Object.assign(e.target.files[0], {
-            preview: URL.createObjectURL(e.target.files[0]),
-        });
+            if (!file) return console.log("No file selected");
 
-        setImage(imageBlob.preview);
+            const imageBlob = Object.assign(file, {
+                preview: URL.createObjectURL(file),
+            });
+
+            setImage(imageBlob.preview);
+        } catch (error) {}
+
+        // uploadToCloudinary(imageBlob);
     };
 
     return (
@@ -62,7 +62,7 @@ function UploadImage({ user }) {
                 )}
 
                 {image || url ? (
-                    <img src={image || url} className="object-cover h-full w-full rounded-full border" alt="" />
+                    <img src={image} className="object-cover h-full w-full rounded-full border" alt="" />
                 ) : (
                     <FaUser className="text-grey-500 border h-full w-full rounded-full p-10" />
                 )}

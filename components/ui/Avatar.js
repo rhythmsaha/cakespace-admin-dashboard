@@ -1,13 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { AiOutlineUser } from "react-icons/ai";
 
-function Avatar({ size, avatarUrl }) {
+import { FaUser } from "react-icons/fa";
+
+function Avatar({ size = 10, avatarUrl }) {
     return (
-        <span className={`h-${size} w-${size} flex min-w-min items-center justify-center overflow-hidden rounded-full`}>
+        <span
+            className={`cursor-pointer border border-gray-50  flex min-w-min items-center justify-center overflow-hidden rounded-full relative h-${size} w-${size} overflow-hidden transition`}
+        >
             {avatarUrl ? (
-                <img className="h-full w-full bg-white object-contain" src={avatarUrl} alt="" />
+                <img className="h-full w-full bg-white object-contain rounded-full" src={avatarUrl} alt="" />
             ) : (
-                <AiOutlineUser className="h-full w-full min-w-min p-2 text-xl bg-gray-200 text-gray-500" />
+                <FaUser className="text-grey-500 h-full w-full min-w-min rounded-full p-2.5 bg-white" />
             )}
         </span>
     );

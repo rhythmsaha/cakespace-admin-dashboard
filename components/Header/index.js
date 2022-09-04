@@ -1,23 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useState } from "react";
 import { useWindowSize } from "react-use";
+import { AnimatePresence } from "framer-motion";
+import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
+import { Menu, Transition } from "@headlessui/react";
+import { MdLogout } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import MobileSidebar from "../sidebar/MobileSidebar";
 import BlurredScreen from "../BlurredScreen";
 import Avatar from "../ui/Avatar";
-import { AnimatePresence, motion } from "framer-motion";
-import { AiOutlineMenu } from "react-icons/ai";
-import { FaBell } from "react-icons/fa";
-
-
-import { Menu, Transition } from '@headlessui/react'
-
+import NotificationMenu from "./NotificationMenu";
+import { useRouter } from "next/router";
 
 function Header() {
     const [showNavBar, setShowNavBar] = useState(false);
 
     const { width } = useWindowSize();
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
+    const router = useRouter();
 
     const showNavBarHandler = () => {
         setShowNavBar(true);
@@ -42,16 +42,57 @@ function Header() {
                 </div>
 
                 <div className="ml-auto flex items-center gap-3">
-                    <button className="flex items-center justify-center h-11 w-11 rounded-full transition hover:bg-gray-100 active:bg-gray-200">
-                        <FaBell className="h-5 w-5 text-grey-600" />
-                    </button>
+                    <NotificationMenu />
 
-                    {/* <button onClick={logout}>
-                        <Avatar
-                            size="11"
-                            avatarUrl="https://scontent.frdp4-1.fna.fbcdn.net/v/t1.6435-1/183710831_2965464620344936_3915218019543181030_n.jpg?stp=c750.932.777.777a_dst-jpg_s200x200&_nc_cat=103&ccb=1-7&_nc_sid=7206a8&_nc_ohc=SoYPlP8pJVEAX9GFufv&_nc_ht=scontent.frdp4-1.fna&oh=00_AT-iXYnKZ5W5I4dnccw12LPJlg_QYfU_tLgi9z2xPvia2g&oe=631BEE13"
-                        />
-                    </button> */}
+                    <Menu as="div" className="relative inline-block">
+                        <div className="flex items-center justify-center">
+                            <Menu.Button className="hover:bg-gray-100  active:ring-2 ring-offset-2 ring-gray-200 rounded-full transition ">
+                                <Avatar size={11} avatarUrl={user?.avatar} />
+                            </Menu.Button>
+                        </div>
+
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="px-1 py-1">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <button
+                                                onClick={() => router.push("/account")}
+                                                className={`${
+                                                    active ? "bg-primary-main text-white" : "text-gray-500"
+                                                } flex w-full items-center rounded-md px-4 py-2 gap-2 text-base font-semibold transition`}
+                                            >
+                                                <AiOutlineSetting />
+                                                Account
+                                            </button>
+                                        )}
+                                    </Menu.Item>
+
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <button
+                                                onClick={logout}
+                                                className={`${
+                                                    active ? "bg-primary-main text-white" : "text-gray-500"
+                                                } flex w-full items-center rounded-md px-4 py-2 gap-2 text-base font-semibold transition`}
+                                            >
+                                                <MdLogout />
+                                                Sign Out
+                                            </button>
+                                        )}
+                                    </Menu.Item>
+                                </div>
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
                 </div>
             </header>
 
