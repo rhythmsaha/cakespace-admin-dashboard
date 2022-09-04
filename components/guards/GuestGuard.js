@@ -1,18 +1,21 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import useAuth from '../../hooks/useAuth'
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import useAuth from "../../hooks/useAuth";
+import LoadingScreen from "../LoadingScreen";
 
 function GuestGuard({ children }) {
-  const router = useRouter()
-  const { isAuthenticated } = useAuth()
+    const router = useRouter();
+    const { isAuthenticated, isInitialized } = useAuth();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.replace('/')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated])
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.replace("/");
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAuthenticated]);
 
-  return <>{children}</>
+    if ((isInitialized, isAuthenticated)) return <LoadingScreen />;
+
+    return <>{children}</>;
 }
-export default GuestGuard
+export default GuestGuard;

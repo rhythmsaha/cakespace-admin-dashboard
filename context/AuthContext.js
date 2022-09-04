@@ -70,7 +70,9 @@ function AuthProvider({ children }) {
                             Authorization: "Bearer " + accessToken,
                         },
                     });
-                    const { user } = response.data;
+                    const { user, JWT_TOKEN } = response.data;
+
+                    setSession(JWT_TOKEN);
 
                     dispatch({
                         type: "INITIALIZE",
@@ -104,13 +106,6 @@ function AuthProvider({ children }) {
     }, []);
 
     const login = async (JWT_TOKEN, user) => {
-        // const response = await axios.post("/auth/seller/login", {
-        //     email,
-        //     password,
-        // });
-
-        // const { JWT_TOKEN, user } = await response.data;
-
         setSession(JWT_TOKEN);
 
         dispatch({

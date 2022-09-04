@@ -27,9 +27,11 @@ export default function Login() {
     } = useForm({});
 
     useEffect(() => {
+        //Retrive credentials from localstorage if saved
         const credentials = localStorage.getItem("credentials");
+
         if (credentials) {
-            const decoded = atob(credentials);
+            const decoded = atob(credentials); // Decode credentials from base64 format
             const { email, password } = JSON.parse(decoded);
             setValue("email", email, { shouldValidate: true });
             setValue("password", password, { shouldValidate: true });
@@ -37,35 +39,44 @@ export default function Login() {
         }
     }, [setValue]);
 
+    // Login Handler
     const submitHandler = async ({ email, password, remember }) => {
-        if (isLoading) return;
-        toast.dismiss();
+        if (isLoading) return; // does nothing if isloading is true
+        toast.dismiss(); // dismiss any other toasts
 
+        // Save credentials if remember me is checked else rmeove from localstorage
         if (remember) {
             const credentials = { email, password };
-            const encoded = btoa(JSON.stringify(credentials));
+            const encoded = btoa(JSON.stringify(credentials)); // Encode credentials to base64 format
             localStorage.setItem("credentials", encoded);
         } else {
             localStorage.removeItem("credentials");
         }
 
-        setIsLoading(true);
-        console.log(remember);
+        setIsLoading(true); // set the loading state to true
 
         try {
+            // Post login request to server
             const response = await axios.post("/auth/seller/login", {
                 email,
                 password,
             });
-            const { JWT_TOKEN, user, message } = await response.data;
-            toast.success(message);
-            login(JWT_TOKEN, user);
+
+            const { JWT_TOKEN, user, message } = await response.data; // Destructureing data from response
+
+            toast.success(message); // Show success login success with toast!
+
+            login(JWT_TOKEN, user); // Calls the login method from auth context to update current user state
         } catch (error) {
-            setError(error.type, { type: error?.type, message: error.message });
-            setError(error.type, { type: error?.type, message: error.message });
+            if (error.type === "error") {
+                toast.error(error.message);
+            } else {
+                setError(error.type, { type: error?.type, message: error.message });
+                setError(error.type, { type: error?.type, message: error.message });
+            }
         }
 
-        setIsLoading(false);
+        setIsLoading(false); // Set loading state to false
     };
 
     return (

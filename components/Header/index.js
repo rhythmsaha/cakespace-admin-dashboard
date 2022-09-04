@@ -1,13 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from "../ui/Avatar";
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useWindowSize } from "react-use";
 import useAuth from "../../hooks/useAuth";
 import MobileSidebar from "../sidebar/MobileSidebar";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import BlurredScreen from "../BlurredScreen";
+import Avatar from "../ui/Avatar";
+import { AnimatePresence, motion } from "framer-motion";
+import { AiOutlineMenu } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
+
+
+import { Menu, Transition } from '@headlessui/react'
+
 
 function Header() {
     const [showNavBar, setShowNavBar] = useState(false);
@@ -42,12 +46,12 @@ function Header() {
                         <FaBell className="h-5 w-5 text-grey-600" />
                     </button>
 
-                    <button>
+                    {/* <button onClick={logout}>
                         <Avatar
                             size="11"
                             avatarUrl="https://scontent.frdp4-1.fna.fbcdn.net/v/t1.6435-1/183710831_2965464620344936_3915218019543181030_n.jpg?stp=c750.932.777.777a_dst-jpg_s200x200&_nc_cat=103&ccb=1-7&_nc_sid=7206a8&_nc_ohc=SoYPlP8pJVEAX9GFufv&_nc_ht=scontent.frdp4-1.fna&oh=00_AT-iXYnKZ5W5I4dnccw12LPJlg_QYfU_tLgi9z2xPvia2g&oe=631BEE13"
                         />
-                    </button>
+                    </button> */}
                 </div>
             </header>
 
