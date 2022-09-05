@@ -2,35 +2,38 @@
 import Axios from "axios";
 import { useCallback } from "react";
 import { useState, useEffect } from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import AddNewCategory from "../../components/categories/AddNewCategory";
 import CategoriesTable from "../../components/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/FlavoursTable";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import LoadingScreen from "../../components/LoadingScreen";
 import PageName from "../../components/PageName";
-import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
-import Table from "../../components/ui/Table";
+import { categoriesActions } from "../../store/slice/categories.slice";
 import axios from "../../utils/axios";
 
 function Categories() {
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [categoriesError, setCategoriesError] = useState(null);
 
     const [flavours, setFlavours] = useState([]);
     const [flavoursError, setFlavoursError] = useState(null);
 
     const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch();
+
+    const categories = useSelector((state) => state.categories.list);
 
     const fetchAll = useCallback(async () => {
         setIsLoading(true);
         Promise.all([
             await axios
                 .get("/categories")
-                .then((res) => setCategories(res.data))
+                .then((res) => {
+                    dispatch(categoriesActions.setCategories(res.data));
+                })
                 .catch((err) => {
-                    setCategoriesError(err.message);
+                    dispatch(categoriesActions.setError(err.message));
                 }),
             await axios
                 .get("/flavours")
@@ -41,7 +44,7 @@ function Categories() {
         ]).catch((err) => console.log(err.message));
 
         setIsLoading(false);
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         fetchAll();

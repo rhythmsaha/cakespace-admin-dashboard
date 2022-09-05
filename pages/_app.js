@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
 import AuthProvider from "../context/AuthContext";
+import store from "../store";
 import "../styles/globals.css";
 
 export default function MyApp({ Component, pageProps }) {
@@ -12,7 +14,9 @@ export default function MyApp({ Component, pageProps }) {
                 <title>CakeSpace</title>
             </Head>
 
-            <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
+            <AuthProvider>
+                <Provider store={store}>{getLayout(<Component {...pageProps} />)}</Provider>
+            </AuthProvider>
             <Toaster position="top-center" reverseOrder={false} />
         </>
     );

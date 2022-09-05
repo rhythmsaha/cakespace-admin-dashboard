@@ -10,10 +10,15 @@ import UploadImage from "./UploadImage";
 import toast from "react-hot-toast";
 import axios from "../../utils/axios";
 
+import { useDispatch, useSelector } from "react-redux";
+import { categoriesActions } from "../../store/slice/categories.slice";
+
 function AddNewCategory() {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
+
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -48,6 +53,7 @@ function AddNewCategory() {
         try {
             const response = await axios.post(`/categories`, body);
             const data = await response.data;
+            dispatch(categoriesActions.addCategory(data));
             toast.success(data.message);
         } catch (error) {
             if (error?.fields) {
