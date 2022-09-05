@@ -9,7 +9,7 @@ import "simplebar/dist/simplebar.min.css";
 import SidebarLinks from "./SidebarLinks";
 import User from "./User";
 
-function MobileSidebar({ onClose }) {
+const MobileSidebar = ({ onClose }) => {
     const ref = useRef();
 
     Router.events.on("routeChangeComplete", () => {
@@ -37,5 +37,6 @@ function MobileSidebar({ onClose }) {
             </SimpleBar>
         </motion.aside>
     );
-}
+};
+
 export default MobileSidebar;
