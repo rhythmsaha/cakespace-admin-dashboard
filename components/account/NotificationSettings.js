@@ -7,6 +7,7 @@ import Card from "../ui/Card";
 import CheckBoxInput from "../ui/CheckBoxInput";
 import CardHeading from "./CardHeading";
 import axios from "../../utils/axios";
+import Spinner from "../ui/Spinner";
 
 function NotificationSettings() {
     const [isLoading, setIsLoading] = useState(false);
@@ -110,8 +111,8 @@ function NotificationSettings() {
                     />
                 </section>
 
-                <Button variant="primary" size="lg" width="10rem" type="submit" disabled={isLoading}>
-                    Save
+                <Button variant="primary" size="lg" width="10rem" height="3rem" type="submit" disabled={isLoading}>
+                    {isLoading ? <Spinner /> : "Save"}
                 </Button>
             </form>
         </Card>

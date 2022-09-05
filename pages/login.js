@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { BeatLoader } from "react-spinners";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 import Button from "../components/ui/Button";
 import axios from "../utils/axios";
 import { API_URLS } from "../utils/config";
+import Spinner from "../components/ui/Spinner";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -152,8 +152,8 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <Button type="submit" variant="primary" size="lg" width="100%" disabled={isLoading}>
-                        {isLoading ? <BeatLoader color="white" size={10} className="py-1.5" /> : "Sign in"}
+                    <Button type="submit" variant="primary" size="lg" height="3rem" width="100%" disabled={isLoading}>
+                        {isLoading ? <Spinner /> : "Sign in"}
                     </Button>
                 </div>
             </form>

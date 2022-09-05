@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "../../utils/axios";
+import Spinner from "../ui/Spinner";
 
 function ChangePassword({ open, setOpen }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -121,9 +122,15 @@ function ChangePassword({ open, setOpen }) {
                                         />
                                     </div>
 
-                                    <div className="bg-gray-100 px-4 py-3 sm:px-6 flex items-center justify-center sm:flex-row sm:justify-end gap-2">
-                                        <Button variant="primary" size="md" width="8rem" type="submit">
-                                            Update
+                                    <div className="bg-gray-100 px-4 py-3 sm:px-6 flex justify-center sm:flex-row sm:justify-end gap-2">
+                                        <Button
+                                            variant="primary"
+                                            size="md"
+                                            width="8rem"
+                                            type="submit"
+                                            disabled={isLoading}
+                                        >
+                                            {isLoading ? <Spinner /> : "Update"}
                                         </Button>
 
                                         <Button variant="error" size="md" width="8rem" onClick={closeModal}>

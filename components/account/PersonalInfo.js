@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import axios from "../../utils/axios";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import Spinner from "../ui/Spinner";
 
 function PersonalInfo() {
     const [passwordModal, setPasswordModal] = useState(false);
@@ -46,6 +47,9 @@ function PersonalInfo() {
                 });
 
                 return;
+            } else {
+                if (error.response) toast.error(error.response.data.message);
+                else toast.error(error.message);
             }
         }
 
@@ -84,7 +88,7 @@ function PersonalInfo() {
 
                             <div className="flex gap-4">
                                 <Button variant="primary" size="lg" width="10rem" type="submit" disabled={isLoading}>
-                                    Save
+                                    {isLoading ? <Spinner /> : "Save"}
                                 </Button>
 
                                 <Button variant="error-outlined" size="lg" onClick={() => setPasswordModal(true)}>
