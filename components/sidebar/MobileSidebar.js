@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useClickAway } from "react-use";
 import SidebarHeader from "./SidebarHeader";
-import "simplebar/dist/simplebar.min.css";
 import SidebarLinks from "./SidebarLinks";
 import User from "./User";
+import "simplebar/dist/simplebar.min.css";
 
 const MobileSidebar = ({ onClose }) => {
     const ref = useRef();
