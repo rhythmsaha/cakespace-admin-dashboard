@@ -1,7 +1,10 @@
+import { useWindowSize } from "react-use";
 import sidebarConfig from "../../utils/sidebarConfig";
 import SidebarItem from "./SidebarItem";
 
 function SidebarLinks({ expanded = true }) {
+    const { width } = useWindowSize();
+
     return (
         <section className="mt-4 space-y-1 -mx-1">
             {sidebarConfig.map(({ id, menus, type }) => (
@@ -15,15 +18,18 @@ function SidebarLinks({ expanded = true }) {
                     </div>
 
                     <div className="space-y-1">
-                        {menus.map((link) => (
-                            <SidebarItem
-                                Icon={link.icon}
-                                key={link.id}
-                                title={link.title}
-                                path={link.path}
-                                expanded={expanded}
-                            />
-                        ))}
+                        {menus.map((link) => {
+                            if (link.mobileOnly && width >= 768) return;
+                            return (
+                                <SidebarItem
+                                    Icon={link.icon}
+                                    key={link.id}
+                                    title={link.title}
+                                    path={link.path}
+                                    expanded={expanded}
+                                />
+                            );
+                        })}
                     </div>
                 </nav>
             ))}

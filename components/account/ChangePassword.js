@@ -3,8 +3,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "../../utils/axios";
 
 function ChangePassword({ open, setOpen }) {
+    const [isLoading, setIsLoading] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -23,6 +28,41 @@ function ChangePassword({ open, setOpen }) {
         setError("newPassword", "");
         setError("confirmPassword", "");
     }
+
+    const submitHandler = async ({ oldPassword, newPassword, confirmPassword }) => {
+        if (isLoading) return;
+
+        toast.dismiss();
+
+        const body = { oldPassword, newPassword, confirmPassword };
+
+        setIsLoading(true);
+
+        try {
+            const response = await axios.post("/auth/seller/changepassword", body);
+            const data = await response.data;
+
+            toast.success(data.message);
+            closeModal();
+        } catch (error) {
+            if (error.type) {
+                if (error.type === "oldPassword") {
+                    setError(error.type, { type: error?.type, message: error.message });
+                } else if (error.type === "passwords") {
+                    setError("newPassword", { type: error?.type, message: error.message });
+                } else if (error.type === "confirmPassword") {
+                    setError("confirmPassword", { type: error?.type, message: error.message });
+                } else {
+                    setError(error.type, { type: error?.type, message: error.message });
+                }
+            } else {
+                if (error.response) toast.error(error.response.data.message);
+                else toast.error(error.message);
+            }
+        }
+
+        setIsLoading(false);
+    };
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -51,11 +91,7 @@ function ChangePassword({ open, setOpen }) {
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
-                                <form
-                                    onSubmit={handleSubmit(() => {
-                                        console.log("done");
-                                    })}
-                                >
+                                <form onSubmit={handleSubmit(submitHandler)}>
                                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 space-y-4">
                                         <Input
                                             type="password"

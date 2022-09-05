@@ -1,11 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState, useEffect } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
+import axios from "../../utils/axios";
 
 function Categories() {
+    const [categories, setCategories] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        axios
+            .get("/categories")
+            .then((data) => setCategories(data))
+            .catch((err) => console.log(err));
+    }, []);
+
     return (
         <div>
             <PageName name="Categories & Flavours" />
@@ -32,7 +44,7 @@ function Categories() {
                             </thead>
 
                             <tbody className="">
-                                {[...Array(6)].map((el, idx) => (
+                                {categories.map((el, idx) => (
                                     <tr className="hover:bg-grey-200 transition duration-300" key={idx}>
                                         <td className="p-4 rounded-l-xl ">
                                             <p className="text-xs whitespace-nowrap">Birthday Cakes</p>
@@ -81,7 +93,7 @@ function Categories() {
                             </thead>
 
                             <tbody className="">
-                                {[...Array(6)].map((el, idx) => (
+                                {categories.map((el, idx) => (
                                     <tr className="hover:bg-grey-200 transition duration-300" key={idx}>
                                         <td className="p-4 rounded-l-xl ">
                                             <p className="text-xs whitespace-nowrap">Birthday Cakes</p>

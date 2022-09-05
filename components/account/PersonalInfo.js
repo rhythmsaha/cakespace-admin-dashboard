@@ -87,8 +87,9 @@ function PersonalInfo() {
                                     Save
                                 </Button>
 
-                                <Button variant="error-outlined" size="md" onClick={() => setPasswordModal(true)}>
-                                    <BiKey className="text-xl" /> Change Password
+                                <Button variant="error-outlined" size="lg" onClick={() => setPasswordModal(true)}>
+                                    <BiKey className="text-xl" />
+                                    <span className="text-xs sm:text-base">Change Password</span>
                                 </Button>
                             </div>
                         </form>

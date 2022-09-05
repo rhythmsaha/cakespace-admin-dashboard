@@ -42,7 +42,7 @@ function Header() {
                 </div>
 
                 <div className="ml-auto flex items-center gap-3">
-                    <NotificationMenu />
+                    {width >= 768 && <NotificationMenu />}
 
                     <Menu as="div" className="relative inline-block">
                         <div className="flex items-center justify-center">
