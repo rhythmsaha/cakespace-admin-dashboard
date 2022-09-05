@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AddNewCategory from "../../components/categories/AddNewCategory";
 import CategoriesTable from "../../components/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/FlavoursTable";
-import DashboardLayout from "../../components/Layouts/DashboardLayout";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 import Card from "../../components/ui/Card";
 import { categoriesActions } from "../../store/slice/categories.slice";

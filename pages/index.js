@@ -1,4 +1,4 @@
-import DashboardLayout from "../components/Layouts/DashboardLayout";
+import DashboardLayout from "../components/layouts/DashboardLayout";
 
 Home.getLayout = function getLayout(page) {
     return <DashboardLayout>{page}</DashboardLayout>;

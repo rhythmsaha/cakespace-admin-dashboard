@@ -1,6 +1,6 @@
 import NotificationSettings from "../../components/account/NotificationSettings";
 import PersonalInfo from "../../components/account/PersonalInfo";
-import DashboardLayout from "../../components/Layouts/DashboardLayout";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 
 function User() {

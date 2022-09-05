@@ -1,4 +1,4 @@
-import DashboardLayout from "../../components/Layouts/DashboardLayout";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
 
 function Invoices() {
     return <div>Invoices</div>;
