@@ -6,7 +6,7 @@ import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import { MdLogout } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
-import MobileSidebar from "../sidebar/MobileSidebar";
+import MobileSidebar from "../Sidebar/MobileSidebar";
 import BlurredScreen from "../BlurredScreen";
 import Avatar from "../ui/Avatar";
 import NotificationMenu from "./NotificationMenu";
