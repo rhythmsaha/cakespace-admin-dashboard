@@ -53,7 +53,8 @@ function AddNewCategory() {
         try {
             const response = await axios.post(`/categories`, body);
             const data = await response.data;
-            dispatch(categoriesActions.addCategory(data));
+            dispatch(categoriesActions.addCategory(data?.category));
+            closeModal();
             toast.success(data.message);
         } catch (error) {
             if (error?.fields) {
