@@ -1,6 +1,6 @@
 import { useWindowSize } from "react-use";
 import AuthGuard from "../guards/AuthGuard";
-import Header from "../header";
+import Header from "../Header";
 import Sidebar from "../sidebar";
 
 const DashboardLayout = ({ children }) => {
