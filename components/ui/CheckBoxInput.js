@@ -1,9 +1,9 @@
 import { useId } from "react";
 
-function CheckBoxInput({ label, description, defaultChecked, name, register, ...rest }) {
+function CheckBoxInput({ label, description, defaultChecked, name, register = () => {}, ...rest }) {
     const id = useId();
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 select-none">
             <input
                 id={id}
                 type="checkbox"

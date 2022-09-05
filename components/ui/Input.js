@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-function Input({ type, label, placeholder, name, disabled, error, register, value, required, ...rest }) {
+function Input({ type, label, placeholder, name, disabled, error, register = () => {}, value, required, ...rest }) {
     const id = useId();
     return (
         <div className="space-y-1">

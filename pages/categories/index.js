@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Axios from "axios";
+import { useCallback } from "react";
 import { useState, useEffect } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import AddNewCategory from "../../components/categories/AddNewCategory";
 import CategoriesTable from "../../components/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/FlavoursTable";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import LoadingScreen from "../../components/LoadingScreen";
 import PageName from "../../components/PageName";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
@@ -13,51 +16,64 @@ import axios from "../../utils/axios";
 
 function Categories() {
     const [categories, setCategories] = useState([]);
-    const [flavours, setFlavours] = useState([]);
     const [categoriesError, setCategoriesError] = useState(null);
+
+    const [flavours, setFlavours] = useState([]);
     const [flavoursError, setFlavoursError] = useState(null);
 
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        axios
-            .get("/categories")
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err));
+    const fetchAll = useCallback(async () => {
+        setIsLoading(true);
+        Promise.all([
+            await axios
+                .get("/categories")
+                .then((res) => setCategories(res.data))
+                .catch((err) => {
+                    setCategoriesError(err.message);
+                }),
+            await axios
+                .get("/flavours")
+                .then((res) => setFlavours(res.data))
+                .catch((err) => {
+                    setFlavoursError(err.message);
+                }),
+        ]).catch((err) => console.log(err.message));
 
-        axios
-            .get("/flavours")
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err));
+        setIsLoading(false);
     }, []);
+
+    useEffect(() => {
+        fetchAll();
+    }, [fetchAll]);
 
     return (
         <div>
             <PageName name="Categories & Flavours" />
 
-            <section className="w-full mt-8 grid 2xl:grid-cols-2 gap-x-4 gap-y-8 ">
+            <section className="w-full mt-8 space-y-8 ">
                 <Card>
                     <div className="flex items-center justify-between">
                         <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Categories</h3>
 
-                        <Button variant="primary" size="md" width="6rem">
-                            Add New
-                        </Button>
+                        <AddNewCategory />
                     </div>
 
-                    <CategoriesTable />
+                    <CategoriesTable categories={categories} categoriesError={categoriesError} />
+
+                    {categoriesError && <p className="text-center py-4 text-gray-500">{categoriesError}</p>}
                 </Card>
 
                 <Card>
                     <div className="flex items-center justify-between">
                         <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Flavours</h3>
 
-                        <Button variant="primary" size="md" width="6rem">
-                            Add New
-                        </Button>
+                        <AddNewCategory />
                     </div>
 
-                    <FlavoursTable />
+                    <FlavoursTable flavours={flavours} flavoursError={flavoursError} />
+
+                    {flavoursError && <p className="text-center py-4 text-gray-500">{flavoursError}</p>}
                 </Card>
             </section>
         </div>
