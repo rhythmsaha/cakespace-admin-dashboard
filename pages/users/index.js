@@ -1,4 +1,4 @@
-import DashboardLayout from "../../components/layouts/DashboardLayout";
+import DashboardLayout from "../../components/Layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 
 Users.getLayout = function getLayout(page) {

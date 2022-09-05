@@ -1,10 +1,10 @@
-import DashboardLayout from '../../components/layouts/DashboardLayout'
+import DashboardLayout from "../../components/Layouts/DashboardLayout";
 
 function Invoices() {
-  return <div>Invoices</div>
+    return <div>Invoices</div>;
 }
-export default Invoices
+export default Invoices;
 
 Invoices.getLayout = function getLayout(page) {
-  return <DashboardLayout>{page}</DashboardLayout>
-}
+    return <DashboardLayout>{page}</DashboardLayout>;
+};

@@ -11,7 +11,6 @@ import Avatar from "../ui/Avatar";
 import NotificationMenu from "./NotificationMenu";
 import { useRouter } from "next/router";
 import MobileSidebar from "../Sidebar/MobileSidebar";
-// import MobileSidebar from "../Sidebar/MobileSidebar";
 
 function Header() {
     const [showNavBar, setShowNavBar] = useState(false);
