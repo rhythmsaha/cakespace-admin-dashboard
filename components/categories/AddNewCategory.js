@@ -10,7 +10,7 @@ import UploadImage from "./UploadImage";
 import toast from "react-hot-toast";
 import axios from "../../utils/axios";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { categoriesActions } from "../../store/slice/categories.slice";
 
 function AddNewCategory() {

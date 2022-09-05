@@ -10,19 +10,21 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 import Card from "../../components/ui/Card";
 import { categoriesActions } from "../../store/slice/categories.slice";
+import { flavoursActions } from "../../store/slice/flavours.slice";
 import axios from "../../utils/axios";
 
 function Categories() {
     // const [categories, setCategories] = useState([]);
-    const [categoriesError, setCategoriesError] = useState(null);
-
-    const [flavours, setFlavours] = useState([]);
-    const [flavoursError, setFlavoursError] = useState(null);
+    // const [categoriesError, setCategoriesError] = useState(null);
 
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     const categories = useSelector((state) => state.categories.list);
+    const flavours = useSelector((state) => state.flavours.list);
+
+    const categoriesError = useSelector((state) => state.categories.error);
+    const flavoursError = useSelector((state) => state.flavours.error);
 
     const fetchAll = useCallback(async () => {
         setIsLoading(true);
@@ -39,7 +41,7 @@ function Categories() {
                 .get("/flavours")
                 .then((res) => setFlavours(res.data))
                 .catch((err) => {
-                    setFlavoursError(err.message);
+                    dispatch(flavoursActions.setError(err.message));
                 }),
         ]).catch((err) => console.log(err.message));
 
