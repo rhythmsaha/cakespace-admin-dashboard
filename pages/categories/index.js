@@ -24,33 +24,14 @@ function Categories() {
     const categoriesError = useSelector((state) => state.categories.error);
     const flavoursError = useSelector((state) => state.flavours.error);
 
-    const fetchAll = useCallback(async () => {
-        setIsLoading(true);
-        Promise.all([
-            await axios
-                .get("/categories")
-                .then((res) => {
-                    dispatch(categoriesActions.setCategories(res.data));
-                })
-                .catch((err) => {
-                    dispatch(categoriesActions.setError(err.message));
-                }),
-            await axios
-                .get("/flavours")
-                .then((res) => setFlavours(res.data))
-                .catch((err) => {
-                    dispatch(flavoursActions.setError(err.message));
-                }),
-        ]).catch((err) => console.log(err.message));
-
-        setIsLoading(false);
-    }, [dispatch]);
-
     useEffect(() => {
-        // fetchAll();
-        setIsLoading(true);
-        dispatch(fetchCategoriesAndFlavours());
-        setIsLoading(false);
+        const fetchdata = async () => {
+            setIsLoading(true);
+            await dispatch(fetchCategoriesAndFlavours());
+            setIsLoading(false);
+        };
+
+        fetchdata();
     }, [dispatch]);
 
     return (
