@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import Axios from "axios";
 import { useCallback } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AddNewCategory from "../../components/categories/AddNewCategory";
 import CategoriesSkeleton from "../../components/categories/CategoriesSkeleton";
 import CategoriesTable from "../../components/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/FlavoursTable";

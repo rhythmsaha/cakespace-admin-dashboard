@@ -17,6 +17,19 @@ const categoriesSlice = createSlice({
             state.list.push(action.payload);
         },
 
+        updateCategory(state, action) {
+            const category = action.payload;
+            const categories = state.list.map((cat) => {
+                if (cat._id === category._id) {
+                    return category;
+                } else {
+                    return cat;
+                }
+            });
+
+            state.list = categories;
+        },
+
         setError(state, action) {
             state.error = action.payload;
         },

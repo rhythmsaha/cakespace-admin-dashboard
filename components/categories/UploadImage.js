@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
 
-function UploadImage({ setImageUrl }) {
-    const [image, setImage] = useState();
+function UploadImage({ imageUrl, setImageUrl }) {
+    const [image, setImage] = useState(imageUrl);
     const [hoverState, setHoverState] = useState(false);
 
     const suppoertedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];

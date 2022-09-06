@@ -49,7 +49,7 @@ function CategoriesTable({ categories, categoriesError }) {
                             </Td>
 
                             <Td>
-                                <EditCategory />
+                                <EditCategory category={category} />
                             </Td>
 
                             <Td>
