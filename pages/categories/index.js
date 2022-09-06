@@ -9,13 +9,9 @@ import CategoriesTable from "../../components/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/FlavoursTable";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
-import { categoriesActions } from "../../store/slice/categories.slice";
-import { flavoursActions } from "../../store/slice/flavours.slice";
 import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
-import axios from "../../utils/axios";
 
 function Categories() {
-    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     const categories = useSelector((state) => state.categories.list);
@@ -24,15 +20,16 @@ function Categories() {
     const categoriesError = useSelector((state) => state.categories.error);
     const flavoursError = useSelector((state) => state.flavours.error);
 
-    useEffect(() => {
-        const fetchdata = async () => {
-            setIsLoading(true);
-            await dispatch(fetchCategoriesAndFlavours());
-            setIsLoading(false);
-        };
+    const [isLoading, setIsLoading] = useState(true);
 
-        fetchdata();
+    const fetchdata = useCallback(async () => {
+        await dispatch(fetchCategoriesAndFlavours());
+        setIsLoading(false);
     }, [dispatch]);
+
+    useEffect(() => {
+        fetchdata();
+    }, [dispatch, fetchdata]);
 
     return (
         <div>
