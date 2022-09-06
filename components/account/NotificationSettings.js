@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import CardHeading from "./CardHeading";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
 import CheckBoxInput from "../ui/CheckBoxInput";
-import CardHeading from "./CardHeading";
-import axios from "../../utils/axios";
 import Spinner from "../ui/Spinner";
+import axios from "../../utils/axios";
+import { toast } from "react-hot-toast";
 
-function NotificationSettings() {
+const NotificationSettings = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -61,24 +61,24 @@ function NotificationSettings() {
                     <CheckBoxInput
                         label="Orders"
                         description="Get email when someones place an order."
-                        register={register}
                         name={"appOrders"}
+                        register={register}
                         defaultChecked={notificationSettings?.orders}
                     />
 
                     <CheckBoxInput
                         label="Reviews"
                         description="Get email when someones post a product review."
-                        register={register}
                         name={"appReviews"}
+                        register={register}
                         defaultChecked={notificationSettings?.review}
                     />
 
                     <CheckBoxInput
                         label="Low on Stock"
                         description="Get email when items are low on stock."
-                        register={register}
                         name={"appStock"}
+                        register={register}
                         defaultChecked={notificationSettings?.lowStock}
                     />
                 </section>
@@ -89,24 +89,24 @@ function NotificationSettings() {
                     <CheckBoxInput
                         label="Orders"
                         description="Get notified when someones place an order."
-                        register={register}
                         name={"emailOrders"}
+                        register={register}
                         defaultChecked={emailSettings?.orders}
                     />
 
                     <CheckBoxInput
                         label="Reviews"
                         description="Get notified when someones post a product review."
-                        register={register}
                         name={"emailReviews"}
+                        register={register}
                         defaultChecked={emailSettings?.review}
                     />
 
                     <CheckBoxInput
                         label="Low on Stock"
                         description="Get notified when items are low on stock."
-                        register={register}
                         name={"emailStock"}
+                        register={register}
                         defaultChecked={emailSettings?.lowStock}
                     />
                 </section>
@@ -117,9 +117,9 @@ function NotificationSettings() {
             </form>
         </Card>
     );
-}
+};
 export default NotificationSettings;
 
-function Heading({ text }) {
+const Heading = ({ text }) => {
     return <h2 className="mb-5 lg:text-lg font-semibold text-gray-700">{text}</h2>;
-}
+};

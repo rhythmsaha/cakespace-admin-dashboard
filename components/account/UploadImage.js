@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { motion } from "framer-motion";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { MdAddAPhoto } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
-function UploadImage({ avatarUrl, setAvatarUrl }) {
+const UploadImage = ({ avatarUrl, setAvatarUrl }) => {
     const [image, setImage] = useState(avatarUrl);
     const [hoverState, setHoverState] = useState(false);
 
@@ -86,5 +86,5 @@ function UploadImage({ avatarUrl, setAvatarUrl }) {
             </p>
         </div>
     );
-}
+};
 export default UploadImage;

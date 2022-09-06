@@ -1,5 +1,4 @@
 import React from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 export default function Table({ children }) {
     return (

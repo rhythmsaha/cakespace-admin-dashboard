@@ -1,6 +1,6 @@
 import Table, { TableBody, TableHead, Td, Th, Tr } from "../ui/Table";
 
-function FlavoursTable({ flavours, flavoursError }) {
+function FlavoursTable({ flavours }) {
     return (
         <Table>
             <TableHead>

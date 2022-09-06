@@ -1,18 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, useState } from "react";
 import { useWindowSize } from "react-use";
-import { AnimatePresence } from "framer-motion";
-import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
-import { Menu, Transition } from "@headlessui/react";
-import { MdLogout } from "react-icons/md";
+import { useRouter } from "next/router";
 import useAuth from "../../hooks/useAuth";
+import { AnimatePresence } from "framer-motion";
+import { Menu, Transition } from "@headlessui/react";
 import BlurredScreen from "../BlurredScreen";
 import Avatar from "../ui/Avatar";
 import NotificationMenu from "./NotificationMenu";
-import { useRouter } from "next/router";
 import MobileSidebar from "../sidebar/MobileSidebar";
 
-function Header() {
+import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
+import { MdLogout } from "react-icons/md";
+
+const Header = () => {
     const [showNavBar, setShowNavBar] = useState(false);
 
     const { width } = useWindowSize();
@@ -105,5 +106,6 @@ function Header() {
             </AnimatePresence>
         </>
     );
-}
+};
+
 export default Header;

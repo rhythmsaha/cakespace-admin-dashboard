@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import SimpleBar from "simplebar-react";
-import "simplebar/dist/simplebar.min.css";
+import User from "./User";
 import SidebarHeader from "./SidebarHeader";
 import SidebarLinks from "./SidebarLinks";
-import User from "./User";
+import "simplebar/dist/simplebar.min.css";
 
 const Sidebar = () => {
     const [expanded, setExpanded] = useState(true); //Sidebar Expand State

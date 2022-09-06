@@ -1,6 +1,6 @@
+import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
 import { FaBell } from "react-icons/fa";
 
 function NotificationMenu() {

@@ -1,14 +1,13 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import axios from "../../utils/axios";
 import Spinner from "../ui/Spinner";
 import Modal from "../ui/Modal";
-import { BiKey } from "react-icons/bi";
+import { toast } from "react-hot-toast";
+import axios from "../../utils/axios";
 
-function ChangePassword({ open, setOpen }) {
+const ChangePassword = ({ open, setOpen }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -107,6 +106,6 @@ function ChangePassword({ open, setOpen }) {
             </Modal>
         </>
     );
-}
+};
 
 export default ChangePassword;
