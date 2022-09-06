@@ -18,7 +18,7 @@ function Categories() {
     const categoriesError = useSelector((state) => state.categories.error);
     const flavoursError = useSelector((state) => state.flavours.error);
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(categories.length === 0 && flavours.length === 0);
 
     const fetchdata = useCallback(async () => {
         await dispatch(fetchCategoriesAndFlavours());
