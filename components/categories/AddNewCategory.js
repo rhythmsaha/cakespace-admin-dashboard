@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import Button from "../ui/Button";
 import CheckBoxInput from "../ui/CheckBoxInput";
@@ -7,13 +8,12 @@ import Input from "../ui/Input";
 import Modal from "../ui/Modal";
 import Spinner from "../ui/Spinner";
 import UploadImage from "./UploadImage";
-import toast from "react-hot-toast";
+
+import { categoriesActions } from "../../store/slice/categories.slice";
+import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
 
-import { useDispatch } from "react-redux";
-import { categoriesActions } from "../../store/slice/categories.slice";
-
-function AddNewCategory() {
+const AddNewCategory = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
@@ -120,6 +120,6 @@ function AddNewCategory() {
             </Modal>
         </>
     );
-}
+};
 
 export default AddNewCategory;

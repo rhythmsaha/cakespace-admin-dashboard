@@ -1,5 +1,5 @@
 import { useWindowSize } from "react-use";
-import sidebarConfig from "../../utils/sidebarConfig";
+import { sidebarConfig } from "../../utils/config";
 import SidebarItem from "./SidebarItem";
 
 function SidebarLinks({ expanded = true }) {

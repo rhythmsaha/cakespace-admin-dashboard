@@ -2,7 +2,7 @@
 import Table, { TableBody, TableHead, Td, Th, Tr } from "../ui/Table";
 import EditCategory from "./EditCategory";
 
-function CategoriesTable({ categories, categoriesError }) {
+function CategoriesTable({ categories }) {
     return (
         <Table>
             <TableHead>
