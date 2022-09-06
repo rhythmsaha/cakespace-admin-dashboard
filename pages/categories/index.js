@@ -4,19 +4,17 @@ import { useCallback } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddNewCategory from "../../components/categories/AddNewCategory";
+import CategoriesSkeleton from "../../components/categories/CategoriesSkeleton";
 import CategoriesTable from "../../components/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/FlavoursTable";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
-import Card from "../../components/ui/Card";
 import { categoriesActions } from "../../store/slice/categories.slice";
 import { flavoursActions } from "../../store/slice/flavours.slice";
+import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
 import axios from "../../utils/axios";
 
 function Categories() {
-    // const [categories, setCategories] = useState([]);
-    // const [categoriesError, setCategoriesError] = useState(null);
-
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
@@ -49,37 +47,22 @@ function Categories() {
     }, [dispatch]);
 
     useEffect(() => {
-        fetchAll();
-    }, [fetchAll]);
+        // fetchAll();
+        setIsLoading(true);
+        dispatch(fetchCategoriesAndFlavours());
+        setIsLoading(false);
+    }, [dispatch]);
 
     return (
         <div>
             <PageName name="Categories & Flavours" />
 
             <section className="w-full mt-8 space-y-8 ">
-                <Card>
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Categories</h3>
+                {isLoading && <CategoriesSkeleton />}
+                {isLoading && <CategoriesSkeleton />}
 
-                        <AddNewCategory />
-                    </div>
-
-                    <CategoriesTable categories={categories} categoriesError={categoriesError} />
-
-                    {categoriesError && <p className="text-center py-4 text-gray-500">{categoriesError}</p>}
-                </Card>
-
-                <Card>
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Flavours</h3>
-
-                        <AddNewCategory />
-                    </div>
-
-                    <FlavoursTable flavours={flavours} flavoursError={flavoursError} />
-
-                    {flavoursError && <p className="text-center py-4 text-gray-500">{flavoursError}</p>}
-                </Card>
+                {!isLoading && <CategoriesTable categories={categories} categoriesError={categoriesError} />}
+                {!isLoading && <FlavoursTable flavours={flavours} flavoursError={flavoursError} />}
             </section>
         </div>
     );
