@@ -30,11 +30,11 @@ const Header = () => {
 
     return (
         <>
-            <header className="sticky top-0 flex items-center justify-between px-5 lg:px-10 py-2.5 lg:py-6 bg-white bg-opacity-50 backdrop-blur z-10">
+            <header className="sticky top-0 z-10 flex items-center justify-between bg-white bg-opacity-50 px-5 py-2.5 backdrop-blur lg:px-10 lg:py-6">
                 <div className="flex gap-2">
                     {width < 1200 && (
                         <button
-                            className="flex items-center justify-center h-10 w-10 rounded-full transition hover:bg-gray-100 active:bg-gray-200"
+                            className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-gray-100 active:bg-gray-200"
                             onClick={showNavBarHandler}
                         >
                             <AiOutlineMenu className="h-6 w-6 text-grey-600" />
@@ -47,7 +47,7 @@ const Header = () => {
 
                     <Menu as="div" className="relative inline-block">
                         <div className="flex items-center justify-center">
-                            <Menu.Button className="hover:bg-gray-100  active:ring-2 ring-offset-2 ring-gray-200 rounded-full transition ">
+                            <Menu.Button className="rounded-full  ring-gray-200 ring-offset-2 transition hover:bg-gray-100 active:ring-2 ">
                                 <Avatar size={11} avatarUrl={user?.avatar} />
                             </Menu.Button>
                         </div>
@@ -69,7 +69,7 @@ const Header = () => {
                                                 onClick={() => router.push("/account")}
                                                 className={`${
                                                     active ? "bg-primary-main text-white" : "text-gray-500"
-                                                } flex w-full items-center rounded-md px-4 py-2 gap-2 text-base font-semibold transition`}
+                                                } flex w-full items-center gap-2 rounded-md px-4 py-2 text-base font-semibold transition`}
                                             >
                                                 <AiOutlineSetting />
                                                 Account
@@ -83,7 +83,7 @@ const Header = () => {
                                                 onClick={logout}
                                                 className={`${
                                                     active ? "bg-primary-main text-white" : "text-gray-500"
-                                                } flex w-full items-center rounded-md px-4 py-2 gap-2 text-base font-semibold transition`}
+                                                } flex w-full items-center gap-2 rounded-md px-4 py-2 text-base font-semibold transition`}
                                             >
                                                 <MdLogout />
                                                 Sign Out

@@ -29,7 +29,7 @@ const MobileSidebar = ({ onClose }) => {
         >
             <SimpleBar
                 style={{ maxHeight: "100%", scrollBehavior: "smooth" }}
-                className="h-full w-full select-none transition-all px-5 py-6"
+                className="h-full w-full select-none px-5 py-6 transition-all"
             >
                 <SidebarHeader onClose={onClose} />
                 <User />

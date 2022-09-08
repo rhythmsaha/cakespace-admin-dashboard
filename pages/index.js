@@ -10,7 +10,7 @@ function Home() {
             <div>Hello World</div>
 
             <div>
-                <table className="border-collapse border border-slate-500 w-full">
+                <table className="w-full border-collapse border border-slate-500">
                     <thead>
                         <tr>
                             <th className="border border-slate-600 ">State</th>

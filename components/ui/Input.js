@@ -5,7 +5,7 @@ function Input({ type, label, placeholder, name, disabled, error, register = () 
     return (
         <div className="space-y-1">
             {label && (
-                <label htmlFor={id} className="text-grey-600 px-0.5">
+                <label htmlFor={id} className="px-0.5 text-grey-600">
                     {label}
                 </label>
             )}
@@ -15,16 +15,16 @@ function Input({ type, label, placeholder, name, disabled, error, register = () 
                 placeholder={placeholder}
                 defaultValue={value}
                 disabled={disabled}
-                className={`w-full rounded-lg outline-none transition-all duration-200 py-2.5 px-4 text-grey-700 ${
+                className={`w-full rounded-lg py-2.5 px-4 text-grey-700 outline-none transition-all duration-200 ${
                     !error
-                        ? "border-grey-300 focus:ring-primary-main focus:border-primary-main"
-                        : "border-error-main focus:ring-error-main focus:border-error-main"
+                        ? "border-grey-300 focus:border-primary-main focus:ring-primary-main"
+                        : "border-error-main focus:border-error-main focus:ring-error-main"
                 }`}
                 {...register(name, required)}
                 {...rest}
             />
 
-            {error && <p className="text-xs text-error-main px-0.5 font-medium">{error}</p>}
+            {error && <p className="px-0.5 text-xs font-medium text-error-main">{error}</p>}
         </div>
     );
 }

@@ -10,29 +10,19 @@ function CategoriesTable({ categories, categoriesError }) {
     return (
         <Card>
             <div className="flex items-center justify-between ">
-                <h3 className="text-base lg:text-lg font-semibold text-gray-600 lg:px-2">Categories</h3>
+                <h3 className="text-base font-semibold text-gray-600 lg:px-2 lg:text-lg">Categories</h3>
                 <AddNewCategory />
             </div>
 
-            <div className="overflow-x-auto py-4 rounded-md">
-                <table className="table table-auto border-separate w-full text-center">
+            <div className="overflow-x-auto rounded-md py-4">
+                <table className="table w-full table-auto border-separate text-center">
                     <thead>
                         <tr className="bg-grey-200">
-                            <th className="py-4 px-4 text-sm lg:text-base first:rounded-l-md last:rounded-r-md ">
-                                Icon
-                            </th>
-                            <th className="py-4 px-4 text-sm lg:text-base first:rounded-l-md last:rounded-r-md">
-                                Name
-                            </th>
-                            <th className="py-4 px-4 text-sm lg:text-base first:rounded-l-md last:rounded-r-md ">
-                                View
-                            </th>
-                            <th className="py-4 px-4 text-sm lg:text-base first:rounded-l-md last:rounded-r-md ">
-                                Edit
-                            </th>
-                            <th className="py-4 px-4 text-sm lg:text-base first:rounded-l-md last:rounded-r-md ">
-                                Delete
-                            </th>
+                            <th className=" ">Icon</th>
+                            <th className="">Name</th>
+                            <th className="">View</th>
+                            <th className="">Edit</th>
+                            <th className="">Delete</th>
                         </tr>
                     </thead>
 
@@ -53,7 +43,7 @@ function CategoriesTable({ categories, categoriesError }) {
                 </table>
 
                 {categoriesError && categories.length === 0 && (
-                    <p className="text-center py-4 text-gray-500">{categoriesError}</p>
+                    <p className="py-4 text-center text-gray-500">{categoriesError}</p>
                 )}
             </div>
         </Card>
@@ -64,25 +54,25 @@ export default CategoriesTable;
 function CategoryRows({ category: { _id, icon, name, slug } }) {
     return (
         <tr key={_id} className="">
-            <td className="flex items-center justify-center py-2 ">
+            <td className="">
                 <Image
                     src={icon}
                     alt={name}
-                    width={56}
-                    height={56}
-                    className="object-cover h-10 lg:h-14 w-10 lg:w-14 rounded-xl min-w-min"
+                    width={48}
+                    height={48}
+                    className="mx-auto h-10 w-10 min-w-min  rounded-xl object-cover lg:h-12 lg:w-12"
                 />
             </td>
 
-            <td className="px-4 py-2">{name}</td>
+            <td className="">{name}</td>
 
-            <td className="py-2">Edit</td>
+            <td className="">Edit</td>
 
-            <td className="py-2">
+            <td className="">
                 <Link href={`/categories/${slug}`}>View</Link>
             </td>
 
-            <td className="py-2">
+            <td className="">
                 <button className="">Delete</button>
             </td>
         </tr>

@@ -66,7 +66,7 @@ const ChangePassword = ({ open, setOpen }) => {
         <>
             <Modal isOpen={open} closeModal={closeModal}>
                 <form onSubmit={handleSubmit(submitHandler)}>
-                    <div className="bg-white p-6 sm:p-6  space-y-4">
+                    <div className="space-y-4 bg-white p-6  sm:p-6">
                         <Input
                             type="password"
                             placeholder="Current Password"
@@ -93,7 +93,7 @@ const ChangePassword = ({ open, setOpen }) => {
                         />
                     </div>
 
-                    <div className="bg-gray-100 p-4 sm:px-6 flex justify-center sm:flex-row sm:justify-end gap-2">
+                    <div className="flex justify-center gap-2 bg-gray-100 p-4 sm:flex-row sm:justify-end sm:px-6">
                         <Button variant="primary" size="md" width="8rem" type="submit" disabled={isLoading}>
                             {isLoading ? <Spinner /> : "Update"}
                         </Button>

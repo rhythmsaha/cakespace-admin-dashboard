@@ -6,12 +6,12 @@ function SidebarLinks({ expanded = true }) {
     const { width } = useWindowSize();
 
     return (
-        <section className="mt-4 space-y-1 -mx-1">
+        <section className="-mx-1 mt-4 space-y-1">
             {sidebarConfig.map(({ id, menus, type }) => (
                 <nav key={id}>
-                    <div className="w-full h-[50px]">
+                    <div className="h-[50px] w-full">
                         {expanded && (
-                            <h2 className="px-4 text-xs leading-[18px] pt-6 pb-2 font-bold uppercase text-grey-800">
+                            <h2 className="px-4 pt-6 pb-2 text-xs font-bold uppercase leading-[18px] text-grey-800">
                                 {type}
                             </h2>
                         )}

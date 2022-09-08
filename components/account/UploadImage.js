@@ -54,7 +54,7 @@ const UploadImage = ({ avatarUrl, setAvatarUrl }) => {
         <div className="flex flex-col items-center justify-center px-4 py-14 md:py-10">
             <label
                 htmlFor="test"
-                className="cursor-pointer border border-dashed rounded-full p-2 flex items-center justify-center relative h-36 w-36 overflow-hidden"
+                className="relative flex h-36 w-36 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-dashed p-2"
                 onMouseEnter={() => setHoverState(true)}
                 onMouseLeave={() => setHoverState(false)}
             >
@@ -63,7 +63,7 @@ const UploadImage = ({ avatarUrl, setAvatarUrl }) => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.25, type: "just" }}
-                        className="flex flex-col items-center justify-center gap-2 bg-grey-900 bg-opacity-70 rounded-full text-grey-300 absolute inset-2"
+                        className="absolute inset-2 flex flex-col items-center justify-center gap-2 rounded-full bg-grey-900 bg-opacity-70 text-grey-300"
                     >
                         <MdAddAPhoto className="text-2xl" />
                         <p className="text-xs">Update Photo</p>
@@ -71,17 +71,17 @@ const UploadImage = ({ avatarUrl, setAvatarUrl }) => {
                 )}
 
                 {image ? (
-                    <img src={image} className="object-cover h-full w-full rounded-full border" alt="" />
+                    <img src={image} className="h-full w-full rounded-full border object-cover" alt="" />
                 ) : (
-                    <FaUser className="text-grey-500 border h-full w-full rounded-full p-10" />
+                    <FaUser className="h-full w-full rounded-full border p-10 text-grey-500" />
                 )}
 
                 <input id="test" type="file" onChange={(e) => createImageBlob(e)} className="hidden" />
             </label>
 
-            <h2 className="text-sm mt-2 font-bold text-grey-600">Profile Picture</h2>
+            <h2 className="mt-2 text-sm font-bold text-grey-600">Profile Picture</h2>
 
-            <p className="text-center text-xs text-grey-500 font-medium mt-5">
+            <p className="mt-5 text-center text-xs font-medium text-grey-500">
                 Allowed *.jpeg, *.jpg, *.png <br /> max size of 2 MB
             </p>
         </div>

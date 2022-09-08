@@ -55,7 +55,7 @@ function UploadImage({ imageUrl, setImageUrl }) {
         <div className="flex flex-col items-center justify-center rounded-xl border-2 p-4">
             <label
                 htmlFor="test"
-                className="cursor-pointer border border-dashed rounded-full p-2 flex items-center justify-center relative h-28 w-28 overflow-hidden"
+                className="relative flex h-28 w-28 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-dashed p-2"
                 onMouseEnter={() => setHoverState(true)}
                 onMouseLeave={() => setHoverState(false)}
             >
@@ -64,7 +64,7 @@ function UploadImage({ imageUrl, setImageUrl }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.25, type: "just" }}
-                        className="flex flex-col items-center justify-center gap-2 bg-grey-900 bg-opacity-70 rounded-full text-grey-300 absolute inset-2"
+                        className="absolute inset-2 flex flex-col items-center justify-center gap-2 rounded-full bg-grey-900 bg-opacity-70 text-grey-300"
                     >
                         <MdAddAPhoto className="text-2xl" />
                         <p className="text-xs">Update Photo</p>
@@ -72,19 +72,19 @@ function UploadImage({ imageUrl, setImageUrl }) {
                 )}
 
                 {image ? (
-                    <img src={image} className="object-cover h-full w-full rounded-full border" alt="" />
+                    <img src={image} className="h-full w-full rounded-full border object-cover" alt="" />
                 ) : (
-                    <span className="rounded-full border h-full w-full flex items-center justify-center p-7">
-                        <MdAddAPhoto className="text-grey-500 h-full w-full" />
+                    <span className="flex h-full w-full items-center justify-center rounded-full border p-7">
+                        <MdAddAPhoto className="h-full w-full text-grey-500" />
                     </span>
                 )}
 
                 <input id="test" type="file" onChange={createImageBlob} className="hidden" />
             </label>
 
-            <h2 className="text-sm mt-2 font-bold text-grey-600">Category Image</h2>
+            <h2 className="mt-2 text-sm font-bold text-grey-600">Category Image</h2>
 
-            <p className="text-center text-xs text-grey-500 font-medium mt-1">
+            <p className="mt-1 text-center text-xs font-medium text-grey-500">
                 Allowed *.jpeg, *.jpg, *.png <br /> max size of 1 MB
             </p>
         </div>

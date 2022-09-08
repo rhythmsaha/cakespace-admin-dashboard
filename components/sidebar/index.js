@@ -18,7 +18,7 @@ const Sidebar = () => {
         <SimpleBar
             style={{ maxHeight: "100%", scrollBehavior: "smooth" }}
             className={`${expanded ? "w-[280px]" : "w-[87px]"} 
-            select-none border-r border-dashed transition-all ease-out duration-200 px-5 py-6`}
+            select-none border-r border-dashed px-5 py-6 transition-all duration-200 ease-out`}
         >
             <SidebarHeader onClose={toggleSidebar} expanded={expanded} />
             <User expanded={expanded} />

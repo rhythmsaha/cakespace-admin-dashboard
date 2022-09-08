@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Table({ children }) {
     return (
-        <div className="overflow-x-auto py-4 rounded-md">
-            <table className="table table-auto w-full border-collapse text-center">{children}</table>
+        <div className="overflow-x-auto rounded-md py-4">
+            <table className="table w-full table-auto border-collapse text-center">{children}</table>
         </div>
     );
 }
@@ -17,7 +17,7 @@ export function TableBody({ children }) {
 }
 
 export function Th({ text, className }) {
-    return <th className={className || "p-4 text-sm lg:text-base first:rounded-l-md last:rounded-r-md"}>{text}</th>;
+    return <th className={className || "p-4 text-sm first:rounded-l-md last:rounded-r-md lg:text-base"}>{text}</th>;
 }
 
 export function Tr({ children }) {

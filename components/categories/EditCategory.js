@@ -76,19 +76,19 @@ function EditCategory({ category }) {
 
     return (
         <>
-            <button className="text-xs lg:text-sm font-medium text-gray-800  whitespace-nowrap" onClick={openModal}>
+            <button className="whitespace-nowrap text-xs font-medium text-gray-800  lg:text-sm" onClick={openModal}>
                 Edit
             </button>
 
             <Modal isOpen={isOpen} closeModal={closeModal}>
                 <div className="p-6">
                     <form className="" onSubmit={handleSubmit(submitHandler)}>
-                        <h2 className="font-bold px-2 text-xl">Edit Category</h2>
+                        <h2 className="px-2 text-xl font-bold">Edit Category</h2>
 
                         <div className="mt-4 flex flex-col gap-2 ">
                             <UploadImage imageUrl={category?.icon} setImageUrl={setImageUrl} />
 
-                            <div className="space-y-3 flex-1 py-1">
+                            <div className="flex-1 space-y-3 py-1">
                                 <Input
                                     type="text"
                                     placeholder="Category Name"
@@ -105,7 +105,7 @@ function EditCategory({ category }) {
                             </div>
                         </div>
 
-                        <div className="mt-4 sm:px-6 flex justify-center sm:flex-row sm:justify-end gap-2">
+                        <div className="mt-4 flex justify-center gap-2 sm:flex-row sm:justify-end sm:px-6">
                             <Button variant="primary" size="md" width="8rem" type="submit" disabled={isLoading}>
                                 {isLoading ? <Spinner /> : "Save"}
                             </Button>

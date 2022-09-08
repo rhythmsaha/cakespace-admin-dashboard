@@ -7,7 +7,7 @@ function SidebarHeader({ onClose, expanded = true }) {
             {expanded && <img src="/logo.png" alt="logo" className="h-10 w-10 object-contain" />}
 
             <button
-                className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 active:bg-gray-200 transition-all duration-300"
+                className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-gray-100 active:bg-gray-200"
                 onClick={onClose}
             >
                 {expanded ? (

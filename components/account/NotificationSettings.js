@@ -54,7 +54,7 @@ const NotificationSettings = () => {
                 desc="Decide which communications you'd like to receive and how."
             />
 
-            <form className="mt-8 grid lg:grid-cols-2 gap-8 items-start px-4" onSubmit={handleSubmit(submitHandler)}>
+            <form className="mt-8 grid items-start gap-8 px-4 lg:grid-cols-2" onSubmit={handleSubmit(submitHandler)}>
                 <section className="space-y-4">
                     <Heading text="In App Notification" />
 
@@ -121,5 +121,5 @@ const NotificationSettings = () => {
 export default NotificationSettings;
 
 const Heading = ({ text }) => {
-    return <h2 className="mb-5 lg:text-lg font-semibold text-gray-700">{text}</h2>;
+    return <h2 className="mb-5 font-semibold text-gray-700 lg:text-lg">{text}</h2>;
 };

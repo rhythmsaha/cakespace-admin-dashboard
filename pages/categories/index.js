@@ -33,7 +33,7 @@ function Categories() {
         <div>
             <PageName name="Categories & Flavours" />
 
-            <section className="w-full mt-8 space-y-8 ">
+            <section className="mt-8 w-full space-y-8 ">
                 {isLoading && <CategoriesSkeleton />}
                 {/* {isLoading && <CategoriesSkeleton />} */}
 

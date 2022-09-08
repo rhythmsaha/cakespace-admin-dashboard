@@ -137,7 +137,7 @@ export default function Login() {
                             id="remember"
                             name="remember"
                             type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-primary-main focus:ring-transparent outline-none focus:outline-none cursor-pointer transition-all duration-300  ease-in-out"
+                            className="h-4 w-4 cursor-pointer rounded border-gray-300 text-primary-main outline-none transition-all duration-300 ease-in-out focus:outline-none  focus:ring-transparent"
                             {...register("remember")}
                         />
                         Remember me
@@ -145,7 +145,7 @@ export default function Login() {
 
                     <Link
                         href="#"
-                        className="text-xs sm:text-sm font-medium text-primary-main hover:text-primary-light hover:underline transition"
+                        className="text-xs font-medium text-primary-main transition hover:text-primary-light hover:underline sm:text-sm"
                     >
                         Forgot your password?
                     </Link>

@@ -8,7 +8,7 @@ function SidebarItem({ Icon, title, path, expanded = true }) {
     return (
         <Link
             href={path}
-            className={`min-w-min flex items-center gap-4 px-4 py-[13px] rounded-lg transition-all duration-300 overflow-hidden ${
+            className={`flex min-w-min items-center gap-4 overflow-hidden rounded-lg px-4 py-[13px] transition-all duration-300 ${
                 router.pathname === path
                     ? "bg-primary-main bg-opacity-[0.08] text-primary-main"
                     : "text-grey-600 hover:bg-grey-100 active:bg-grey-300"
