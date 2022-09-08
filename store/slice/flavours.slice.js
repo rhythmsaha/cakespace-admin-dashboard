@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     list: [],
-    error: "",
+    error: null,
 };
 
 const flavoursSlice = createSlice({
@@ -15,6 +15,28 @@ const flavoursSlice = createSlice({
 
         addFlavour(state, action) {
             state.list.push(action.payload);
+        },
+
+        updateFlavour(state, action) {
+            const flavour = action.payload;
+            const flavours = state.list.map((flv) => {
+                if (flv._id === flavour._id) {
+                    return flavour;
+                } else {
+                    return flv;
+                }
+            });
+
+            state.list = flavours;
+        },
+
+        deleteFlavour(state, action) {
+            const deletedSlug = action.payload;
+            const filteredArray = state.list.filter((cat) => {
+                return cat.slug !== deletedSlug;
+            });
+
+            state.list = filteredArray;
         },
 
         setError(state, action) {

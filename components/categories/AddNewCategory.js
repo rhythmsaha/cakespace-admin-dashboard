@@ -35,8 +35,8 @@ const AddNewCategory = () => {
 
         setValue("name", "");
         setValue("enabled", true);
-        setError("name", "");
-        setError("enabled", "");
+        setError("name", {});
+        setError("enabled", {});
     }
 
     function openModal() {
@@ -79,7 +79,7 @@ const AddNewCategory = () => {
 
     return (
         <>
-            <Button onClick={openModal} variant="primary" size="lg">
+            <Button onClick={openModal} variant="primary" size="md">
                 <div className="flex items-center gap-4 whitespace-nowrap">
                     <MdOutlineAdd className="text-xl" />
                     Add New

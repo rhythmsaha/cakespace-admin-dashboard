@@ -10,6 +10,7 @@ import PageName from "../../components/PageName";
 import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
 
 function Categories() {
+    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     const categories = useSelector((state) => state.categories.list);
@@ -17,8 +18,6 @@ function Categories() {
 
     const categoriesError = useSelector((state) => state.categories.error);
     const flavoursError = useSelector((state) => state.flavours.error);
-
-    const [isLoading, setIsLoading] = useState(categories.length === 0 && flavours.length === 0);
 
     const fetchdata = useCallback(async () => {
         await dispatch(fetchCategoriesAndFlavours());

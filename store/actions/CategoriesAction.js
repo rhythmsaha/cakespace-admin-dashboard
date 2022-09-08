@@ -15,7 +15,9 @@ export const fetchCategoriesAndFlavours = () => {
                 }),
             await axios
                 .get("/flavours")
-                .then((res) => setFlavours(res.data))
+                .then((res) => {
+                    dispatch(flavoursActions.setFlavours(res.data));
+                })
                 .catch((err) => {
                     dispatch(flavoursActions.setError(err.message));
                 }),

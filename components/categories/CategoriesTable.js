@@ -10,9 +10,10 @@ import Link from "../ui/Link";
 import { useState } from "react";
 import EditCategory from "./EditCategory";
 import DeleteItem from "./DeleteItem";
-import NoData from "../../assets/illustrations/NoData";
+import "simplebar/dist/simplebar.min.css";
+import SimpleBar from "simplebar-react";
 
-function CategoriesTable({ categories, categoriesError }) {
+function CategoriesTable({ categories }) {
     return (
         <Card>
             <div className="flex flex-wrap items-center justify-between">
@@ -20,7 +21,7 @@ function CategoriesTable({ categories, categoriesError }) {
                 <AddNewCategory />
             </div>
 
-            <div className="mt-4 overflow-x-auto overflow-y-hidden rounded-md py-4">
+            <SimpleBar className="mt-4 overflow-x-auto overflow-y-hidden rounded-md py-4">
                 <table className="table w-full table-auto border-collapse text-center">
                     <thead className="">
                         <tr className="bg-grey-200">
@@ -57,7 +58,7 @@ function CategoriesTable({ categories, categoriesError }) {
                         <p className="py-4 text-center font-bold text-gray-500 lg:text-xl">No Categories Found</p>
                     </div>
                 )}
-            </div>
+            </SimpleBar>
         </Card>
     );
 }

@@ -27,7 +27,7 @@ function EditCategory({ category, isOpen, setIsOpen }) {
 
     const dispatch = useDispatch();
 
-    function closeModal(category = category) {
+    function closeModal() {
         setIsOpen(false);
     }
 
