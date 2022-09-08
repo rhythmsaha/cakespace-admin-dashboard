@@ -29,6 +29,13 @@ const categoriesSlice = createSlice({
 
             state.list = categories;
         },
+        
+        deleteCategory(state, action) {
+            const slug = action.payload
+            const filteredCategories = state.list.filter((category) => category.slug !== slug)
+            state.list = filteredCategories
+             
+        },
 
         setError(state, action) {
             state.error = action.payload;

@@ -31,8 +31,8 @@ function EditCategory({ category, isOpen, setIsOpen }) {
     }
 
     const submitHandler = async ({ name, enabled }) => {
-        console.log("click");
-        if (isLoading) return console.log("loading....");
+        
+        if (isLoading) return
         toast.dismiss();
 
         const body = { name, enabled };

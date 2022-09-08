@@ -16,6 +16,22 @@ const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
 
     const dispatch = useDispatch();
 
+    const deleteHandler = async () => {
+        if (isLoading) return
+        toast.dismiss();
+
+        setIsLoading(true);
+        try {
+            const response = await axios.delete(`/categories/${category.slug}`);
+            const data = await response.data;
+
+            console.log(data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <Modal isOpen={isOpen} closeModal={closeModal}>
             <div className="p-10 ">
