@@ -24,6 +24,6 @@ export function Tr({ children }) {
     return <tr>{children}</tr>;
 }
 
-export function Td({ children }) {
-    return <td className="p-4 first:rounded-l-xl last:rounded-r-xl">{children}</td>;
+export function Td({ children, className }) {
+    return <td className={className || "p-4 first:rounded-l-xl last:rounded-r-xl"}>{children}</td>;
 }
