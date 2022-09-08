@@ -2,33 +2,14 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
-function UploadImage({ imageUrl, setImageUrl }) {
+function UploadImage({ imageUrl, setFile }) {
     const [image, setImage] = useState(imageUrl);
     const [hoverState, setHoverState] = useState(false);
 
     const suppoertedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
     const maxSize = 1 * 1024 * 1024; //2 MB
-
-    const uploadToCloudinary = (file) => {
-        const data = new FormData();
-        data.append("file", file);
-        data.append("upload_preset", "cakespace");
-        data.append("cloud_name", "desihzeid");
-
-        fetch("https://api.cloudinary.com/v1_1/desihzeid/image/upload", {
-            method: "POST",
-            body: data,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setImage(data.url);
-                setImageUrl(data.url);
-            })
-            .catch((err) => {
-                setImage(null);
-            });
-    };
 
     const createImageBlob = (e) => {
         try {
@@ -43,9 +24,9 @@ function UploadImage({ imageUrl, setImageUrl }) {
             });
 
             setImage(imageBlob.preview);
+            setFile(imageBlob);
         } catch (error) {
-            console.log(error);
-            return;
+            toast.error(error.message);
         }
     };
 

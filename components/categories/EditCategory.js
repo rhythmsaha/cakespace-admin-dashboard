@@ -12,10 +12,11 @@ import UploadImage from "./UploadImage";
 import axios from "../../utils/axios";
 import { useDispatch } from "react-redux";
 import { categoriesActions } from "../../store/slice/categories.slice";
+import uploadToCloudinary from "../../utils/uploadToCloudinary";
 
 function EditCategory({ category, isOpen, setIsOpen }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState();
+    const [image, setImage] = useState();
 
     const {
         register,
@@ -31,21 +32,27 @@ function EditCategory({ category, isOpen, setIsOpen }) {
     }
 
     const submitHandler = async ({ name, enabled }) => {
-        
-        if (isLoading) return
+        if (isLoading) return;
         toast.dismiss();
 
         const body = { name, enabled };
-        if (imageUrl) body.icon = imageUrl;
+        console.log(body);
 
         try {
             setIsLoading(true);
+
+            if (image) {
+                body.icon = await uploadToCloudinary(image);
+            }
+
             const response = await axios.patch(`/categories/${category.slug}`, body);
             const data = await response.data;
-            console.log(data);
+
             dispatch(categoriesActions.updateCategory(data.category));
+
             toast.success(data.message);
             setIsLoading(false);
+            setImage(null);
             closeModal(data.category);
         } catch (error) {
             if (error?.fields) {
@@ -57,7 +64,7 @@ function EditCategory({ category, isOpen, setIsOpen }) {
                 if (error.response) toast.error(error.response.data.message);
                 else toast.error(error.message);
             }
-
+            setImage(null);
             setIsLoading(false);
         }
     };
@@ -69,7 +76,7 @@ function EditCategory({ category, isOpen, setIsOpen }) {
                     <h2 className="px-2 text-xl font-bold">Edit Category</h2>
 
                     <div className="mt-4 flex flex-col gap-2 ">
-                        <UploadImage imageUrl={category?.icon} setImageUrl={setImageUrl} />
+                        <UploadImage imageUrl={category?.icon} setFile={setImage} />
 
                         <div className="flex-1 space-y-3 py-1">
                             <Input
@@ -83,7 +90,12 @@ function EditCategory({ category, isOpen, setIsOpen }) {
                             />
 
                             <div className="px-2">
-                                <CheckBoxInput label="Enabled" name="enabled" defaultChecked={category.enabled} />
+                                <CheckBoxInput
+                                    register={register}
+                                    label="Enabled"
+                                    name="enabled"
+                                    defaultChecked={category.enabled}
+                                />
                             </div>
                         </div>
                     </div>

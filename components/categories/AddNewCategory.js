@@ -13,11 +13,12 @@ import { categoriesActions } from "../../store/slice/categories.slice";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
 import { MdOutlineAdd } from "react-icons/md";
+import uploadToCloudinary from "../../utils/uploadToCloudinary";
 
 const AddNewCategory = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState();
+    const [image, setImage] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -48,15 +49,18 @@ const AddNewCategory = () => {
         setIsLoading(true); // set the loading state to true
 
         const body = { name, enabled };
-
-        if (imageUrl) body.icon = imageUrl;
-
         try {
+            if (image) {
+                body.icon = await uploadToCloudinary(image);
+            }
+
             const response = await axios.post(`/categories`, body);
             const data = await response.data;
             dispatch(categoriesActions.addCategory(data?.category));
-            closeModal();
+            setImage(null);
+            setIsLoading(false);
             toast.success(data.message);
+            closeModal();
         } catch (error) {
             if (error?.fields) {
                 error.fields.forEach(({ field, message }) => {
@@ -67,9 +71,10 @@ const AddNewCategory = () => {
                 if (error.response) toast.error(error.response.data.message);
                 else toast.error(error.message);
             }
-        }
 
-        setIsLoading(false);
+            setImage(null);
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -87,7 +92,7 @@ const AddNewCategory = () => {
                         <h2 className="px-2 text-xl font-bold">New Category</h2>
 
                         <div className="mt-4 flex flex-col gap-2 ">
-                            <UploadImage setImageUrl={setImageUrl} />
+                            <UploadImage setFile={setImage} />
 
                             <div className="flex-1 space-y-3 py-1">
                                 <Input
@@ -101,10 +106,10 @@ const AddNewCategory = () => {
 
                                 <div className="px-2">
                                     <CheckBoxInput
+                                        register={register}
                                         label="Enabled"
                                         name="enabled"
                                         defaultChecked={true}
-                                        register={register}
                                     />
                                 </div>
                             </div>

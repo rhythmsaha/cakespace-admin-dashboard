@@ -71,13 +71,13 @@ function CategoryRows({ category }) {
 
     return (
         <tr key={_id} className="rounded text-gray-600 transition-all duration-200 hover:bg-gray-50">
-            <td className="p-4 text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
+            <td className="p-4 text-xs  first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
                 <Image
                     src={icon}
                     alt={name}
                     width={48}
                     height={48}
-                    className="mx-auto h-10 w-10 min-w-min rounded-xl object-cover lg:h-12 lg:w-12"
+                    className="mx-auto min-w-[40px] h-10 w-10 rounded-xl object-cover lg:h-12 lg:w-12"
                 />
             </td>
 
