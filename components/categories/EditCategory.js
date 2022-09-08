@@ -13,8 +13,7 @@ import axios from "../../utils/axios";
 import { useDispatch } from "react-redux";
 import { categoriesActions } from "../../store/slice/categories.slice";
 
-function EditCategory({ category }) {
-    let [isOpen, setIsOpen] = useState(false);
+function EditCategory({ category, isOpen, setIsOpen }) {
     const [isLoading, setIsLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
 
@@ -23,42 +22,31 @@ function EditCategory({ category }) {
         handleSubmit,
         formState: { errors },
         setError,
-        setValue,
     } = useForm();
 
     const dispatch = useDispatch();
 
-    function closeModal(data = category) {
+    function closeModal(category = category) {
         setIsOpen(false);
-        setError("name", "");
-        setError("enabled", "");
-        setValue("name", data.name);
-        setValue("enabled", data.enabled);
-    }
-
-    function openModal() {
-        setIsOpen(true);
     }
 
     const submitHandler = async ({ name, enabled }) => {
-        if (isLoading) return; // does nothing if isloading is true
-        toast.dismiss(); // dismiss any other toasts
-        setIsLoading(true); // set the loading state to true
+        console.log("click");
+        if (isLoading) return console.log("loading....");
+        toast.dismiss();
 
         const body = { name, enabled };
-
         if (imageUrl) body.icon = imageUrl;
 
         try {
+            setIsLoading(true);
             const response = await axios.patch(`/categories/${category.slug}`, body);
             const data = await response.data;
-            dispatch(categoriesActions.updateCategory(data?.category));
             console.log(data);
-            // setValue("name", data.name);
-            // setValue("enabled", data.enabled);
-            // setIsOpen(false);
-            closeModal(data);
+            dispatch(categoriesActions.updateCategory(data.category));
             toast.success(data.message);
+            setIsLoading(false);
+            closeModal(data.category);
         } catch (error) {
             if (error?.fields) {
                 error.fields.forEach(({ field, message }) => {
@@ -69,55 +57,49 @@ function EditCategory({ category }) {
                 if (error.response) toast.error(error.response.data.message);
                 else toast.error(error.message);
             }
-        }
 
-        setIsLoading(false);
+            setIsLoading(false);
+        }
     };
 
     return (
-        <>
-            <button className="whitespace-nowrap text-xs font-medium text-gray-800  lg:text-sm" onClick={openModal}>
-                Edit
-            </button>
+        <Modal isOpen={isOpen} closeModal={closeModal}>
+            <div className="p-6">
+                <form className="" onSubmit={handleSubmit(submitHandler)}>
+                    <h2 className="px-2 text-xl font-bold">Edit Category</h2>
 
-            <Modal isOpen={isOpen} closeModal={closeModal}>
-                <div className="p-6">
-                    <form className="" onSubmit={handleSubmit(submitHandler)}>
-                        <h2 className="px-2 text-xl font-bold">Edit Category</h2>
+                    <div className="mt-4 flex flex-col gap-2 ">
+                        <UploadImage imageUrl={category?.icon} setImageUrl={setImageUrl} />
 
-                        <div className="mt-4 flex flex-col gap-2 ">
-                            <UploadImage imageUrl={category?.icon} setImageUrl={setImageUrl} />
+                        <div className="flex-1 space-y-3 py-1">
+                            <Input
+                                type="text"
+                                placeholder="Category Name"
+                                name="name"
+                                register={register}
+                                value={category.name}
+                                required={{ required: "Name is required!" }}
+                                error={errors.name?.message}
+                            />
 
-                            <div className="flex-1 space-y-3 py-1">
-                                <Input
-                                    type="text"
-                                    placeholder="Category Name"
-                                    name="name"
-                                    register={register}
-                                    value={category.name}
-                                    required={{ required: "Name is required!" }}
-                                    error={errors.name?.message}
-                                />
-
-                                <div className="px-2">
-                                    <CheckBoxInput label="Enabled" name="enabled" defaultChecked={category.enabled} />
-                                </div>
+                            <div className="px-2">
+                                <CheckBoxInput label="Enabled" name="enabled" defaultChecked={category.enabled} />
                             </div>
                         </div>
+                    </div>
 
-                        <div className="mt-4 flex justify-center gap-2 sm:flex-row sm:justify-end sm:px-6">
-                            <Button variant="primary" size="md" width="8rem" type="submit" disabled={isLoading}>
-                                {isLoading ? <Spinner /> : "Save"}
-                            </Button>
+                    <div className="mt-4 flex justify-center gap-2 sm:flex-row sm:justify-end sm:px-6">
+                        <Button variant="primary" size="md" width="8rem" type="submit" disabled={isLoading}>
+                            {isLoading ? <Spinner /> : "Save"}
+                        </Button>
 
-                            <Button variant="error" size="md" width="8rem" onClick={closeModal}>
-                                Cancel
-                            </Button>
-                        </div>
-                    </form>
-                </div>
-            </Modal>
-        </>
+                        <Button variant="error" size="md" width="8rem" onClick={closeModal}>
+                            Cancel
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </Modal>
     );
 }
 

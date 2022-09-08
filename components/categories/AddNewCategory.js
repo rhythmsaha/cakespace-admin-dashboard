@@ -12,6 +12,7 @@ import UploadImage from "./UploadImage";
 import { categoriesActions } from "../../store/slice/categories.slice";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
+import { MdOutlineAdd } from "react-icons/md";
 
 const AddNewCategory = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -73,8 +74,11 @@ const AddNewCategory = () => {
 
     return (
         <>
-            <Button onClick={openModal} variant="primary" size="md" width="6rem">
-                Add New
+            <Button onClick={openModal} variant="primary" size="lg">
+                <div className="flex items-center gap-4 whitespace-nowrap">
+                    <MdOutlineAdd className="text-xl" />
+                    Add New
+                </div>
             </Button>
 
             <Modal isOpen={isOpen} closeModal={closeModal}>
