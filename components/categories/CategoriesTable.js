@@ -156,7 +156,7 @@ function CategoryRows({ category }) {
                 </Menu>
 
                 <EditCategory category={category} isOpen={editCategory} setIsOpen={setEditCategory} />
-                <DeleteItem categoryId={slug} isOpen={deleteModal} setIsOpen={setDeleteModal} />
+                <DeleteItem slug={slug} isOpen={deleteModal} setIsOpen={setDeleteModal} />
             </td>
         </tr>
     );

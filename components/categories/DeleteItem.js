@@ -17,20 +17,22 @@ const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
     const dispatch = useDispatch();
 
     const deleteHandler = async () => {
-        if (isLoading) return
+        if (isLoading) return;
         toast.dismiss();
 
         setIsLoading(true);
         try {
-            const response = await axios.delete(`/categories/${category.slug}`);
+            const response = await axios.delete(`/categories/${slug}`);
             const data = await response.data;
 
-            console.log(data);
-
+            dispatch(categoriesActions.deleteCategory(data.category.slug));
+            setIsLoading(false);
+            toast.success(data.message);
+            setIsOpen(false);
         } catch (error) {
-            console.log(error);
+            toast.error(error.message);
         }
-    }
+    };
 
     return (
         <Modal isOpen={isOpen} closeModal={closeModal}>
@@ -48,7 +50,7 @@ const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
                         Cancel
                     </Button>
 
-                    <Button variant="error" size="md" width="6rem" onClick={closeModal}>
+                    <Button variant="error" size="md" width="6rem" onClick={deleteHandler}>
                         Delete
                     </Button>
                 </div>

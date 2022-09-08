@@ -43,8 +43,6 @@ function UploadImage({ imageUrl, setImageUrl }) {
             });
 
             setImage(imageBlob.preview);
-
-            uploadToCloudinary(imageBlob);
         } catch (error) {
             console.log(error);
             return;

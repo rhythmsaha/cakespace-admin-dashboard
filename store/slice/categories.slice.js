@@ -29,12 +29,14 @@ const categoriesSlice = createSlice({
 
             state.list = categories;
         },
-        
+
         deleteCategory(state, action) {
-            const slug = action.payload
-            const filteredCategories = state.list.filter((category) => category.slug !== slug)
-            state.list = filteredCategories
-             
+            const deletedSlug = action.payload;
+            const filteredArray = state.list.filter((cat) => {
+                return cat.slug !== deletedSlug;
+            });
+
+            state.list = filteredArray;
         },
 
         setError(state, action) {
