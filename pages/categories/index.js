@@ -35,10 +35,10 @@ function Categories() {
 
             <section className="w-full mt-8 space-y-8 ">
                 {isLoading && <CategoriesSkeleton />}
-                {isLoading && <CategoriesSkeleton />}
+                {/* {isLoading && <CategoriesSkeleton />} */}
 
                 {!isLoading && <CategoriesTable categories={categories} categoriesError={categoriesError} />}
-                {!isLoading && <FlavoursTable flavours={flavours} flavoursError={flavoursError} />}
+                {/* {!isLoading && <FlavoursTable flavours={flavours} flavoursError={flavoursError} />} */}
             </section>
         </div>
     );
