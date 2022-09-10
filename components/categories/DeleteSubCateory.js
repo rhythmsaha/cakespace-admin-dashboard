@@ -5,11 +5,10 @@ import Button from "../ui/Button";
 import Spinner from "../ui/Spinner";
 import axios from "../../utils/axios";
 import { useDispatch } from "react-redux";
-import { flavoursActions } from "../../store/slice/flavours.slice";
+import { categoriesActions } from "../../store/slice/categories.slice";
 
-const DeleteFlavour = ({ slug, open, setOpen }) => {
+const DeleteSubCateory = ({ _id, open, setOpen }) => {
     const [isLoading, setIsLoading] = useState(false);
-
     const dispatch = useDispatch();
 
     function closeModal() {
@@ -22,10 +21,10 @@ const DeleteFlavour = ({ slug, open, setOpen }) => {
 
         setIsLoading(true);
         try {
-            const response = await axios.delete(`/flavours/${slug}`);
+            const response = await axios.delete(`/subcategories/${_id}`);
             const data = await response.data;
 
-            dispatch(flavoursActions.deleteFlavour(data.flavour.slug));
+            dispatch(categoriesActions.deleteSubCategory(data.subCategory));
             toast.success(data.message);
             setIsLoading(false);
             setOpen(false);
@@ -40,10 +39,10 @@ const DeleteFlavour = ({ slug, open, setOpen }) => {
         <Modal isOpen={open} closeModal={closeModal}>
             <div className="p-10 ">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-800">Delete Flavour</h2>
+                    <h2 className="text-xl font-bold text-gray-800">Delete Subcategory</h2>
                     <p className="mt-2 text-gray-700">
-                        Are you sure you want to Delete this flavour? All of the data will be permanently removed. This
-                        action cannot be undone.
+                        Are you sure you want to Delete this SubCategory? All of the data will be permanently removed.
+                        This action cannot be undone.
                     </p>
                 </div>
 
@@ -60,4 +59,5 @@ const DeleteFlavour = ({ slug, open, setOpen }) => {
         </Modal>
     );
 };
-export default DeleteFlavour;
+
+export default DeleteSubCateory;

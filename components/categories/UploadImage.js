@@ -9,7 +9,7 @@ function UploadImage({ imageUrl, setFile }) {
     const [hoverState, setHoverState] = useState(false);
 
     const suppoertedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
-    const maxSize = 1 * 1024 * 1024; //2 MB
+    const maxSize = 2 * 1024 * 1024; //2 MB
 
     const createImageBlob = (e) => {
         try {

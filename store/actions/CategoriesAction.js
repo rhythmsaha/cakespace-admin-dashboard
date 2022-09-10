@@ -2,11 +2,11 @@ import axios from "../../utils/axios";
 import { categoriesActions } from "../slice/categories.slice";
 import { flavoursActions } from "../slice/flavours.slice";
 
-export const fetchCategoriesAndFlavours = () => {
+export const fetchCategoriesAndFlavours = (getSubcategories) => {
     return async (dispatch) => {
         Promise.all([
             await axios
-                .get("/categories")
+                .get(`/categories?${getSubcategories && "getSubcategories=true"}`)
                 .then((res) => {
                     dispatch(categoriesActions.setCategories(res.data));
                 })

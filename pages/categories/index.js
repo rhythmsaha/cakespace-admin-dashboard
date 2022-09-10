@@ -20,13 +20,13 @@ function Categories() {
     const flavoursError = useSelector((state) => state.flavours.error);
 
     const fetchdata = useCallback(async () => {
-        await dispatch(fetchCategoriesAndFlavours());
+        await dispatch(fetchCategoriesAndFlavours(true));
         setIsLoading(false);
     }, [dispatch]);
 
     useEffect(() => {
         fetchdata();
-    }, [dispatch, fetchdata]);
+    }, [fetchdata]);
 
     return (
         <div>
