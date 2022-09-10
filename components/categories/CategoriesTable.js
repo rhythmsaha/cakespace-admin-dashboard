@@ -83,7 +83,7 @@ function CategoryRows({ category }) {
             </td>
 
             <td className="px-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
-                <Link href="">
+                <Link href={`/categories/${slug}`}>
                     <p className="whitespace-nowrap hover:text-gray-900">{name}</p>
                 </Link>
             </td>
