@@ -1,8 +1,9 @@
-import { MdSpeed, MdCake } from "react-icons/md";
+import { MdSpeed } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiBell, BiCategory } from "react-icons/bi";
 import { IoDocumentText } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
+import { BsFillCartFill } from "react-icons/bs";
 
 export const API_URLS = {
     login: "/auth/seller/login",
@@ -31,7 +32,7 @@ export const sidebarConfig = [
         type: "Management",
         menus: [
             { id: "link2", title: "Categories", icon: BiCategory, path: "/categories" },
-            { id: "link3", title: "Cakes", icon: MdCake, path: "/cakes" },
+            { id: "link3", title: "Products", icon: BsFillCartFill, path: "/products" },
             { id: "link4", title: "Invoices", icon: IoDocumentText, path: "/invoices" },
             { id: "link5", title: "Users", icon: FaUserFriends, path: "/users" },
             { id: "link6", title: "Account", icon: AiOutlineUser, path: "/account" },

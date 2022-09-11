@@ -4,8 +4,8 @@ import { flavoursActions } from "../slice/flavours.slice";
 
 export const fetchCategoriesAndFlavours = (getSubcategories) => {
     return async (dispatch) => {
-        Promise.all([
-            await axios
+        await Promise.all([
+            axios
                 .get(`/categories?${getSubcategories && "getSubcategories=true"}`)
                 .then((res) => {
                     dispatch(categoriesActions.setCategories(res.data));
@@ -13,7 +13,7 @@ export const fetchCategoriesAndFlavours = (getSubcategories) => {
                 .catch((err) => {
                     dispatch(categoriesActions.setError(err.message));
                 }),
-            await axios
+            axios
                 .get("/flavours")
                 .then((res) => {
                     dispatch(flavoursActions.setFlavours(res.data));
