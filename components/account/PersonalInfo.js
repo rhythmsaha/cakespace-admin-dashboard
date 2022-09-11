@@ -11,11 +11,12 @@ import Spinner from "../ui/Spinner";
 import { BiKey } from "react-icons/bi";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
+import uploadToCloudinary from "../../utils/uploadToCloudinary";
 
 const PersonalInfo = () => {
     const [passwordModal, setPasswordModal] = useState(false);
-    const [avatarUrl, setAvatarUrl] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [avatar, setAvatar] = useState();
 
     const { update, user } = useAuth();
 
@@ -33,7 +34,7 @@ const PersonalInfo = () => {
         setIsLoading(true); // set the loading state to true
 
         const body = { fullName };
-        if (avatarUrl) body.avatar = avatarUrl;
+        if (avatar) body.avatar = await uploadToCloudinary(avatar);
 
         try {
             const response = await axios.post("/auth/seller/updateinfo", body);
@@ -61,9 +62,9 @@ const PersonalInfo = () => {
             <Card>
                 <CardHeading heading="Personal Information" desc="Use a permanent email where you can receive mail." />
 
-                <section className="grid lg:grid-cols-12 gap-10 items-start mt-8  ">
-                    <section className="border rounded-xl lg:col-span-6 xl:col-span-5">
-                        <UploadImage avatarUrl={user?.avatar} setAvatarUrl={setAvatarUrl} />
+                <section className="mt-8 grid items-start gap-10 lg:grid-cols-12  ">
+                    <section className="rounded-xl border lg:col-span-6 xl:col-span-5">
+                        <UploadImage imageUrl={user?.avatar} setFile={setAvatar} />
                     </section>
 
                     <section className="lg:col-span-6 xl:col-span-7">

@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function UploadImage({ imageUrl, setFile }) {
     const [image, setImage] = useState(imageUrl);
