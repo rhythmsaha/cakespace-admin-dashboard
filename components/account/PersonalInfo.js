@@ -4,9 +4,10 @@ import useAuth from "../../hooks/useAuth";
 import CardHeading from "./CardHeading";
 import UploadImage from "./UploadImage";
 import ChangePassword from "./ChangePassword";
-import Button from "../ui/Button";
+// import Button from "../ui/Button";
+import { Button } from "@material-tailwind/react";
 import Card from "../ui/Card";
-import Input from "../ui/Input";
+import { Input } from "@material-tailwind/react";
 import Spinner from "../ui/Spinner";
 import { BiKey } from "react-icons/bi";
 import { toast } from "react-hot-toast";
@@ -68,33 +69,56 @@ const PersonalInfo = () => {
                     </section>
 
                     <section className="lg:col-span-6 xl:col-span-7">
-                        <form className="space-y-4" onSubmit={handleSubmit(submitHandler)}>
+                        <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
                             <Input
+                                size="lg"
                                 label="Full Name"
                                 name="fullName"
-                                error={errors.fullName?.message}
-                                value={user?.fullName}
-                                register={register}
-                                required={{ required: "Name is required!" }}
+                                defaultValue={user?.fullName}
+                                color="green"
+                                error={errors.fullName}
+                                {...register("fullName", {
+                                    required: "Name is required!",
+                                })}
                             />
 
                             <Input
-                                label="Email"
+                                size="lg"
+                                label="Email Address"
                                 name="email"
                                 type="email"
-                                disabled={true}
+                                color="green"
+                                // disabled={true}
+                                error={errors.email}
                                 value={user?.email}
-                                register={register}
+                                {...register("email", {
+                                    required: "Please enter a valid email address!",
+                                })}
                             />
 
-                            <div className="flex gap-4">
-                                <Button variant="primary" size="lg" width="10rem" type="submit" disabled={isLoading}>
+                            <div className="grid gap-4 items-center">
+                                <Button
+                                    size="md"
+                                    variant="fill"
+                                    fullWidth
+                                    color="green"
+                                    className="bg-primary-main flex items-center justify-center h-11"
+                                    type="submit"
+                                    disabled={isLoading}
+                                >
                                     {isLoading ? <Spinner /> : "Save"}
                                 </Button>
 
-                                <Button variant="error-outlined" size="lg" onClick={() => setPasswordModal(true)}>
+                                <Button
+                                    variant="gradient"
+                                    size="md"
+                                    color="pink"
+                                    fullWidth
+                                    className="flex items-center justify-center gap-2 capitalize h-11"
+                                    onClick={() => setPasswordModal(true)}
+                                >
                                     <BiKey className="text-xl" />
-                                    <span className="text-xs sm:text-base">Change Password</span>
+                                    <span className="text-xs sm:text-sm">Change Password</span>
                                 </Button>
                             </div>
                         </form>

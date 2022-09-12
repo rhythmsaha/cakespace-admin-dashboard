@@ -1,7 +1,9 @@
+import { Typography } from "@material-tailwind/react";
+
 function PageName({ name }) {
     return (
-        <div>
-            <h1 className="px-2 text-xl font-bold">{name}</h1>
+        <div className="px-2">
+            <Typography variant="h4">{name}</Typography>
         </div>
     );
 }

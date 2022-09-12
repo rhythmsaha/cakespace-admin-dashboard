@@ -1,8 +1,15 @@
+import { Typography } from "@material-tailwind/react";
+
 const CardHeading = ({ heading, desc }) => {
     return (
         <div>
-            <h3 className="text-lg font-medium leading-6 text-gray-900">{heading}</h3>
-            <p className="mt-1 text-sm text-gray-600">{desc}</p>
+            <Typography variant="lead" className="text-gray-900 font-medium">
+                {heading}
+            </Typography>
+
+            <Typography variant="small" className=" text-gray-600">
+                {desc}
+            </Typography>
         </div>
     );
 };
