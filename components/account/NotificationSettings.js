@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import CardHeading from "./CardHeading";
-import Button from "../ui/Button";
+
 import Card from "../ui/Card";
 import CheckBoxInput from "../ui/CheckBoxInput";
 import Spinner from "../ui/Spinner";
 import axios from "../../utils/axios";
 import { toast } from "react-hot-toast";
+import { Button } from "@material-tailwind/react";
 
 const NotificationSettings = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -111,9 +112,18 @@ const NotificationSettings = () => {
                     />
                 </section>
 
-                <Button variant="primary" size="lg" width="10rem" height="3rem" type="submit" disabled={isLoading}>
-                    {isLoading ? <Spinner /> : "Save"}
-                </Button>
+                <div>
+                    <Button
+                        variant="filled"
+                        color="green"
+                        size="lg"
+                        type="submit"
+                        className="flex items-center justify-center w-40 bg-primary-main capitalize"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? <Spinner /> : "Save"}
+                    </Button>
+                </div>
             </form>
         </Card>
     );

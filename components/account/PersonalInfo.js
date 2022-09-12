@@ -88,7 +88,6 @@ const PersonalInfo = () => {
                                 name="email"
                                 type="email"
                                 color="green"
-                                // disabled={true}
                                 error={errors.email}
                                 value={user?.email}
                                 {...register("email", {
@@ -96,13 +95,13 @@ const PersonalInfo = () => {
                                 })}
                             />
 
-                            <div className="grid gap-4 items-center">
+                            <div className="grid gap-4 lg:grid-cols-2 items-center">
                                 <Button
                                     size="md"
                                     variant="fill"
                                     fullWidth
                                     color="green"
-                                    className="bg-primary-main flex items-center justify-center h-11"
+                                    className="bg-primary-main flex items-center justify-center h-11 text-sm capitalize"
                                     type="submit"
                                     disabled={isLoading}
                                 >

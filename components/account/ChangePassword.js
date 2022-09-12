@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
-import Input from "../ui/Input";
+
 import Spinner from "../ui/Spinner";
 import Modal from "../ui/Modal";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
+import { Input } from "@material-tailwind/react";
 
 const ChangePassword = ({ open, setOpen }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -67,30 +68,56 @@ const ChangePassword = ({ open, setOpen }) => {
             <Modal isOpen={open} closeModal={closeModal}>
                 <form onSubmit={handleSubmit(submitHandler)}>
                     <div className="space-y-4 bg-white p-6  sm:p-6">
-                        <Input
-                            type="password"
-                            placeholder="Current Password"
-                            name="oldPassword"
-                            error={errors.oldPassword?.message}
-                            register={register}
-                            required={{ required: "Current Password is required!" }}
-                        />
-                        <Input
-                            type="password"
-                            placeholder="New Password"
-                            name="newPassword"
-                            error={errors.newPassword?.message}
-                            register={register}
-                            required={{ required: "New Password is required!" }}
-                        />
-                        <Input
-                            type="password"
-                            placeholder="Confirm Password"
-                            name="confirmPassword"
-                            error={errors.confirmPassword?.message}
-                            register={register}
-                            required={{ required: "Confirm Password is required!" }}
-                        />
+                        <div>
+                            <Input
+                                size="lg"
+                                label="Current Password"
+                                type="password"
+                                name="oldPassword"
+                                color="green"
+                                error={errors?.oldPassword?.message}
+                                {...register("oldPassword", { required: "Current Password is required!" })}
+                            />
+                            {errors.oldPassword && (
+                                <p className="px-0.5 text-xs font-medium text-error-main mt-1">
+                                    {errors?.oldPassword?.message}
+                                </p>
+                            )}
+                        </div>
+
+                        <div>
+                            <Input
+                                size="lg"
+                                label="New Password"
+                                type="password"
+                                name="newPassword"
+                                color="green"
+                                error={errors?.newPassword?.message}
+                                {...register("newPassword", { required: "New Password is required!" })}
+                            />
+                            {errors.oldPassword && (
+                                <p className="px-0.5 text-xs font-medium text-error-main mt-1">
+                                    {errors?.newPassword?.message}
+                                </p>
+                            )}
+                        </div>
+
+                        <div>
+                            <Input
+                                size="lg"
+                                label="Confirm Password"
+                                type="password"
+                                name="confirmPassword"
+                                color="green"
+                                error={errors?.confirmPassword?.message}
+                                {...register("confirmPassword", { required: "Confirm Password is required!" })}
+                            />
+                            {errors.oldPassword && (
+                                <p className="px-0.5 text-xs font-medium text-error-main mt-1">
+                                    {errors?.confirmPassword?.message}
+                                </p>
+                            )}
+                        </div>
                     </div>
 
                     <div className="flex justify-center gap-2 bg-gray-100 p-4 sm:flex-row sm:justify-end sm:px-6">
