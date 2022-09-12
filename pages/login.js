@@ -5,10 +5,13 @@ import { useForm } from "react-hook-form";
 import Link from "../components/ui/Link";
 import GuestGuard from "../components/guards/GuestGuard";
 import useAuth from "../hooks/useAuth";
-import Button from "../components/ui/Button";
+// import Button from "../components/ui/Button";
+import { Button } from "@material-tailwind/react";
 import axios from "../utils/axios";
 import { API_URLS } from "../utils/config";
 import Spinner from "../components/ui/Spinner";
+import { Input } from "@material-tailwind/react";
+import { Checkbox } from "@material-tailwind/react";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -95,16 +98,14 @@ export default function Login() {
 
             <form className="mt-8" onSubmit={handleSubmit(submitHandler)}>
                 <div className="space-y-4">
-                    <input
+                    <Input
                         name="Email"
-                        type="text"
                         autoComplete="email"
-                        className={`relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:outline-none ${
-                            errors.email
-                                ? "border-error-main focus:border-error-main focus:ring-error-main"
-                                : "focus:border-primary-main focus:ring-primary-main"
-                        } focus:z-10 sm:text-sm`}
-                        placeholder="Email address"
+                        variant="outlined"
+                        label="Email address"
+                        color="green"
+                        size="lg"
+                        error={errors.email}
                         {...register("email", {
                             required: "Please enter a valid email address!",
                         })}
@@ -112,36 +113,22 @@ export default function Login() {
 
                     {errors.email && <span className="px-2 text-xs text-red-600">{errors.email?.message}</span>}
 
-                    <input
-                        id="password"
+                    <Input
                         name="password"
                         type="password"
-                        autoComplete="current-password"
-                        placeholder="Password"
-                        className={`relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:outline-none ${
-                            errors.password
-                                ? "border-error-main focus:border-error-main focus:ring-error-main"
-                                : "focus:border-primary-main focus:ring-primary-main"
-                        } focus:z-10 sm:text-sm`}
+                        autoComplete="email"
+                        variant="outlined"
+                        label="Password"
+                        color="green"
+                        size="lg"
+                        error={errors.password}
                         {...register("password", { required: "Invalid Password!" })}
                     />
                     {errors.password && <span className="px-2 text-xs text-red-600">{errors.password?.message}</span>}
                 </div>
 
-                <div className="flex select-none items-center justify-between py-4">
-                    <label
-                        htmlFor="remember"
-                        className="flex cursor-pointer items-center justify-center gap-1.5 text-sm text-gray-900"
-                    >
-                        <input
-                            id="remember"
-                            name="remember"
-                            type="checkbox"
-                            className="h-4 w-4 cursor-pointer rounded border-gray-300 text-primary-main outline-none transition-all duration-300 ease-in-out focus:outline-none  focus:ring-transparent"
-                            {...register("remember")}
-                        />
-                        Remember me
-                    </label>
+                <div className="flex select-none items-center justify-between py-2">
+                    <Checkbox label="Remember Me" color="green" {...register("remember")} />
 
                     <Link
                         href="#"
@@ -152,7 +139,15 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <Button type="submit" variant="primary" size="lg" height="3rem" width="100%" disabled={isLoading}>
+                    <Button
+                        size="md"
+                        variant="filled"
+                        type="submit"
+                        fullWidth
+                        className="bg-primary-main tracking-wider text-sm capitalize"
+                        disabled={isLoading}
+                        color="green"
+                    >
                         {isLoading ? <Spinner /> : "Sign in"}
                     </Button>
                 </div>

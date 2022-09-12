@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { AnimatePresence } from "framer-motion";
 import { Menu, Transition } from "@headlessui/react";
 import BlurredScreen from "../BlurredScreen";
-import Avatar from "../ui/Avatar";
+import { Avatar } from "@material-tailwind/react";
 import NotificationMenu from "./NotificationMenu";
 import MobileSidebar from "../sidebar/MobileSidebar";
 
@@ -48,7 +48,15 @@ const Header = () => {
                     <Menu as="div" className="relative inline-block">
                         <div className="flex items-center justify-center">
                             <Menu.Button className="rounded-full  ring-gray-200 ring-offset-2 transition hover:bg-gray-100 active:ring-2 ">
-                                <Avatar size={11} avatarUrl={user?.avatar} />
+                                <Avatar
+                                    size="md"
+                                    src={
+                                        user.avatar ||
+                                        "https://cdn.imgbin.com/15/10/13/imgbin-computer-icons-user-profile-avatar-profile-LJbrar10nYY8mYWt0CUXZ8CxE.jpg"
+                                    }
+                                    alt="avatar"
+                                    variant="circular"
+                                />
                             </Menu.Button>
                         </div>
 

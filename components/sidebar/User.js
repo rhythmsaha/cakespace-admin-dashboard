@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import useAuth from "../../hooks/useAuth";
-import Avatar from "../ui/Avatar";
+import { Avatar } from "@material-tailwind/react";
 import Link from "../ui/Link";
 
 function User({ expanded = true }) {
@@ -13,7 +13,7 @@ function User({ expanded = true }) {
                 expanded ? "bg-grey-500 bg-opacity-[0.08] px-5" : "justify-center"
             }`}
         >
-            <Avatar size={10} avatarUrl={user?.avatar} />
+            <Avatar alt="avatar" variant="circular" size="md" src={user?.avatar} />
 
             {expanded && (
                 <div className="min-w-min overflow-hidden text-sm leading-[22px]">
