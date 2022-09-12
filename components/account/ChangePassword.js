@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Button from "../ui/Button";
 
 import Spinner from "../ui/Spinner";
 import Modal from "../ui/Modal";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
-import { Input } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 
 const ChangePassword = ({ open, setOpen }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -121,11 +120,23 @@ const ChangePassword = ({ open, setOpen }) => {
                     </div>
 
                     <div className="flex justify-center gap-2 bg-gray-100 p-4 sm:flex-row sm:justify-end sm:px-6">
-                        <Button variant="primary" size="md" width="8rem" type="submit" disabled={isLoading}>
+                        <Button
+                            variant="filled"
+                            color="green"
+                            type="submit"
+                            className="flex items-center justify-center w-32 bg-primary-main capitalize text-sm"
+                            disabled={isLoading}
+                        >
                             {isLoading ? <Spinner /> : "Update"}
                         </Button>
 
-                        <Button variant="error" size="md" width="8rem" onClick={closeModal}>
+                        <Button
+                            variant="filled"
+                            color="red"
+                            className="flex items-center justify-center w-32 capitalize text-sm"
+                            size="md"
+                            onClick={closeModal}
+                        >
                             Cancel
                         </Button>
                     </div>
