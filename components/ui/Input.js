@@ -15,7 +15,7 @@ function Input({ type, label, placeholder, name, disabled, error, register = () 
                 placeholder={placeholder}
                 defaultValue={value}
                 disabled={disabled}
-                className={`w-full rounded-lg py-2.5 px-4 text-grey-700 outline-none transition-all duration-200 ${
+                className={`w-full rounded-lg py-2.5 px-4 text-grey-700 outline-none transition-all duration-200 placeholder:text-gray-400 ${
                     !error
                         ? "border-grey-300 focus:border-primary-main focus:ring-primary-main"
                         : "border-error-main focus:border-error-main focus:ring-error-main"

@@ -3,8 +3,11 @@ import Head from "next/head";
 import PageName from "../../components/PageName";
 import Button from "../../components/ui/Button";
 import { MdOutlineAdd } from "react-icons/md";
+import { useRouter } from "next/router";
 
 function Cakes() {
+    const router = useRouter();
+
     return (
         <div>
             <Head>
@@ -13,7 +16,7 @@ function Cakes() {
 
             <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between gap-4">
                 <PageName name="Products" />
-                <Button size="md">
+                <Button size="md" onClick={() => router.push("/products/addnew")}>
                     <MdOutlineAdd className="text-2xl" /> New Product
                 </Button>
             </div>
