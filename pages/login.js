@@ -5,13 +5,11 @@ import { useForm } from "react-hook-form";
 import Link from "../components/ui/Link";
 import GuestGuard from "../components/guards/GuestGuard";
 import useAuth from "../hooks/useAuth";
-// import Button from "../components/ui/Button";
-import { Button } from "@material-tailwind/react";
-import axios from "../utils/axios";
 import { API_URLS } from "../utils/config";
+import axios from "../utils/axios";
 import Spinner from "../components/ui/Spinner";
-import { Input } from "@material-tailwind/react";
-import { Checkbox } from "@material-tailwind/react";
+import { Input, Checkbox, Typography, Button } from "@material-tailwind/react";
+import { useLocalStorage } from "react-use";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -20,6 +18,7 @@ Login.getLayout = function getLayout(page) {
 export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
+    const [credentials, setCredentials, removeCredentials] = useLocalStorage("credentials");
     const { login } = useAuth();
 
     const {
@@ -31,57 +30,51 @@ export default function Login() {
     } = useForm({});
 
     useEffect(() => {
-        //Retrive credentials from localstorage if saved
-        const credentials = localStorage.getItem("credentials");
-
         if (credentials) {
-            const decoded = atob(credentials); // Decode credentials from base64 format
-            const { email, password } = JSON.parse(decoded);
+            const { email, password } = JSON.parse(credentials);
             setValue("email", email, { shouldValidate: true });
             setValue("password", password, { shouldValidate: true });
             setValue("remember", true);
         }
-    }, [setValue]);
+    }, [setValue, credentials]);
 
     // Login Handler
     const submitHandler = async ({ email, password, remember }) => {
-        if (isLoading) return; // does nothing if isloading is true
-        toast.dismiss(); // dismiss any other toasts
+        if (isLoading) return;
+        toast.dismiss();
 
-        // Save credentials if remember me is checked else rmeove from localstorage
+        // Set Credentials to lcoalstorage if remember me is checked!
         if (remember) {
-            const credentials = { email, password };
-            const encoded = btoa(JSON.stringify(credentials)); // Encode credentials to base64 format
-            localStorage.setItem("credentials", encoded);
+            setCredentials(JSON.stringify({ email, password }));
         } else {
-            localStorage.removeItem("credentials");
+            removeCredentials();
         }
 
-        setIsLoading(true); // set the loading state to true
+        setIsLoading(true);
 
         try {
-            // Post login request to server
-            const response = await axios.post(API_URLS.login, {
-                email,
-                password,
-            });
+            const response = await axios.post(API_URLS.login, { email, password });
 
-            const { JWT_TOKEN, user, message } = await response.data; // Destructureing data from response
+            console.log(response);
 
-            toast.success(message); // Show success login success with toast!
+            // const { JWT_TOKEN, user, message } = await response.data; // Destructureing data from response
 
-            login(JWT_TOKEN, user); // Calls the login method from auth context to update current user state
+            // toast.success(message); // Show success login success with toast!
+
+            // login(JWT_TOKEN, user); // Calls the login method from auth context to update current user state
         } catch (error) {
-            if (error.type) {
-                if (error.type === "error") {
-                    toast.error(error.message);
-                } else {
-                    setError(error.type, { type: error?.type, message: error.message });
-                }
-            } else {
-                if (error.response) toast.error(error.response.data.message);
-                else toast.error(error || error.message);
-            }
+            // if (error.type) {
+            //     if (error.type === "error") {
+            //         toast.error(error.message);
+            //     } else {
+            //         setError(error.type, { type: error?.type, message: error.message });
+            //     }
+            // } else {
+            //     if (error.response) toast.error(error.response.data.message);
+            //     else toast.error(error || error.message);
+            // }
+
+            console.log(error);
         }
 
         setIsLoading(false); // Set loading state to false
@@ -91,9 +84,7 @@ export default function Login() {
         <div className="mx-auto w-11/12 max-w-md px-2 pt-[12vh]">
             <div>
                 <img className="mx-auto h-32 object-contain" src="/logo.png" alt="Cakespace" />
-                <h2 className="text-center text-xl font-extrabold text-gray-700 lg:text-2xl">
-                    Sign in to your account
-                </h2>
+                <Typography variant="h5">Sign in to your account</Typography>
             </div>
 
             <form className="mt-8" onSubmit={handleSubmit(submitHandler)}>
@@ -144,11 +135,11 @@ export default function Login() {
                         variant="filled"
                         type="submit"
                         fullWidth
-                        className="bg-primary-main tracking-wider text-sm capitalize"
-                        disabled={isLoading}
+                        className="bg-primary-main tracking-wider text-sm capitalize flex items-center justify-center"
                         color="green"
+                        disabled={isLoading}
                     >
-                        {isLoading ? <Spinner /> : "Sign in"}
+                        Sign in
                     </Button>
                 </div>
             </form>
