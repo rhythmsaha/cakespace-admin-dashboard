@@ -116,12 +116,11 @@ const NotificationSettings = () => {
                     <Button
                         variant="filled"
                         color="green"
-                        size="lg"
+                        size="md"
                         type="submit"
-                        className="flex items-center justify-center w-40 bg-primary-main capitalize"
-                        disabled={isLoading}
+                        className="flex items-center justify-center w-40 capitalize"
                     >
-                        {isLoading ? <Spinner /> : "Save"}
+                        save
                     </Button>
                 </div>
             </form>

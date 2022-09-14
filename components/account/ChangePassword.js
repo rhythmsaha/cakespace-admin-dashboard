@@ -23,10 +23,6 @@ const ChangePassword = ({ open, setOpen }) => {
         setValue("oldPassword", "");
         setValue("newPassword", "");
         setValue("confirmPassword", "");
-
-        setError("oldPassword", "");
-        setError("newPassword", "");
-        setError("confirmPassword", "");
     }
 
     const submitHandler = async ({ oldPassword, newPassword, confirmPassword }) => {
@@ -74,7 +70,7 @@ const ChangePassword = ({ open, setOpen }) => {
                                 type="password"
                                 name="oldPassword"
                                 color="green"
-                                error={errors?.oldPassword?.message}
+                                error={!!errors.oldPassword}
                                 {...register("oldPassword", { required: "Current Password is required!" })}
                             />
                             {errors.oldPassword && (
@@ -91,7 +87,7 @@ const ChangePassword = ({ open, setOpen }) => {
                                 type="password"
                                 name="newPassword"
                                 color="green"
-                                error={errors?.newPassword?.message}
+                                error={!!errors.newPassword}
                                 {...register("newPassword", { required: "New Password is required!" })}
                             />
                             {errors.oldPassword && (
@@ -108,7 +104,7 @@ const ChangePassword = ({ open, setOpen }) => {
                                 type="password"
                                 name="confirmPassword"
                                 color="green"
-                                error={errors?.confirmPassword?.message}
+                                error={!!errors.confirmPassword}
                                 {...register("confirmPassword", { required: "Confirm Password is required!" })}
                             />
                             {errors.oldPassword && (
@@ -124,7 +120,7 @@ const ChangePassword = ({ open, setOpen }) => {
                             variant="filled"
                             color="green"
                             type="submit"
-                            className="flex items-center justify-center w-32 bg-primary-main capitalize text-sm"
+                            className="flex items-center justify-center w-32 capitalize text-sm"
                             disabled={isLoading}
                         >
                             {isLoading ? <Spinner /> : "Update"}

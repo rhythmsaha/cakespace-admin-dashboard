@@ -25,7 +25,6 @@ const PersonalInfo = () => {
         register,
         handleSubmit,
         formState: { errors },
-        setValue,
         setError,
     } = useForm();
 
@@ -74,8 +73,8 @@ const PersonalInfo = () => {
                                 size="lg"
                                 label="Full Name"
                                 name="fullName"
-                                defaultValue={user?.fullName}
                                 color="green"
+                                defaultValue={user?.fullName}
                                 error={errors.fullName}
                                 {...register("fullName", {
                                     required: "Name is required!",
@@ -101,11 +100,10 @@ const PersonalInfo = () => {
                                     variant="fill"
                                     fullWidth
                                     color="green"
-                                    className="bg-primary-main flex items-center justify-center h-11 text-sm capitalize"
+                                    className="flex items-center justify-center h-11 text-sm capitalize"
                                     type="submit"
-                                    disabled={isLoading}
                                 >
-                                    {isLoading ? <Spinner /> : "Save"}
+                                    Save
                                 </Button>
 
                                 <Button
