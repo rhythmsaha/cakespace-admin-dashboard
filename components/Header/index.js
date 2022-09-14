@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { AnimatePresence } from "framer-motion";
 import { Menu, Transition } from "@headlessui/react";
 import BlurredScreen from "../BlurredScreen";
-import { Avatar } from "@material-tailwind/react";
+import { Avatar, IconButton } from "@material-tailwind/react";
 import NotificationMenu from "./NotificationMenu";
 import MobileSidebar from "../sidebar/MobileSidebar";
 
@@ -33,12 +33,9 @@ const Header = () => {
             <header className="sticky top-0 z-10 flex items-center justify-between bg-white bg-opacity-50 px-5 py-2.5 backdrop-blur lg:px-10 lg:py-6">
                 <div className="flex gap-2">
                     {width < 1200 && (
-                        <button
-                            className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-gray-100 active:bg-gray-200"
-                            onClick={showNavBarHandler}
-                        >
+                        <IconButton variant="text" color="gray" className="rounded-full" onClick={showNavBarHandler}>
                             <AiOutlineMenu className="h-6 w-6 text-grey-600" />
-                        </button>
+                        </IconButton>
                     )}
                 </div>
 
@@ -56,6 +53,7 @@ const Header = () => {
                                     }
                                     alt="avatar"
                                     variant="circular"
+                                    className="p-1 sm:p-0"
                                 />
                             </Menu.Button>
                         </div>
