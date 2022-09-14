@@ -9,6 +9,7 @@ import { API_URLS } from "../utils/config";
 import axios from "../utils/axios";
 import { Input, Checkbox, Typography, Button } from "@material-tailwind/react";
 import { useLocalStorage } from "react-use";
+import Spinner from "../components/ui/Spinner";
 
 Login.getLayout = function getLayout(page) {
     return <GuestGuard>{page}</GuestGuard>;
@@ -121,7 +122,7 @@ export default function Login() {
                         color="green"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting && "Loading..."}
+                        {isSubmitting && <Spinner />}
                         {!isSubmitting && "Sign in"}
                     </Button>
                 </div>
