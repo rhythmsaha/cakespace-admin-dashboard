@@ -7,7 +7,6 @@ import GuestGuard from "../components/guards/GuestGuard";
 import useAuth from "../hooks/useAuth";
 import { API_URLS } from "../utils/config";
 import axios from "../utils/axios";
-import Spinner from "../components/ui/Spinner";
 import { Input, Checkbox, Typography, Button } from "@material-tailwind/react";
 import { useLocalStorage } from "react-use";
 
@@ -16,8 +15,6 @@ Login.getLayout = function getLayout(page) {
 };
 
 export default function Login() {
-    const [isLoading, setIsLoading] = useState(false);
-
     const [credentials, setCredentials, removeCredentials] = useLocalStorage("credentials");
     const { login } = useAuth();
 
@@ -25,7 +22,7 @@ export default function Login() {
         register,
         handleSubmit,
         setError,
-        formState: { errors },
+        formState: { errors, isSubmitting },
         setValue,
     } = useForm({});
 
@@ -40,17 +37,12 @@ export default function Login() {
 
     // Login Handler
     const submitHandler = async ({ email, password, remember }) => {
-        if (isLoading) return;
+        if (isSubmitting) return;
         toast.dismiss();
 
         // Set Credentials to lcoalstorage if remember me is checked!
-        if (remember) {
-            setCredentials(JSON.stringify({ email, password }));
-        } else {
-            removeCredentials();
-        }
-
-        setIsLoading(true);
+        if (remember) setCredentials(JSON.stringify({ email, password }));
+        else removeCredentials();
 
         try {
             const response = await axios.post(API_URLS.login, { email, password });
@@ -73,17 +65,13 @@ export default function Login() {
             //     if (error.response) toast.error(error.response.data.message);
             //     else toast.error(error || error.message);
             // }
-
-            console.log(error);
         }
-
-        setIsLoading(false); // Set loading state to false
     };
 
     return (
         <div className="mx-auto w-11/12 max-w-md px-2 pt-[12vh]">
             <div>
-                <img className="mx-auto h-32 object-contain" src="/logo.png" alt="Cakespace" />
+                <img className="mx-auto h-32 object-contain " src="/logo.png" alt="Cakespace" />
                 <Typography variant="h5">Sign in to your account</Typography>
             </div>
 
@@ -91,31 +79,30 @@ export default function Login() {
                 <div className="space-y-4">
                     <Input
                         name="Email"
-                        autoComplete="email"
+                        type="text"
                         variant="outlined"
                         label="Email address"
                         color="green"
                         size="lg"
-                        error={errors.email}
+                        error={!!errors.email}
                         {...register("email", {
-                            required: "Please enter a valid email address!",
+                            required: "Email is required!",
                         })}
                     />
 
-                    {errors.email && <span className="px-2 text-xs text-red-600">{errors.email?.message}</span>}
+                    {!!errors.email && <span className="px-2 text-xs text-red-600">{errors.email?.message}</span>}
 
                     <Input
                         name="password"
                         type="password"
-                        autoComplete="email"
                         variant="outlined"
                         label="Password"
                         color="green"
                         size="lg"
-                        error={errors.password}
-                        {...register("password", { required: "Invalid Password!" })}
+                        error={!!errors.password}
+                        {...register("password", { required: "Password is required!" })}
                     />
-                    {errors.password && <span className="px-2 text-xs text-red-600">{errors.password?.message}</span>}
+                    {!!errors.password && <span className="px-2 text-xs text-red-600">{errors.password?.message}</span>}
                 </div>
 
                 <div className="flex select-none items-center justify-between py-2">
@@ -123,7 +110,7 @@ export default function Login() {
 
                     <Link
                         href="#"
-                        className="text-xs font-medium text-primary-main transition hover:text-primary-light hover:underline sm:text-sm"
+                        className="text-xs font-medium text-green-500 transition  hover:underline sm:text-sm"
                     >
                         Forgot your password?
                     </Link>
@@ -135,11 +122,13 @@ export default function Login() {
                         variant="filled"
                         type="submit"
                         fullWidth
-                        className="bg-primary-main tracking-wider text-sm capitalize flex items-center justify-center"
+                        className="flex items-center justify-center tracking-wider text-sm capitalize "
                         color="green"
-                        disabled={isLoading}
+                        disabled={isSubmitting}
                     >
-                        Sign in
+                        {isSubmitting && "Loading..."}
+                        {!isSubmitting && "Sign in"}
+                        {/* Sign In */}
                     </Button>
                 </div>
             </form>
