@@ -2,9 +2,8 @@
 import { useState } from "react";
 import { useWindowSize } from "react-use";
 import { useRouter } from "next/router";
-import useAuth from "../../hooks/useAuth";
 import { AnimatePresence } from "framer-motion";
-
+import useAuth from "../../hooks/useAuth";
 import BlurredScreen from "../BlurredScreen";
 import {
     Avatar,
