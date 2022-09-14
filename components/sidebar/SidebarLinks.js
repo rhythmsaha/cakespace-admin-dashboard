@@ -1,6 +1,7 @@
 import { useWindowSize } from "react-use";
 import { sidebarConfig } from "../../utils/config";
 import SidebarItem from "./SidebarItem";
+import { Typography } from "@material-tailwind/react";
 
 function SidebarLinks({ expanded = true }) {
     const { width } = useWindowSize();
@@ -11,9 +12,12 @@ function SidebarLinks({ expanded = true }) {
                 <nav key={id}>
                     <div className="h-[50px] w-full">
                         {expanded && (
-                            <h2 className="px-4 pt-6 pb-2 text-xs font-bold uppercase leading-[18px] text-grey-800">
+                            <Typography
+                                variant="h6"
+                                className="px-4 pt-6 pb-2 text-xs font-bold uppercase leading-[18px] text-grey-800"
+                            >
                                 {type}
-                            </h2>
+                            </Typography>
                         )}
                     </div>
 
