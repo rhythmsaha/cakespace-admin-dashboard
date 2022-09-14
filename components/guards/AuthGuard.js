@@ -13,6 +13,8 @@ function AuthGuard({ children }) {
         }
     }, [isAuthenticated, isInitialized, router]);
 
+    return <LoadingScreen />;
+
     if (!isInitialized || !isAuthenticated) {
         return <LoadingScreen />;
     }
