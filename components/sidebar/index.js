@@ -7,9 +7,8 @@ import SidebarLinks from "./SidebarLinks";
 import "simplebar/dist/simplebar.min.css";
 
 const Sidebar = () => {
-    const [expanded, setExpanded] = useState(true); //Sidebar Expand State
+    const [expanded, setExpanded] = useState(true);
 
-    // Sidebar collapse toggle function
     const toggleSidebar = () => {
         setExpanded((prev) => !prev);
     };
