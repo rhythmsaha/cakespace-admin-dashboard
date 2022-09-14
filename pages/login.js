@@ -47,11 +47,12 @@ export default function Login() {
         try {
             const response = await axios.post(API_URLS.login, { email, password });
 
-            const { JWT_TOKEN, user, message } = await response.data; // Destructureing data from response
+            const { JWT_TOKEN, user, message } = await response.data;
 
-            toast.success(message); // Show success login success with toast!
+            toast.success(message);
 
-            login(JWT_TOKEN, user); // Calls the login method from auth context to update current user state
+            // Call the login method from auth context to update current user state
+            login(JWT_TOKEN, user);
         } catch (error) {
             if (error?.fields && error.fields.length > 0) {
                 error.fields.forEach((field) => {
@@ -122,7 +123,6 @@ export default function Login() {
                     >
                         {isSubmitting && "Loading..."}
                         {!isSubmitting && "Sign in"}
-                        {/* Sign In */}
                     </Button>
                 </div>
             </form>
