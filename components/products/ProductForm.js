@@ -1,38 +1,92 @@
+import { Button, Input, Option, Select, Switch, Textarea } from "@material-tailwind/react";
+import { BiRupee } from "react-icons/bi";
 import Card from "../ui/Card";
-import CheckBoxInput from "../ui/CheckBoxInput";
-import Input from "../ui/Input";
+import Spinner from "../ui/Spinner";
+import ImageForm from "./ImageForm";
 
 const ProductForm = () => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
             <div className="lg:col-span-8">
                 <Card>
-                    <Input placeholder="Product Name" />
-                    {/* <div className="mt-5">
-                        <label htmlFor="description">Description</label>
-                        <textarea className="block p-2.5 h-60 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                    </div>
+                    <div className="space-y-3">
+                        <div>
+                            <Input label="Product Name" color="green" size="lg" />
+                        </div>
 
-                    <div></div> */}
+                        <div>
+                            <Textarea rows={10} variant="outlined" label="Description" color="green" size="lg" />
+                        </div>
+
+                        <div>
+                            <ImageForm />
+                        </div>
+                    </div>
                 </Card>
             </div>
 
             <div className="lg:col-span-4 space-y-4">
                 <Card>
-                    <div className="space-y-4">
-                        <Input placeholder="Category" />
-                        <Input placeholder="Subcategory" />
-                        <Input placeholder="Flavours" />
-                        <Input placeholder="Number of stocks" />
+                    <div className="space-y-5">
+                        <div>
+                            <Input label="No. of stocks" type="number" color="green" size="lg" />
+                        </div>
+
+                        <div>
+                            <Select label="Category" size="lg" color="green">
+                                <Option>Material Tailwind HTML</Option>
+                                <Option>Material Tailwind React</Option>
+                                <Option>Material Tailwind Vue</Option>
+                                <Option>Material Tailwind Angular</Option>
+                                <Option>Material Tailwind Svelte</Option>
+                            </Select>
+                        </div>
+
+                        <div>
+                            <Select label="Sub Category (Optional)" size="lg" color="green">
+                                <Option>Material Tailwind HTML</Option>
+                                <Option>Material Tailwind React</Option>
+                                <Option>Material Tailwind Vue</Option>
+                                <Option>Material Tailwind Angular</Option>
+                                <Option>Material Tailwind Svelte</Option>
+                            </Select>
+                        </div>
+
+                        <div>
+                            <Select label="Select Version" size="lg" color="green">
+                                <div className="flex items-center justify-center">
+                                    <Spinner className="text-green-500 h-4 w-4 animate-spin" />
+                                </div>
+                                <Option>Material Tailwind HTML</Option>
+                                <Option>Material Tailwind HTML</Option>
+                                <Option>Material Tailwind HTML</Option>
+                                <Option>Material Tailwind HTML</Option>
+                            </Select>
+                        </div>
                     </div>
                 </Card>
 
                 <Card>
                     <div className="space-y-4">
-                        <Input placeholder="Category" />
-                        <CheckBoxInput label="Price includes taxes" />
+                        <div>
+                            <Input color="green" label="Regular Price" type="number" icon={<BiRupee />} size="lg" />
+                        </div>
+
+                        <div>
+                            <Input color="green" label="Sell Price" icon={<BiRupee />} size="lg" />
+                        </div>
+
+                        <div className="px-2">
+                            <Switch color="green" id="auto-update" label="Price includes taxes" />
+                        </div>
                     </div>
                 </Card>
+
+                <div>
+                    <Button color="green" className="capitalize tracking-wide sm:text-sm" size="md" fullWidth>
+                        Create Product
+                    </Button>
+                </div>
             </div>
         </div>
     );

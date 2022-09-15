@@ -57,7 +57,7 @@ const UploadImage = ({ imageUrl, setFile }) => {
                     <FaUser className="h-full w-full rounded-full border p-10 text-grey-500" />
                 )}
 
-                <input id="test" type="file" onChange={(e) => createImageBlob(e)} className="hidden" />
+                <input id="test" accept="image/*" type="file" onChange={(e) => createImageBlob(e)} className="hidden" />
             </label>
 
             <h2 className="mt-2 text-sm font-bold text-grey-600">Profile Picture</h2>

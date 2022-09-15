@@ -6,11 +6,7 @@ import AddNewProduct from "../../components/products/AddNewProduct";
 const AddNew = () => {
     return (
         <div>
-            <Head>
-                <title>Create New Product</title>
-            </Head>
-
-            <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="">
                 <PageName name="Create a New Product" />
             </div>
 
