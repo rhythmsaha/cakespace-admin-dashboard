@@ -14,6 +14,7 @@ export default function Document() {
             <body>
                 <Main />
                 <NextScript />
+                <div id="toastPortal" style={{ zIndex: 9999999, position: "fixed" }} />
             </body>
         </Html>
     );

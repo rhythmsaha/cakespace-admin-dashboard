@@ -5,6 +5,10 @@ import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
 import BlurredScreen from "../BlurredScreen";
+import NotificationMenu from "./NotificationMenu";
+import MobileSidebar from "../sidebar/MobileSidebar";
+import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
+import { MdLogout } from "react-icons/md";
 import {
     Avatar,
     IconButton,
@@ -15,10 +19,6 @@ import {
     Button,
     Typography,
 } from "@material-tailwind/react";
-import NotificationMenu from "./NotificationMenu";
-import MobileSidebar from "../sidebar/MobileSidebar";
-import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
-import { MdLogout } from "react-icons/md";
 
 const Header = () => {
     const [showNavBar, setShowNavBar] = useState(false);
