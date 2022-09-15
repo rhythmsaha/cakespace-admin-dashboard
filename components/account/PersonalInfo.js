@@ -10,10 +10,10 @@ import ChangePassword from "./ChangePassword";
 import Card from "../ui/Card";
 import axios from "../../utils/axios";
 import uploadToCloudinary from "../../utils/uploadToCloudinary";
+import Spinner from "../ui/Spinner";
 
 const PersonalInfo = () => {
     const [passwordModal, setPasswordModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     const [avatar, setAvatar] = useState();
 
     const { update, user } = useAuth();
@@ -21,14 +21,13 @@ const PersonalInfo = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
         setError,
     } = useForm();
 
-    const submitHandler = async ({ fullName, email }) => {
-        if (isLoading) return;
+    const submitHandler = async ({ fullName }) => {
+        if (isSubmitting) return;
         toast.dismiss();
-        setIsLoading(true);
 
         const body = { fullName };
         if (avatar) body.avatar = await uploadToCloudinary(avatar);
@@ -47,8 +46,6 @@ const PersonalInfo = () => {
                 toast.error(error?.message || error || "Something went wrong!");
             }
         }
-
-        setIsLoading(false);
     };
 
     return (
@@ -96,7 +93,8 @@ const PersonalInfo = () => {
                                 className="flex items-center justify-center h-11 text-sm capitalize w-52"
                                 type="submit"
                             >
-                                Save
+                                {isSubmitting && <Spinner />}
+                                {!isSubmitting && "Save"}
                             </Button>
                         </div>
                     </form>
