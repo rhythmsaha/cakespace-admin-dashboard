@@ -17,7 +17,6 @@ import {
 } from "@material-tailwind/react";
 import NotificationMenu from "./NotificationMenu";
 import MobileSidebar from "../sidebar/MobileSidebar";
-
 import { AiOutlineMenu, AiOutlineSetting } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 
@@ -47,7 +46,7 @@ const Header = () => {
                     )}
                 </div>
 
-                <div className="ml-auto flex items-center gap-3">
+                <div className="flex items-center gap-4">
                     {width >= 768 && <NotificationMenu />}
 
                     <Menu placement="bottom-end">
@@ -66,7 +65,7 @@ const Header = () => {
                             </Button>
                         </MenuHandler>
 
-                        <MenuList className="border-none shadow-1 rounded-xl">
+                        <MenuList className="border-none shadow-1 rounded-xl p-2">
                             <div className="p-3 border-b border-dashed">
                                 <Typography variant="small" className="text-gray-700 leading-tight font-semibold">
                                     {user?.fullName}
@@ -80,7 +79,7 @@ const Header = () => {
                                 <MenuItem className="p-0">
                                     <Button
                                         onClick={() => router.push("/account")}
-                                        className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize"
+                                        className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize "
                                         variant="text"
                                         color="gray"
                                     >

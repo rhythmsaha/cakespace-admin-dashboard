@@ -1,56 +1,51 @@
-import { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, MenuHandler, MenuList, MenuItem, IconButton, Typography, Tooltip } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 import { FaBell } from "react-icons/fa";
+import { TbChecks } from "react-icons/tb";
 
-function NotificationMenu() {
-    const [notifications, setNotifications] = useState([]);
-
+function NotificationMenu({ notifications }) {
     const router = useRouter();
 
     return (
-        <Menu as="div" className="relative inline-block">
-            <div className="flex items-center justify-center">
-                <Menu.Button className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-gray-100 active:bg-gray-200">
+        <Menu placement="bottom-end">
+            <MenuHandler>
+                <IconButton variant="text" color="gray" className="rounded-full">
                     <FaBell className="h-5 w-5 text-grey-600" />
-                </Menu.Button>
-            </div>
+                </IconButton>
+            </MenuHandler>
 
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-            >
-                <Menu.Items className="absolute right-0 mt-2 w-96 origin-top-right divide-y divide-gray-100 rounded-lg bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {notifications?.length === 0 && (
-                        <p className="flex items-center justify-center gap-2 px-4 py-4 text-sm text-gray-500 transition">
-                            No notifications available!
-                        </p>
+            <MenuList className="border-none shadow-1 rounded-xl p-2 max-w-sm w-full">
+                <div className="p-3 border-b border-dashed flex items-center justify-between">
+                    <div>
+                        <Typography variant="small" className="text-gray-700 font-semibold">
+                            Notifications
+                        </Typography>
+                        <Typography variant="small" className="text-gray-600">
+                            You have 0 unread messages
+                        </Typography>
+                    </div>
+
+                    {notifications && (
+                        <Tooltip
+                            content="Mark all as read"
+                            className="bg-gray-800 text-xs text-white"
+                            placement="bottom"
+                        >
+                            <IconButton variant="text" color="green" className="rounded-full p-0">
+                                <TbChecks className="text-lg " />
+                            </IconButton>
+                        </Tooltip>
                     )}
+                </div>
 
-                    {notifications?.map((notification) => (
-                        <Menu.Item key={notification}>
-                            {({ active }) => (
-                                <button
-                                    onClick={() => router.push("/")}
-                                    className="flex items-center justify-between gap-2 px-4 py-4 text-left text-sm text-gray-500 transition"
-                                >
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem,
-                                        tempora.
-                                    </p>
-                                </button>
-                            )}
-                        </Menu.Item>
-                    ))}
-                </Menu.Items>
-            </Transition>
+                {!notifications && <div className="py-4 text-center">No notifications available</div>}
+            </MenuList>
         </Menu>
     );
 }
 
 export default NotificationMenu;
+
+/* <MenuItem>Menu Item 1</MenuItem>
+<MenuItem>Menu Item 2</MenuItem>
+<MenuItem>Menu Item 3</MenuItem> */
