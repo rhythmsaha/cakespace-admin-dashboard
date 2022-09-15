@@ -1,11 +1,10 @@
 import { useState } from "react";
-import Modal from "../ui/Modal";
-import toast from "react-hot-toast";
-import Button from "../ui/Button";
-import Spinner from "../ui/Spinner";
-import axios from "../../utils/axios";
 import { useDispatch } from "react-redux";
-import { categoriesActions } from "../../store/slice/categories.slice";
+import { categoriesActions } from "../../../store/slice/categories.slice";
+import toast from "react-hot-toast";
+import Modal from "../../ui/Modal";
+import Button from "../../ui/Button";
+import axios from "../../../utils/axios";
 
 const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
     const [isLoading, setIsLoading] = useState(false);

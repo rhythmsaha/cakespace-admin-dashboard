@@ -1,18 +1,18 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-import Button from "../ui/Button";
-import CheckBoxInput from "../ui/CheckBoxInput";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
-import Spinner from "../ui/Spinner";
-import UploadImage from "./UploadImage";
+import Button from "../../ui/Button";
+import CheckBoxInput from "../../ui/CheckBoxInput";
+import Input from "../../ui/Input";
+import Modal from "../../ui/Modal";
+import Spinner from "../../ui/Spinner";
+import UploadImage from "../UploadImage";
 
-import axios from "../../utils/axios";
-import { useDispatch } from "react-redux";
-import { categoriesActions } from "../../store/slice/categories.slice";
-import uploadToCloudinary from "../../utils/uploadToCloudinary";
+import axios from "../../../utils/axios";
+import { categoriesActions } from "../../../store/slice/categories.slice";
+import uploadToCloudinary from "../../../utils/uploadToCloudinary";
 
 function EditCategory({ category, isOpen, setIsOpen }) {
     const [isLoading, setIsLoading] = useState(false);

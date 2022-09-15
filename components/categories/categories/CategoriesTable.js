@@ -1,17 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
-import Card from "../ui/Card";
-import Image from "next/future/image";
-import AddNewCategory from "./AddNewCategory";
-import { HiDotsVertical } from "react-icons/hi";
+
+import { useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { HiDotsVertical } from "react-icons/hi";
 import { FiDelete, FiEdit } from "react-icons/fi";
-import Link from "../ui/Link";
-import { useState } from "react";
+
+import Image from "next/future/image";
 import EditCategory from "./EditCategory";
+import AddNewCategory from "./AddNewCategory";
 import DeleteItem from "./DeleteItem";
-import "simplebar/dist/simplebar.min.css";
+import Link from "../../ui/Link";
+import Card from "../../ui/Card";
+
 import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 
 function CategoriesTable({ categories }) {
     return (

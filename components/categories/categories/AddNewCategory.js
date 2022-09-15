@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-
-import Button from "../ui/Button";
-import CheckBoxInput from "../ui/CheckBoxInput";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
-import Spinner from "../ui/Spinner";
-import UploadImage from "./UploadImage";
-
-import { categoriesActions } from "../../store/slice/categories.slice";
-import { toast } from "react-hot-toast";
-import axios from "../../utils/axios";
 import { MdOutlineAdd } from "react-icons/md";
-import uploadToCloudinary from "../../utils/uploadToCloudinary";
+import { useDispatch } from "react-redux";
+import Button from "../../ui/Button";
+import CheckBoxInput from "../../ui/CheckBoxInput";
+import Input from "../../ui/Input";
+import Modal from "../../ui/Modal";
+import Spinner from "../../ui/Spinner";
+import UploadImage from "../UploadImage";
+import uploadToCloudinary from "../../../utils/uploadToCloudinary";
+import axios from "../../../utils/axios";
+import toast from "react-hot-toast";
 
 const AddNewCategory = () => {
     const [isOpen, setIsOpen] = useState(false);

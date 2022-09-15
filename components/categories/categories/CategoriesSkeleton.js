@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../ui/Card";
-import Skelaton from "../ui/Skelaton";
+import Card from "../../ui/Card";
+import Skelaton from "../../ui/Skelaton";
 
 const CategoriesSkeleton = () => {
     return (

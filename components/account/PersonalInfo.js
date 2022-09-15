@@ -93,8 +93,7 @@ const PersonalInfo = () => {
                                 className="flex items-center justify-center h-11 text-sm capitalize w-52"
                                 type="submit"
                             >
-                                {isSubmitting && <Spinner />}
-                                {!isSubmitting && "Save"}
+                                Update
                             </Button>
                         </div>
                     </form>
