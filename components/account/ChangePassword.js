@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import Spinner from "../ui/Spinner";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
-import { Button, Input, Dialog, DialogHeader, DialogBody, DialogFooter } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { BiKey } from "react-icons/bi";
-import Portal from "../hoc/Portal";
+import Modal from "../ui/Modal";
 
 const ChangePassword = () => {
     const [open, setOpen] = useState(false);
@@ -58,7 +58,7 @@ const ChangePassword = () => {
                 <span className="text-xs sm:text-sm">Change Password</span>
             </Button>
 
-            <Dialog open={open} handler={handleOpen} className="w-10/12 max-w-lg">
+            <Modal isOpen={open} closeModal={handleOpen}>
                 <form onSubmit={handleSubmit(submitHandler)}>
                     <div className="space-y-4 bg-white p-6  sm:p-6">
                         <div>
@@ -135,7 +135,7 @@ const ChangePassword = () => {
                         </Button>
                     </div>
                 </form>
-            </Dialog>
+            </Modal>
         </>
     );
 };

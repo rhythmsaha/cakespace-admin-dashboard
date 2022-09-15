@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-
 import { useState, Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+
+import { Typography, Menu, MenuHandler, MenuList, MenuItem, Button, IconButton } from "@material-tailwind/react";
 import { HiDotsVertical } from "react-icons/hi";
 import { FiDelete, FiEdit } from "react-icons/fi";
 
-import Image from "next/future/image";
 import EditCategory from "./EditCategory";
 import AddNewCategory from "./AddNewCategory";
 import DeleteItem from "./DeleteItem";
@@ -14,12 +13,13 @@ import Card from "../../ui/Card";
 
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import Image from "next/future/image";
 
 function CategoriesTable({ categories }) {
     return (
         <Card>
             <div className="flex flex-wrap items-center justify-between">
-                <h3 className="text-base font-semibold text-gray-600 lg:px-2 lg:text-lg">Categories</h3>
+                <Typography className="text-base font-semibold text-gray-600 lg:px-2 lg:text-lg">Categories</Typography>
                 <AddNewCategory />
             </div>
 
@@ -78,16 +78,14 @@ function CategoryRows({ category }) {
                 <Image
                     src={icon}
                     alt={name}
-                    width={48}
                     height={48}
+                    width={48}
                     className="mx-auto min-w-[40px] h-10 w-10 rounded-xl object-cover lg:h-12 lg:w-12"
                 />
             </td>
 
-            <td className="px-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
-                <Link href={`/categories/${slug}`}>
-                    <p className="whitespace-nowrap hover:text-gray-900">{name}</p>
-                </Link>
+            <td className="px-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base whitespace-nowrap">
+                <Link href={`/categories/${slug}`}>{name}</Link>
             </td>
 
             <td className="px-4 text-center text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
@@ -96,7 +94,7 @@ function CategoryRows({ category }) {
 
             <td className="px-4 text-center first:rounded-l-xl last:rounded-r-xl">
                 {enabled && (
-                    <span className="whitespace-nowrap rounded-full bg-primary-lighter bg-opacity-60 py-1.5 px-8 text-xs text-primary-main">
+                    <span className="whitespace-nowrap rounded-full bg-green-50 bg-opacity-60 py-1.5 px-8 text-xs text-green-500">
                         Enabled
                     </span>
                 )}
@@ -108,54 +106,42 @@ function CategoryRows({ category }) {
             </td>
 
             <td className="w-14 first:rounded-l-xl last:rounded-r-xl">
-                <Menu as="div" className="relative inline-block">
-                    <div className="flex items-center justify-center">
-                        <Menu.Button className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-200 active:bg-gray-300">
-                            <HiDotsVertical className="text-lg lg:text-xl" />
-                        </Menu.Button>
-                    </div>
+                <Menu placement="left-start">
+                    <MenuHandler>
+                        <IconButton
+                            className="flex items-center justify-center rounded-full"
+                            variant="text"
+                            color="gray"
+                        >
+                            <HiDotsVertical className="text-lg" />
+                        </IconButton>
+                    </MenuHandler>
 
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className="absolute right-full bottom-0 z-20 w-40 origin-top-right rounded-lg bg-white shadow-1">
-                            <div className="px-1 py-1">
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <button
-                                            onClick={() => setEditCategory(true)}
-                                            className={`${
-                                                active ? "bg-gray-100" : "bg-white"
-                                            } flex w-full items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-xs font-medium text-primary-main  transition lg:text-base`}
-                                        >
-                                            <FiEdit />
-                                            <p>Edit</p>
-                                        </button>
-                                    )}
-                                </Menu.Item>
+                    <MenuList className="p-2 border-none rounded-xl shadow-1">
+                        <MenuItem className="p-0">
+                            <Button
+                                onClick={() => setEditCategory(true)}
+                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-green-500"
+                                variant="text"
+                                color="gray"
+                            >
+                                <FiEdit className="" />
+                                <p>Edit</p>
+                            </Button>
+                        </MenuItem>
 
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <button
-                                            onClick={() => setDeleteModal(true)}
-                                            className={`${
-                                                active ? "bg-gray-100" : "bg-white"
-                                            } flex w-full items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-xs font-medium text-error-main  transition lg:text-base`}
-                                        >
-                                            <FiDelete />
-                                            Delete
-                                        </button>
-                                    )}
-                                </Menu.Item>
-                            </div>
-                        </Menu.Items>
-                    </Transition>
+                        <MenuItem className="p-0">
+                            <Button
+                                onClick={() => setDeleteModal(true)}
+                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-red-500"
+                                variant="text"
+                                color="gray"
+                            >
+                                <FiDelete />
+                                Delete
+                            </Button>
+                        </MenuItem>
+                    </MenuList>
                 </Menu>
 
                 <EditCategory category={category} isOpen={editCategory} setIsOpen={setEditCategory} />

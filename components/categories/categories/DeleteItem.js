@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { categoriesActions } from "../../../store/slice/categories.slice";
 import toast from "react-hot-toast";
 import Modal from "../../ui/Modal";
-import Button from "../../ui/Button";
+
 import axios from "../../../utils/axios";
+import { Typography, Button } from "@material-tailwind/react";
 
 const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -35,21 +36,24 @@ const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
 
     return (
         <Modal isOpen={isOpen} closeModal={closeModal}>
-            <div className="p-10 ">
+            <div className="px-8 py-10">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-800">Delete Category</h2>
-                    <p className="mt-2 text-gray-700">
+                    <Typography variant="h5" className="font-bold text-gray-800">
+                        Delete Category
+                    </Typography>
+
+                    <Typography variant="paragraph" className="mt-2 text-gray-700">
                         Are you sure you want to Delete this category? All of the data will be permanently removed. This
                         action cannot be undone.
-                    </p>
+                    </Typography>
                 </div>
 
                 <div className="mt-4 flex flex-wrap items-center justify-end gap-2">
-                    <Button variant="error-outlined" size="md" width="6rem" onClick={closeModal}>
+                    <Button variant="outlined" size="md" color="red" className="w-24" onClick={closeModal}>
                         Cancel
                     </Button>
 
-                    <Button variant="error" size="md" width="6rem" onClick={deleteHandler}>
+                    <Button variant="filled" size="md" color="red" className="w-24" onClick={deleteHandler}>
                         Delete
                     </Button>
                 </div>
