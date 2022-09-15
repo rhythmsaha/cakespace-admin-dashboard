@@ -1,21 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { FiDelete, FiEdit } from "react-icons/fi";
-import SimpleBar from "simplebar-react";
 import AddNewFlavour from "./AddNewFlavour";
-import Card from "../ui/Card";
-import "simplebar/dist/simplebar.min.css";
+import Card from "../../ui/Card";
 import EditFlavour from "./EditFlavour";
 import DeleteFlavour from "./DeleteFlavour";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+import { Button, IconButton, MenuHandler, MenuItem, MenuList, Typography, Menu } from "@material-tailwind/react";
 
 function FlavoursTable({ flavours }) {
     return (
         <Card>
             <div className="flex flex-wrap items-center justify-between">
-                <h3 className="text-base font-semibold text-gray-600 lg:px-2 lg:text-lg">Flavours</h3>
-
+                <Typography className="text-base font-semibold text-gray-600 lg:px-2 lg:text-lg">Flavours</Typography>
                 <AddNewFlavour />
             </div>
 
@@ -64,7 +63,7 @@ function FlavoursRow({ flavour }) {
     return (
         <tr key={_id} className="rounded text-gray-600 transition-all duration-200 hover:bg-gray-50">
             <td className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
-                <p className="whitespace-nowrap hover:text-gray-900">{name}</p>
+                <Typography className="whitespace-nowrap hover:text-gray-900">{name}</Typography>
             </td>
 
             <td className="px-4 py-4 text-center text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
@@ -73,7 +72,7 @@ function FlavoursRow({ flavour }) {
 
             <td className="px-4 py-4 text-center first:rounded-l-xl last:rounded-r-xl">
                 {enabled && (
-                    <span className="whitespace-nowrap rounded-full bg-primary-lighter bg-opacity-60 py-1.5 px-8 text-xs text-primary-main">
+                    <span className="whitespace-nowrap rounded-full bg-green-50 bg-opacity-60 py-1.5 px-8 text-xs text-green-500">
                         Enabled
                     </span>
                 )}
@@ -85,54 +84,42 @@ function FlavoursRow({ flavour }) {
             </td>
 
             <td className="w-14 py-4 first:rounded-l-xl last:rounded-r-xl">
-                <Menu as="div" className="relative inline-block">
-                    <div className="flex items-center justify-center">
-                        <Menu.Button className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-200 active:bg-gray-300">
-                            <HiDotsVertical className="text-lg lg:text-xl" />
-                        </Menu.Button>
-                    </div>
+                <Menu placement="left-start">
+                    <MenuHandler>
+                        <IconButton
+                            className="flex items-center justify-center rounded-full"
+                            variant="text"
+                            color="gray"
+                        >
+                            <HiDotsVertical className="text-lg" />
+                        </IconButton>
+                    </MenuHandler>
 
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className="absolute right-full bottom-0 z-20 w-40 origin-top-right rounded-lg bg-white shadow-1">
-                            <div className="px-1 py-1">
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <button
-                                            onClick={() => setEditModal(true)}
-                                            className={`${
-                                                active ? "bg-gray-100" : "bg-white"
-                                            } flex w-full items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-xs font-medium text-primary-main  transition lg:text-base`}
-                                        >
-                                            <FiEdit />
-                                            <p>Edit</p>
-                                        </button>
-                                    )}
-                                </Menu.Item>
+                    <MenuList className="p-2 border-none rounded-xl shadow-1">
+                        <MenuItem className="p-0">
+                            <Button
+                                onClick={() => setEditModal(true)}
+                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-green-500"
+                                variant="text"
+                                color="gray"
+                            >
+                                <FiEdit className="" />
+                                <p>Edit</p>
+                            </Button>
+                        </MenuItem>
 
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <button
-                                            onClick={() => setDeleteModal(true)}
-                                            className={`${
-                                                active ? "bg-gray-100" : "bg-white"
-                                            } flex w-full items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-xs font-medium text-error-main  transition lg:text-base`}
-                                        >
-                                            <FiDelete />
-                                            Delete
-                                        </button>
-                                    )}
-                                </Menu.Item>
-                            </div>
-                        </Menu.Items>
-                    </Transition>
+                        <MenuItem className="p-0">
+                            <Button
+                                onClick={() => setDeleteModal(true)}
+                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-red-500"
+                                variant="text"
+                                color="gray"
+                            >
+                                <FiDelete />
+                                Delete
+                            </Button>
+                        </MenuItem>
+                    </MenuList>
                 </Menu>
 
                 <EditFlavour flavour={flavour} open={editModal} setOpen={setEditModal} />

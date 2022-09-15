@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import toast from "react-hot-toast";
+import Image from "next/future/image";
+import { Typography } from "@material-tailwind/react";
 
 function UploadImage({ imageUrl, setFile }) {
     const [image, setImage] = useState(imageUrl);
@@ -51,7 +53,13 @@ function UploadImage({ imageUrl, setFile }) {
                 )}
 
                 {image ? (
-                    <img src={image} className="h-full w-full rounded-full border object-cover" alt="" />
+                    <Image
+                        src={image}
+                        width={100}
+                        height={100}
+                        className="h-full w-full rounded-full border object-cover"
+                        alt="Icon"
+                    />
                 ) : (
                     <span className="flex h-full w-full items-center justify-center rounded-full border p-7">
                         <MdAddAPhoto className="h-full w-full text-grey-500" />
@@ -61,11 +69,11 @@ function UploadImage({ imageUrl, setFile }) {
                 <input id="test" type="file" onChange={createImageBlob} className="hidden" />
             </label>
 
-            <h2 className="mt-2 text-sm font-bold text-grey-600">Category Image</h2>
+            <Typography className="mt-2 text-sm font-bold text-grey-600">Category Image</Typography>
 
-            <p className="mt-1 text-center text-xs font-medium text-grey-500">
+            <Typography className="mt-1 text-center text-xs font-medium text-grey-500">
                 Allowed *.jpeg, *.jpg, *.png <br /> max size of 1 MB
-            </p>
+            </Typography>
         </div>
     );
 }

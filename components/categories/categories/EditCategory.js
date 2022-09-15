@@ -34,9 +34,7 @@ function EditCategory({ category, isOpen, setIsOpen }) {
         const body = { name, enabled };
 
         try {
-            if (image) {
-                body.icon = await uploadToCloudinary(image);
-            }
+            if (image) body.icon = await uploadToCloudinary(image);
 
             const response = await axios.patch(`/categories/${category.slug}`, body);
             const data = await response.data;

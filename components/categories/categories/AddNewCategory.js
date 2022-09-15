@@ -64,7 +64,7 @@ const AddNewCategory = () => {
 
     return (
         <>
-            <Button onClick={openModal} variant="filled" size="md" color="green">
+            <Button onClick={openModal} variant="filled" size="sm" color="green">
                 <div className="flex items-center gap-2 whitespace-nowrap">
                     <MdOutlineAdd className="text-xl" />
                     <span>Add New</span>
@@ -82,6 +82,7 @@ const AddNewCategory = () => {
                             <div className="flex-1 space-y-1 py-1">
                                 <div>
                                     <Input
+                                        type="text"
                                         label="Category Name"
                                         color="green"
                                         size="lg"
@@ -90,16 +91,18 @@ const AddNewCategory = () => {
                                         {...register("name", { required: "Name is required!" })}
                                     />
                                     {!!errors.name && (
-                                        <span className="px-2 text-xs text-red-600">{errors.name?.message}</span>
+                                        <Typography className="px-2 text-xs text-red-600">
+                                            {errors.name?.message}
+                                        </Typography>
                                     )}
                                 </div>
 
                                 <Checkbox
                                     label="Enabled"
                                     name="enabled"
+                                    color="green"
                                     defaultChecked={true}
                                     {...register("enabled")}
-                                    color="green"
                                 />
                             </div>
                         </div>

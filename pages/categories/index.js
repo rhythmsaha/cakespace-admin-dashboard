@@ -2,15 +2,13 @@
 import { useCallback } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import CategoriesSkeleton from "../../components/categories/categories/CategoriesSkeleton";
-import CategoriesTable from "../../components/categories/categories/CategoriesTable";
-
-import FlavoursTable from "../../components/categories/FlavoursTable";
+import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 
-import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
+import CategoriesSkeleton from "../../components/categories/categories/CategoriesSkeleton";
+import CategoriesTable from "../../components/categories/categories/CategoriesTable";
+import FlavoursTable from "../../components/categories/flavours/FlavoursTable";
 
 function Categories() {
     const [isLoading, setIsLoading] = useState(true);

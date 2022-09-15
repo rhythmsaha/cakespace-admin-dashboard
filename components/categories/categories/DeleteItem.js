@@ -26,12 +26,12 @@ const DeleteItem = ({ slug, isOpen, setIsOpen }) => {
             const data = await response.data;
 
             dispatch(categoriesActions.deleteCategory(data.category.slug));
-            setIsLoading(false);
             toast.success(data.message);
-            setIsOpen(false);
+            closeModal();
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error?.message || error || "Something went wrong!");
         }
+        setIsLoading(false);
     };
 
     return (
