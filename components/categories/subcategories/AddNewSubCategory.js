@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { MdOutlineAdd } from "react-icons/md";
-import { flavoursActions } from "../../../store/slice/flavours.slice";
+import { categoriesActions } from "../../../store/slice/categories.slice";
 import toast from "react-hot-toast";
 import axios from "../../../utils/axios";
 import Modal from "../../ui/Modal";
 import { Button, Checkbox, Input, Typography } from "@material-tailwind/react";
 
-const AddNewFlavour = () => {
+const AddNewSubCategory = ({ categoryId }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const dispatch = useDispatch();
@@ -35,11 +35,10 @@ const AddNewFlavour = () => {
         toast.dismiss();
 
         try {
-            const response = await axios.post(`/flavours`, { name, enabled });
+            const response = await axios.post(`/subcategories`, { name, enabled, categoryId });
             const data = await response.data;
 
-            dispatch(flavoursActions.addFlavour(data.flavour));
-
+            dispatch(categoriesActions.addSubCategory(data?.subCategory));
             toast.success(data.message);
             closeModal();
         } catch (error) {
@@ -64,13 +63,13 @@ const AddNewFlavour = () => {
 
             <Modal isOpen={isOpen} closeModal={closeModal}>
                 <form className="p-6" onSubmit={handleSubmit(submitHandler)}>
-                    <Typography className="px-2 text-xl font-bold">New Flavour</Typography>
+                    <Typography className="px-2 text-xl font-bold">New Subcategory</Typography>
 
                     <div className="mt-4 space-y-3 py-1">
                         <div>
                             <Input
                                 type="text"
-                                label="Flavour Name"
+                                label="Sub Category"
                                 color="green"
                                 size="lg"
                                 name="name"
@@ -82,13 +81,13 @@ const AddNewFlavour = () => {
                             )}
                         </div>
 
-                        <div className="px-2">
+                        <div className="px-2 ">
                             <Checkbox
                                 label="Enabled"
                                 name="enabled"
+                                color="green"
                                 defaultChecked={true}
                                 {...register("enabled")}
-                                color="green"
                             />
                         </div>
                     </div>
@@ -107,5 +106,4 @@ const AddNewFlavour = () => {
         </>
     );
 };
-
-export default AddNewFlavour;
+export default AddNewSubCategory;

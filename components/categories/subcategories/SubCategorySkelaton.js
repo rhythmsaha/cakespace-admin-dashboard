@@ -1,5 +1,5 @@
-import Card from "../ui/Card";
-import Skelaton from "../ui/Skelaton";
+import Card from "../../ui/Card";
+import Skelaton from "../../ui/Skelaton";
 
 const SubCategorySkelaton = () => {
     return (

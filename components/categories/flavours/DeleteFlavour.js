@@ -4,7 +4,6 @@ import { flavoursActions } from "../../../store/slice/flavours.slice";
 
 import toast from "react-hot-toast";
 import Modal from "../../ui/Modal";
-
 import axios from "../../../utils/axios";
 import { Typography, Button } from "@material-tailwind/react";
 

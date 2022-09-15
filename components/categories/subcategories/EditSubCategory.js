@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { flavoursActions } from "../../../store/slice/flavours.slice";
+import { categoriesActions } from "../../../store/slice/categories.slice";
 import toast from "react-hot-toast";
 import Modal from "../../ui/Modal";
 import axios from "../../../utils/axios";
 import { Button, Checkbox, Input, Typography } from "@material-tailwind/react";
 
-const EditFlavour = ({ flavour, open, setOpen }) => {
+const EditSubCategory = ({ subCategory, open, setOpen }) => {
     const dispatch = useDispatch();
 
     const {
@@ -27,10 +27,10 @@ const EditFlavour = ({ flavour, open, setOpen }) => {
         toast.dismiss();
 
         try {
-            const response = await axios.patch(`/flavours/${flavour.slug}`, { name, enabled });
+            const response = await axios.patch(`/subcategories/${subCategory._id}`, { name, enabled });
             const data = await response.data;
 
-            dispatch(flavoursActions.updateFlavour(data.flavour));
+            dispatch(categoriesActions.updateSubCategory(data.subCategory));
             toast.success(data.message);
             closeModal();
         } catch (error) {
@@ -47,17 +47,17 @@ const EditFlavour = ({ flavour, open, setOpen }) => {
     return (
         <Modal isOpen={open} closeModal={closeModal}>
             <form className="p-6" onSubmit={handleSubmit(submitHandler)}>
-                <Typography className="px-2 text-xl font-bold">Edit Flavour</Typography>
+                <Typography className="px-2 text-xl font-bold">Edit Subcategory</Typography>
 
-                <div className="mt-4 space-y-3 py-1">
+                <div className="mt-4 space-y-1 py-1">
                     <div>
                         <Input
                             type="text"
-                            label="Flavour Name"
+                            label="Subcategory Name"
                             name="name"
                             color="green"
                             size="lg"
-                            defaultValue={flavour.name}
+                            defaultValue={subCategory.name}
                             error={!!errors.name}
                             {...register("name", { required: "Name is required!" })}
                         />
@@ -71,8 +71,8 @@ const EditFlavour = ({ flavour, open, setOpen }) => {
                         <Checkbox
                             label="Enabled"
                             name="enabled"
-                            defaultChecked={flavour.enabled}
                             color="green"
+                            defaultChecked={subCategory.enabled}
                             {...register("enabled")}
                         />
                     </div>
@@ -91,5 +91,4 @@ const EditFlavour = ({ flavour, open, setOpen }) => {
         </Modal>
     );
 };
-
-export default EditFlavour;
+export default EditSubCategory;

@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SubCategories from "../../../components/categories/SubCategories";
-import SubCategorySkelaton from "../../../components/categories/SubCategorySkelaton";
+import SubCategories from "../../../components/categories/subcategories/SubCategories";
+import SubCategorySkelaton from "../../../components/categories/subcategories/SubCategorySkelaton";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import PageName from "../../../components/PageName";
 import { fetchCategoriesAndFlavours } from "../../../store/actions/CategoriesAction";
@@ -34,13 +34,8 @@ const Category = () => {
         <div>
             <div className="flex items-center justify-between">
                 <PageName name={`${category?.name}`} />
-                <button
-                    className="bg-primary-lighter text-primary-dark px-4 py-1 text-sm rounded-md "
-                    onClick={() => router.back()}
-                >
-                    back
-                </button>
             </div>
+
             <section className="mt-8 lg:mt-10">
                 <SubCategories category={category} />
             </section>
