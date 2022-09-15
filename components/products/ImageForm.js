@@ -5,9 +5,33 @@ import { AiOutlineClose } from "react-icons/ai";
 import IllustrationUpload from "../../assets/illustrations/IllustrationUpload";
 
 const ImageForm = () => {
-    const imageChangeHandler = (e) => {
-        console.log(e.target.files);
+    const [addedImages, setAddedImages] = useState([]);
+
+    const createImageBlob = (file) => {
+        try {
+            if (!file) return console.log("No file selected");
+            // if (!suppoertedTypes.includes(file.type)) return;
+            // if (file.size > maxSize) return;
+
+            const imageBlob = Object.assign(file, {
+                preview: URL.createObjectURL(file),
+            });
+
+            return imageBlob;
+        } catch (error) {
+            toast.error(error.message);
+            return file;
+        }
     };
+
+    const imageChangeHandler = (e) => {
+        const selectedFiles = e.target.files;
+        const filesArr = Object.values(selectedFiles);
+        const files = filesArr.map((file) => createImageBlob(file));
+
+        setAddedImages((prev) => [...prev, ...files]);
+    };
+    console.log(addedImages);
 
     return (
         <div className="">
@@ -34,33 +58,40 @@ const ImageForm = () => {
                 />
             </label>
 
-            <div className="mt-2 space-y-4">
-                <div className="flex items-center gap-2 py-4">
-                    <div className="relative">
-                        <button className="absolute right-1.5 top-1.5 rounded-full bg-black text-white bg-opacity-60 h-5 w-5 flex items-center justify-center">
-                            <AiOutlineClose className="text-xs" />
-                        </button>
+            {addedImages.length > 0 && (
+                <div className="mt-2 space-y-4">
+                    <div className="flex items-center  justify-center sm:justify-start flex-wrap gap-2 py-4">
+                        {addedImages.map((img) => (
+                            <div className="relative" key={img.preview}>
+                                <button
+                                    type="button"
+                                    className="absolute right-1.5 top-1.5 rounded-full bg-black text-white bg-opacity-60 h-5 w-5 flex items-center justify-center"
+                                >
+                                    <AiOutlineClose className="text-xs" />
+                                </button>
 
-                        <Image
-                            src="https://res.cloudinary.com/desihzeid/image/upload/v1663253292/CakeSpace/ym3iv7onb5o1gys7f8qu.jpg"
-                            height={80}
-                            width={80}
-                            className="min-w-min w-20 h-20 rounded-lg object-cover"
-                            alt="image"
-                        />
+                                <Image
+                                    src={img.preview}
+                                    height={80}
+                                    width={80}
+                                    className="min-w-[80px] w-20 h-20 rounded-lg object-cover"
+                                    alt="image"
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center justify-end gap-2">
+                        <Button variant="text" size="sm" color="red" className="capitalize">
+                            Remove All
+                        </Button>
+
+                        <Button variant="filled" size="sm" color="green" className="capitalize">
+                            Upload Files
+                        </Button>
                     </div>
                 </div>
-
-                <div className="flex items-center justify-end gap-2">
-                    <Button variant="text" size="sm" color="red" className="capitalize">
-                        Remove All
-                    </Button>
-
-                    <Button variant="filled" size="sm" color="green" className="capitalize">
-                        Upload Files
-                    </Button>
-                </div>
-            </div>
+            )}
         </div>
     );
 };

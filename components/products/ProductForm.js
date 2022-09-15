@@ -1,12 +1,29 @@
 import { Button, Input, Option, Select, Switch, Textarea } from "@material-tailwind/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { BiRupee } from "react-icons/bi";
 import Card from "../ui/Card";
 import Spinner from "../ui/Spinner";
 import ImageForm from "./ImageForm";
 
-const ProductForm = () => {
+const ProductForm = ({ categories, flavours, isLoading }) => {
+    const [selectedCategory, setSelectedCategory] = useState({ subCategories: [] });
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        setError,
+        getValues,
+        reset,
+    } = useForm();
+
+    const submitHandler = async (data) => {
+        console.log(data);
+    };
+
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <form onSubmit={handleSubmit(submitHandler)} className="grid grid-cols-1 lg:grid-cols-12 gap-4">
             <div className="lg:col-span-8">
                 <Card>
                     <div className="space-y-3">
@@ -33,35 +50,43 @@ const ProductForm = () => {
                         </div>
 
                         <div>
-                            <Select label="Category" size="lg" color="green">
-                                <Option>Material Tailwind HTML</Option>
-                                <Option>Material Tailwind React</Option>
-                                <Option>Material Tailwind Vue</Option>
-                                <Option>Material Tailwind Angular</Option>
-                                <Option>Material Tailwind Svelte</Option>
+                            <Select
+                                label="Category"
+                                size="lg"
+                                color="green"
+                                onChange={(value) => {
+                                    const category = categories.find((el) => el.slug === value);
+                                    setSelectedCategory(category);
+                                }}
+                            >
+                                {categories?.map((category) => (
+                                    <Option key={category._id} value={category.slug}>
+                                        {category.name}
+                                    </Option>
+                                ))}
                             </Select>
                         </div>
 
                         <div>
                             <Select label="Sub Category (Optional)" size="lg" color="green">
-                                <Option>Material Tailwind HTML</Option>
-                                <Option>Material Tailwind React</Option>
-                                <Option>Material Tailwind Vue</Option>
-                                <Option>Material Tailwind Angular</Option>
-                                <Option>Material Tailwind Svelte</Option>
+                                {selectedCategory?.subCategories?.map((category) => (
+                                    <Option key={category._id} value={category.slug}>
+                                        {category.name}
+                                    </Option>
+                                ))}
                             </Select>
                         </div>
 
                         <div>
-                            <Select label="Select Version" size="lg" color="green">
-                                <div className="flex items-center justify-center">
-                                    <Spinner className="text-green-500 h-4 w-4 animate-spin" />
-                                </div>
-                                <Option>Material Tailwind HTML</Option>
+                            <Select label="Flavour" size="lg" color="green">
                                 <Option>Material Tailwind HTML</Option>
                                 <Option>Material Tailwind HTML</Option>
                                 <Option>Material Tailwind HTML</Option>
                             </Select>
+                        </div>
+
+                        <div className="px-2">
+                            <Switch color="green" id="" label="Eggless" />
                         </div>
                     </div>
                 </Card>
@@ -83,12 +108,19 @@ const ProductForm = () => {
                 </Card>
 
                 <div>
-                    <Button color="green" className="capitalize tracking-wide sm:text-sm" size="md" fullWidth>
+                    <Button
+                        color="green"
+                        type="submit"
+                        className="capitalize tracking-wide sm:text-sm"
+                        size="md"
+                        fullWidth
+                    >
                         Create Product
                     </Button>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };
+
 export default ProductForm;

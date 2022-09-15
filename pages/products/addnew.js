@@ -1,4 +1,3 @@
-import Head from "next/head";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
 import AddNewProduct from "../../components/products/AddNewProduct";

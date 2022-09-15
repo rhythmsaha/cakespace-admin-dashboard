@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PageName from "../../components/PageName";
-
 import CategoriesSkeleton from "../../components/categories/categories/CategoriesSkeleton";
 import CategoriesTable from "../../components/categories/categories/CategoriesTable";
 import FlavoursTable from "../../components/categories/flavours/FlavoursTable";
