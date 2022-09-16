@@ -1,16 +1,42 @@
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import Head from "next/head";
 import PageName from "../../components/PageName";
 import { MdOutlineAdd } from "react-icons/md";
 import { useRouter } from "next/router";
 import { Button } from "@material-tailwind/react";
 
+import { useEffect, useState } from "react";
+import axios from "../../utils/axios";
+import ProductsTable from "../../components/products/ProductsTable";
+
 function Cakes() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [products, setProducts] = useState([]);
+
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchProducts = () => {
+            setIsLoading(true);
+            axios
+                .get("/products")
+                .then((res) => {
+                    setProducts(res.data.products);
+                    setIsLoading(false);
+                })
+                .catch((err) => {
+                    setIsLoading(false);
+                    console.log(err);
+                });
+        };
+
+        fetchProducts();
+    }, []);
+
+    console.log(products);
 
     return (
         <div>
-            <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <PageName name="Products" />
 
                 <Button onClick={() => router.push("/products/addnew")} variant="filled" size="sm" color="green">
@@ -21,7 +47,9 @@ function Cakes() {
                 </Button>
             </div>
 
-            <section className="mt-8 w-full"></section>
+            <section className="mt-10 w-full">
+                <ProductsTable products={products} />
+            </section>
         </div>
     );
 }
