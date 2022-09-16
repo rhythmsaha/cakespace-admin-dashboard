@@ -3,7 +3,7 @@ import { Typography } from "@material-tailwind/react";
 const CardHeading = ({ heading, desc }) => {
     return (
         <div>
-            <Typography variant="lead" className="text-gray-900 font-medium">
+            <Typography variant="lead" className="font-medium text-gray-900">
                 {heading}
             </Typography>
 

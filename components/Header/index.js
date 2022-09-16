@@ -51,7 +51,7 @@ const Header = () => {
 
                     <Menu placement="bottom-end">
                         <MenuHandler>
-                            <Button variant="text" color="gray" className="rounded-full p-0 m-0">
+                            <Button variant="text" color="gray" className="m-0 rounded-full p-0">
                                 <Avatar
                                     size="md"
                                     src={
@@ -65,9 +65,9 @@ const Header = () => {
                             </Button>
                         </MenuHandler>
 
-                        <MenuList className="border-none shadow-1 rounded-xl p-2">
-                            <div className="p-3 border-b border-dashed">
-                                <Typography variant="small" className="text-gray-700 leading-tight font-semibold">
+                        <MenuList className="rounded-xl border-none p-2 shadow-1">
+                            <div className="border-b border-dashed p-3">
+                                <Typography variant="small" className="font-semibold leading-tight text-gray-700">
                                     {user?.fullName}
                                 </Typography>
                                 <Typography variant="small" className="text-gray-600">
@@ -79,7 +79,7 @@ const Header = () => {
                                 <MenuItem className="p-0">
                                     <Button
                                         onClick={() => router.push("/account")}
-                                        className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize "
+                                        className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize "
                                         variant="text"
                                         color="gray"
                                     >
@@ -91,7 +91,7 @@ const Header = () => {
                                 <MenuItem className="p-0">
                                     <Button
                                         onClick={logout}
-                                        className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize"
+                                        className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize"
                                         variant="text"
                                         color="gray"
                                     >

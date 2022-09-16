@@ -14,10 +14,10 @@ function NotificationMenu({ notifications }) {
                 </IconButton>
             </MenuHandler>
 
-            <MenuList className="border-none shadow-1 rounded-xl p-2 max-w-sm w-full">
-                <div className="p-3 border-b border-dashed flex items-center justify-between">
+            <MenuList className="w-full max-w-sm rounded-xl border-none p-2 shadow-1">
+                <div className="flex items-center justify-between border-b border-dashed p-3">
                     <div>
-                        <Typography variant="small" className="text-gray-700 font-semibold">
+                        <Typography variant="small" className="font-semibold text-gray-700">
                             Notifications
                         </Typography>
                         <Typography variant="small" className="text-gray-600">

@@ -33,16 +33,7 @@ const NotificationSettings = () => {
             update(data?.user);
             toast.success(data.message);
         } catch (error) {
-            if (error?.fields) {
-                error.fields.forEach(({ field, message }) => {
-                    setError(field, { type: field, message: message });
-                });
-
-                return;
-            }
-            console.log(error);
-            // console.log(error);
-            // toast.error(error.message);
+            toast.error(error?.message || error || "Something went wrong!");
         }
 
         setIsLoading(false);
@@ -118,7 +109,7 @@ const NotificationSettings = () => {
                         color="green"
                         size="md"
                         type="submit"
-                        className="flex items-center justify-center w-40 capitalize"
+                        className="flex w-40 items-center justify-center capitalize"
                     >
                         save
                     </Button>

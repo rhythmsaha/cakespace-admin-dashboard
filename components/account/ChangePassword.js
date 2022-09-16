@@ -51,7 +51,7 @@ const ChangePassword = () => {
                 variant="filled"
                 size="md"
                 color="pink"
-                className="flex items-center justify-center gap-2 capitalize h-11 w-52"
+                className="flex h-11 w-52 items-center justify-center gap-2 capitalize"
                 onClick={handleOpen}
             >
                 <BiKey className="text-xl" />
@@ -72,7 +72,7 @@ const ChangePassword = () => {
                                 {...register("oldPassword", { required: "Current Password is required!" })}
                             />
                             {errors.oldPassword && (
-                                <p className="px-0.5 text-xs font-medium text-error-main mt-1">
+                                <p className="mt-1 px-0.5 text-xs font-medium text-error-main">
                                     {errors.oldPassword.message}
                                 </p>
                             )}
@@ -89,7 +89,7 @@ const ChangePassword = () => {
                                 {...register("newPassword", { required: "New Password is required!" })}
                             />
                             {errors.newPassword && (
-                                <p className="px-0.5 text-xs font-medium text-error-main mt-1">
+                                <p className="mt-1 px-0.5 text-xs font-medium text-error-main">
                                     {errors.newPassword.message}
                                 </p>
                             )}
@@ -106,7 +106,7 @@ const ChangePassword = () => {
                                 {...register("confirmPassword", { required: "Confirm Password is required!" })}
                             />
                             {errors.confirmPassword && (
-                                <p className="px-0.5 text-xs font-medium text-error-main mt-1">
+                                <p className="mt-1 px-0.5 text-xs font-medium text-error-main">
                                     {errors.confirmPassword.message}
                                 </p>
                             )}
@@ -118,7 +118,7 @@ const ChangePassword = () => {
                             variant="filled"
                             color="green"
                             type="submit"
-                            className="flex items-center justify-center w-32 capitalize text-sm"
+                            className="flex w-32 items-center justify-center text-sm capitalize"
                             disabled={isSubmitting}
                         >
                             Update
@@ -127,7 +127,7 @@ const ChangePassword = () => {
                         <Button
                             variant="filled"
                             color="red"
-                            className="flex items-center justify-center w-32 capitalize text-sm"
+                            className="flex w-32 items-center justify-center text-sm capitalize"
                             size="md"
                             onClick={handleOpen}
                         >

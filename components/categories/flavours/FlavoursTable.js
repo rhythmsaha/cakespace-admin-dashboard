@@ -22,7 +22,7 @@ function FlavoursTable({ flavours }) {
                 <table className="table w-full table-auto border-collapse text-center">
                     <thead className="">
                         <tr className="bg-grey-200">
-                            <th className="whitespace-nowrap py-5 px-4 sm:px-6 md:px-8 lg:px-10 text-left text-xs text-gray-700 first:rounded-l-md last:rounded-r-md sm:text-sm lg:text-base">
+                            <th className="whitespace-nowrap py-5 px-4 text-left text-xs text-gray-700 first:rounded-l-md last:rounded-r-md sm:px-6 sm:text-sm md:px-8 lg:px-10 lg:text-base">
                                 Flavour
                             </th>
                             <th className="whitespace-nowrap py-5 px-4 text-center text-xs text-gray-700 first:rounded-l-md last:rounded-r-md sm:text-sm lg:text-base">
@@ -62,7 +62,7 @@ function FlavoursRow({ flavour }) {
 
     return (
         <tr key={_id} className="rounded text-gray-600 transition-all duration-200 hover:bg-gray-50">
-            <td className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
+            <td className="px-4 py-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:px-6 sm:text-sm md:px-8 lg:px-10 lg:text-base">
                 <Typography className="whitespace-nowrap hover:text-gray-900">{name}</Typography>
             </td>
 
@@ -95,11 +95,11 @@ function FlavoursRow({ flavour }) {
                         </IconButton>
                     </MenuHandler>
 
-                    <MenuList className="p-2 border-none rounded-xl shadow-1">
+                    <MenuList className="rounded-xl border-none p-2 shadow-1">
                         <MenuItem className="p-0">
                             <Button
                                 onClick={() => setEditModal(true)}
-                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-green-500"
+                                className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-green-500"
                                 variant="text"
                                 color="gray"
                             >
@@ -111,7 +111,7 @@ function FlavoursRow({ flavour }) {
                         <MenuItem className="p-0">
                             <Button
                                 onClick={() => setDeleteModal(true)}
-                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-red-500"
+                                className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-red-500"
                                 variant="text"
                                 color="gray"
                             >

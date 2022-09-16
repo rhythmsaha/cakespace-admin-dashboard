@@ -80,11 +80,11 @@ function CategoryRows({ category }) {
                     alt={name}
                     height={48}
                     width={48}
-                    className="mx-auto min-w-[40px] h-10 w-10 rounded-xl object-cover lg:h-12 lg:w-12"
+                    className="mx-auto h-10 w-10 min-w-[40px] rounded-xl object-cover lg:h-12 lg:w-12"
                 />
             </td>
 
-            <td className="px-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base whitespace-nowrap">
+            <td className="whitespace-nowrap px-4 text-left text-xs first:rounded-l-xl last:rounded-r-xl sm:text-sm lg:text-base">
                 <Link href={`/categories/${slug}`}>{name}</Link>
             </td>
 
@@ -117,11 +117,11 @@ function CategoryRows({ category }) {
                         </IconButton>
                     </MenuHandler>
 
-                    <MenuList className="p-2 border-none rounded-xl shadow-1">
+                    <MenuList className="rounded-xl border-none p-2 shadow-1">
                         <MenuItem className="p-0">
                             <Button
                                 onClick={() => setEditCategory(true)}
-                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-green-500"
+                                className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-green-500"
                                 variant="text"
                                 color="gray"
                             >
@@ -133,7 +133,7 @@ function CategoryRows({ category }) {
                         <MenuItem className="p-0">
                             <Button
                                 onClick={() => setDeleteModal(true)}
-                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-red-500"
+                                className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-red-500"
                                 variant="text"
                                 color="gray"
                             >

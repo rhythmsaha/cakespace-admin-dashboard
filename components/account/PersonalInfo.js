@@ -90,7 +90,7 @@ const PersonalInfo = () => {
                                 size="md"
                                 variant="filled"
                                 color="green"
-                                className="flex items-center justify-center h-11 text-sm capitalize w-52"
+                                className="flex h-11 w-52 items-center justify-center text-sm capitalize"
                                 type="submit"
                             >
                                 Update

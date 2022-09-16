@@ -102,11 +102,11 @@ function CategoryRows({ subCategory, index }) {
                         </IconButton>
                     </MenuHandler>
 
-                    <MenuList className="p-2 border-none rounded-xl shadow-1">
+                    <MenuList className="rounded-xl border-none p-2 shadow-1">
                         <MenuItem className="p-0">
                             <Button
                                 onClick={() => setEditModal(true)}
-                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-green-500"
+                                className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-green-500"
                                 variant="text"
                                 color="gray"
                             >
@@ -118,7 +118,7 @@ function CategoryRows({ subCategory, index }) {
                         <MenuItem className="p-0">
                             <Button
                                 onClick={() => setDeleteModal(true)}
-                                className="w-full flex items-center justify-start px-3 py-2 gap-2 text-sm capitalize text-red-500"
+                                className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-red-500"
                                 variant="text"
                                 color="gray"
                             >

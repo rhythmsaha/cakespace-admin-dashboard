@@ -47,7 +47,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
     };
 
     return (
-        <form onSubmit={handleSubmit(submitHandler)} className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <form onSubmit={handleSubmit(submitHandler)} className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div className="lg:col-span-8">
                 <Card>
                     <div className="space-y-5">
@@ -62,7 +62,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                             />
 
                             {errors.name && (
-                                <Typography variant="small" className="text-xs text-red-600 p-1">
+                                <Typography variant="small" className="p-1 text-xs text-red-600">
                                     {errors?.name?.message}
                                 </Typography>
                             )}
@@ -81,14 +81,14 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                             />
 
                             {errors.description && (
-                                <Typography variant="small" className="text-xs text-red-600 px-1">
+                                <Typography variant="small" className="px-1 text-xs text-red-600">
                                     {errors?.description?.message}
                                 </Typography>
                             )}
                         </div>
 
                         <div>
-                            <Typography variant="small" className=" text-gray-700 font-medium p-1">
+                            <Typography variant="small" className=" p-1 font-medium text-gray-700">
                                 Images
                             </Typography>
 
@@ -98,7 +98,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                 </Card>
             </div>
 
-            <div className="lg:col-span-4 space-y-4">
+            <div className="space-y-4 lg:col-span-4">
                 <Card>
                     <div className="space-y-5">
                         <div>
@@ -123,7 +123,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                             </Select>
 
                             {errors.category && (
-                                <Typography variant="small" className="text-xs text-red-600 p-1">
+                                <Typography variant="small" className="p-1 text-xs text-red-600">
                                     {errors?.category?.message}
                                 </Typography>
                             )}
@@ -175,7 +175,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                             />
 
                             {errors.stocks && (
-                                <Typography variant="small" className="text-xs text-red-600 p-1">
+                                <Typography variant="small" className="p-1 text-xs text-red-600">
                                     {errors?.stocks?.message}
                                 </Typography>
                             )}
@@ -194,7 +194,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                             />
 
                             {errors.weight && (
-                                <Typography variant="small" className="text-xs text-red-600 p-1">
+                                <Typography variant="small" className="p-1 text-xs text-red-600">
                                     {errors?.weight?.message}
                                 </Typography>
                             )}
@@ -214,7 +214,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                             />
 
                             {errors.price && (
-                                <Typography variant="small" className="text-xs text-red-600 p-1">
+                                <Typography variant="small" className="p-1 text-xs text-red-600">
                                     {errors?.price?.message}
                                 </Typography>
                             )}

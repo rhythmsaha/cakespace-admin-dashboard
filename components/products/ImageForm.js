@@ -78,11 +78,11 @@ const ImageForm = ({ links, setLinks }) => {
 
     return (
         <div className="">
-            <label className="max-w-full flex flex-col lg:flex-row items-center justify-center gap-4 border-dashed border bg-grey-200 rounded-xl p-10 cursor-pointer hover:opacity-75">
+            <label className="flex max-w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-xl border border-dashed bg-grey-200 p-10 hover:opacity-75 lg:flex-row">
                 <IllustrationUpload />
 
-                <div className="text-center lg:text-left space-y-2">
-                    <Typography variant="h5" className="text-base lg:text-lg font-bold text-gray-800">
+                <div className="space-y-2 text-center lg:text-left">
+                    <Typography variant="h5" className="text-base font-bold text-gray-800 lg:text-lg">
                         Select file
                     </Typography>
 
@@ -102,13 +102,13 @@ const ImageForm = ({ links, setLinks }) => {
 
             {images.length > 0 && (
                 <div className="mt-2 space-y-4">
-                    <div className="flex items-center  justify-center sm:justify-start flex-wrap gap-2 py-4">
+                    <div className="flex flex-wrap items-center justify-center gap-2 py-4 sm:justify-start">
                         {images.map((img) => (
                             <div className="relative" key={img || img.preview}>
                                 <button
                                     type="button"
                                     onClick={() => removeSingleHandler(img || img.preview)}
-                                    className="absolute right-1.5 top-1.5 rounded-full bg-black text-white bg-opacity-60 h-5 w-5 flex items-center justify-center"
+                                    className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-black bg-opacity-60 text-white"
                                 >
                                     <AiOutlineClose className="text-xs" />
                                 </button>
@@ -117,7 +117,7 @@ const ImageForm = ({ links, setLinks }) => {
                                     src={img}
                                     height={80}
                                     width={80}
-                                    className="min-w-[80px] w-20 h-20 rounded-lg object-cover"
+                                    className="h-20 w-20 min-w-[80px] rounded-lg object-cover"
                                     alt="image"
                                 />
                             </div>
