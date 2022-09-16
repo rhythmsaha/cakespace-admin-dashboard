@@ -1,35 +1,54 @@
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import axiosInstance from "../../utils/axios";
 import ProductForm from "./ProductForm";
 
 const AddNewProduct = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const dispatch = useDispatch();
-
-    const fetchdata = useCallback(async () => {
-        await dispatch(fetchCategoriesAndFlavours(true));
-        setIsLoading(false);
-    }, [dispatch]);
-
-    useEffect(() => {
-        fetchdata();
-    }, [fetchdata]);
-
     const categories = useSelector((state) => state.categories.list);
     const flavours = useSelector((state) => state.flavours.list);
-
     const categoriesError = useSelector((state) => state.categories.error);
     const flavoursError = useSelector((state) => state.flavours.error);
+
+    const submitHandler = async ({
+        name,
+        description,
+        price,
+        images,
+        stocks,
+        category,
+        subCategory,
+        weight,
+        flavour,
+    }) => {
+        toast.dismiss();
+
+        try {
+            const body = { name, description, price, images, stocks };
+
+            if (images.length > 0) body.images = images;
+            if (category) body.category = category;
+            if (subCategory) body.subCategory = subCategory;
+            if (flavour) body.flavour = flavour;
+            if (weight) body.weight = weight;
+
+            const response = await axiosInstance.post(`/products`, body);
+            const data = await response.data;
+
+            console.log(data);
+            toast.success(data.message);
+        } catch (error) {
+            throw error;
+        }
+    };
 
     return (
         <div>
             <ProductForm
                 categories={categories}
                 flavours={flavours}
-                isLoading={isLoading}
                 categoriesError={categoriesError}
                 flavoursError={flavoursError}
+                onSubmit={submitHandler}
             />
         </div>
     );

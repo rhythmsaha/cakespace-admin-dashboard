@@ -1,16 +1,19 @@
-import { Button, Input, Option, Select, Switch, Textarea, Typography } from "@material-tailwind/react";
+import { Button, Input, Option, Select, Textarea, Typography } from "@material-tailwind/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { BiRupee } from "react-icons/bi";
 import Card from "../ui/Card";
-import Spinner from "../ui/Spinner";
 import ImageForm from "./ImageForm";
 
-const ProductForm = ({ categories, flavours = [], isLoading }) => {
+const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] }) => {
     const [selectedCategory, setSelectedCategory] = useState({ subCategories: [] });
     const [selectedSubcategory, setSelectedSubcategory] = useState();
     const [selectedFlavour, setSelectedFlavour] = useState();
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState(existingImages);
+
+    const router = useRouter();
 
     const {
         register,
@@ -18,19 +21,29 @@ const ProductForm = ({ categories, flavours = [], isLoading }) => {
         formState: { errors, isSubmitting },
         setError,
         clearErrors,
-        getValues,
-        reset,
     } = useForm();
 
     const submitHandler = async (data) => {
         if (isSubmitting) return;
-        if (!selectedCategory._id) return setError("category", { type: "required", message: "Category is required!" });
+        try {
+            await onSubmit({
+                ...data,
+                images,
+                category: selectedCategory?._id,
+                subCategory: selectedSubcategory,
+                flavour: selectedFlavour,
+            });
 
-        console.log(images);
-        console.log(data);
-        console.log(selectedCategory);
-        console.log(selectedSubcategory);
-        console.log(selectedFlavour);
+            router.push("/products");
+        } catch (error) {
+            if (error?.fields && error.fields.length > 0) {
+                error.fields.forEach((field) => {
+                    setError(field.path, { type: field.type, message: field.message });
+                });
+            } else {
+                toast.error(error?.message || error || "Something went wrong!");
+            }
+        }
     };
 
     return (
@@ -88,26 +101,6 @@ const ProductForm = ({ categories, flavours = [], isLoading }) => {
             <div className="lg:col-span-4 space-y-4">
                 <Card>
                     <div className="space-y-5">
-                        <div>
-                            <Input
-                                label="No. of stocks"
-                                type="number"
-                                color="green"
-                                size="lg"
-                                name="stocks"
-                                min={1}
-                                defaultValue={1}
-                                error={!!errors.stocks}
-                                {...register("stocks", { required: "Stocks is required!" })}
-                            />
-
-                            {errors.stocks && (
-                                <Typography variant="small" className="text-xs text-red-600 p-1">
-                                    {errors?.stocks?.message}
-                                </Typography>
-                            )}
-                        </div>
-
                         <div>
                             <Select
                                 label="Category"
@@ -170,20 +163,20 @@ const ProductForm = ({ categories, flavours = [], isLoading }) => {
 
                         <div>
                             <Input
-                                color="green"
-                                label="Regular Price"
+                                label="No. of stocks"
                                 type="number"
-                                icon={<BiRupee />}
+                                color="green"
                                 size="lg"
-                                name="regularPrice"
-                                min={0}
-                                error={!!errors.regularPrice}
-                                {...register("regularPrice", { required: "Regular Price is required!" })}
+                                name="stocks"
+                                min={1}
+                                defaultValue={1}
+                                error={!!errors.stocks}
+                                {...register("stocks", { required: "Stocks is required!" })}
                             />
 
-                            {errors.regularPrice && (
+                            {errors.stocks && (
                                 <Typography variant="small" className="text-xs text-red-600 p-1">
-                                    {errors?.regularPrice?.message}
+                                    {errors?.stocks?.message}
                                 </Typography>
                             )}
                         </div>
@@ -191,25 +184,45 @@ const ProductForm = ({ categories, flavours = [], isLoading }) => {
                         <div>
                             <Input
                                 color="green"
-                                label="Sell Price"
-                                icon={<BiRupee />}
+                                label="Weight (grams)"
+                                type="number"
                                 size="lg"
-                                name="sellPrice"
-                                min={0}
-                                error={!!errors.sellPrice}
-                                {...register("sellPrice", { required: "Sell Price is required!" })}
+                                name="weight"
+                                min={1}
+                                error={!!errors.weight}
+                                {...register("weight")}
                             />
 
-                            {errors.sellPrice && (
+                            {errors.weight && (
                                 <Typography variant="small" className="text-xs text-red-600 p-1">
-                                    {errors?.sellPrice?.message}
+                                    {errors?.weight?.message}
+                                </Typography>
+                            )}
+                        </div>
+
+                        <div>
+                            <Input
+                                color="green"
+                                label="Price"
+                                type="number"
+                                icon={<BiRupee />}
+                                size="lg"
+                                name="price"
+                                min={0}
+                                error={!!errors.price}
+                                {...register("price", { required: "Price is required!" })}
+                            />
+
+                            {errors.price && (
+                                <Typography variant="small" className="text-xs text-red-600 p-1">
+                                    {errors?.price?.message}
                                 </Typography>
                             )}
                         </div>
                     </div>
                 </Card>
 
-                <div>
+                <div className="px-1">
                     <Button
                         color="green"
                         type="submit"
