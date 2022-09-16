@@ -4,14 +4,18 @@ import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import IllustrationUpload from "../../assets/illustrations/IllustrationUpload";
 
-const ImageForm = () => {
+const suppoertedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+const maxSize = 2 * 1024 * 1024; //2 MB
+
+const ImageForm = ({ links, setLinks }) => {
+    const [images, setImages] = useState(links || []);
     const [addedImages, setAddedImages] = useState([]);
 
     const createImageBlob = (file) => {
         try {
             if (!file) return console.log("No file selected");
-            // if (!suppoertedTypes.includes(file.type)) return;
-            // if (file.size > maxSize) return;
+            if (!suppoertedTypes.includes(file.type)) return;
+            if (file.size > maxSize) return;
 
             const imageBlob = Object.assign(file, {
                 preview: URL.createObjectURL(file),
@@ -27,11 +31,22 @@ const ImageForm = () => {
     const imageChangeHandler = (e) => {
         const selectedFiles = e.target.files;
         const filesArr = Object.values(selectedFiles);
-        const files = filesArr.map((file) => createImageBlob(file));
+        const files = [];
+        const imgArr = [];
+        filesArr.forEach((file) => {
+            const image = createImageBlob(file);
+            if (!image?.preview) return;
+            files.push(image);
+            imgArr.push(image.preview);
+        });
 
+        setImages((prev) => [...prev, ...imgArr]);
         setAddedImages((prev) => [...prev, ...files]);
     };
-    console.log(addedImages);
+
+    const uploadImageHandler = () => {
+        setLinks(addedImages);
+    };
 
     return (
         <div className="">
@@ -58,11 +73,11 @@ const ImageForm = () => {
                 />
             </label>
 
-            {addedImages.length > 0 && (
+            {images.length > 0 && (
                 <div className="mt-2 space-y-4">
                     <div className="flex items-center  justify-center sm:justify-start flex-wrap gap-2 py-4">
-                        {addedImages.map((img) => (
-                            <div className="relative" key={img.preview}>
+                        {images.map((img) => (
+                            <div className="relative" key={img || img.preview}>
                                 <button
                                     type="button"
                                     className="absolute right-1.5 top-1.5 rounded-full bg-black text-white bg-opacity-60 h-5 w-5 flex items-center justify-center"
@@ -71,7 +86,7 @@ const ImageForm = () => {
                                 </button>
 
                                 <Image
-                                    src={img.preview}
+                                    src={img}
                                     height={80}
                                     width={80}
                                     className="min-w-[80px] w-20 h-20 rounded-lg object-cover"
@@ -81,15 +96,23 @@ const ImageForm = () => {
                         ))}
                     </div>
 
-                    <div className="flex items-center justify-end gap-2">
-                        <Button variant="text" size="sm" color="red" className="capitalize">
-                            Remove All
-                        </Button>
+                    {addedImages.length > 0 && (
+                        <div className="flex items-center justify-end gap-2">
+                            <Button variant="text" size="sm" color="red" className="capitalize">
+                                Remove All
+                            </Button>
 
-                        <Button variant="filled" size="sm" color="green" className="capitalize">
-                            Upload Files
-                        </Button>
-                    </div>
+                            <Button
+                                variant="filled"
+                                size="sm"
+                                color="green"
+                                className="capitalize"
+                                onClick={uploadImageHandler}
+                            >
+                                Upload Files
+                            </Button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
