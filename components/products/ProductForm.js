@@ -4,14 +4,19 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BiRupee } from "react-icons/bi";
+import MarkDownEditor from "../editor/MarkDownEditor";
 import Card from "../ui/Card";
 import ImageForm from "./ImageForm";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 
 const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] }) => {
     const [selectedCategory, setSelectedCategory] = useState({ subCategories: [] });
     const [selectedSubcategory, setSelectedSubcategory] = useState();
     const [selectedFlavour, setSelectedFlavour] = useState();
     const [images, setImages] = useState(existingImages);
+    const [description, setDescription] = useState("");
 
     const router = useRouter();
 
@@ -29,6 +34,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
             await onSubmit({
                 ...data,
                 images,
+                description: description,
                 category: selectedCategory?._id,
                 subCategory: selectedSubcategory,
                 flavour: selectedFlavour,
@@ -69,16 +75,14 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                         </div>
 
                         <div>
-                            <Textarea
-                                rows={10}
-                                variant="outlined"
-                                label="Description"
-                                color="green"
-                                size="lg"
-                                name="description"
-                                error={!!errors.description}
-                                {...register("description", { required: "Description is required!" })}
-                            />
+                            <div className="h-80 overflow-hidden py-2">
+                                <ReactQuill
+                                    className="h-full max-h-60"
+                                    theme="snow"
+                                    value={description}
+                                    onChange={setDescription}
+                                />
+                            </div>
 
                             {errors.description && (
                                 <Typography variant="small" className="px-1 text-xs text-red-600">
