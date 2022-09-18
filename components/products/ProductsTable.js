@@ -1,36 +1,30 @@
 import { useState } from "react";
-import {
-    Button,
-    IconButton,
-    Input,
-    Menu,
-    MenuHandler,
-    MenuItem,
-    MenuList,
-    Option,
-    Select,
-    Typography,
-} from "@material-tailwind/react";
+import { Button, IconButton, Input, Menu, MenuHandler, MenuItem, MenuList, Typography } from "@material-tailwind/react";
 import { BiSearch } from "react-icons/bi";
 import { BsFilter } from "react-icons/bs";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import Card from "../ui/Card";
-
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
-import Link from "../ui/Link";
 import Image from "next/future/image";
 import { HiChevronLeft, HiChevronRight, HiDotsVertical } from "react-icons/hi";
 import { FiDelete, FiEdit } from "react-icons/fi";
+import { useEffect } from "react";
+import moment from "moment";
+import numeral from "numeral";
 
-const ProductsTable = ({ products = [] }) => {
+const ProductsTable = ({ products }) => {
+    const [productList, setProductList] = useState([]);
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState("asc");
     const [selected, setSelected] = useState([]);
     const [filterName, setFilterName] = useState("");
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [orderBy, setOrderBy] = useState("createdAt");
-    const [productList, setProductList] = useState(products);
+
+    useEffect(() => {
+        setProductList(products);
+    }, [products]);
 
     const handleRequestSort = (property) => {
         const isAsc = orderBy === property && order === "asc";
@@ -88,11 +82,9 @@ const ProductsTable = ({ products = [] }) => {
                             </thead>
 
                             <tbody>
-                                <ProductRow />
-                                <ProductRow />
-                                <ProductRow />
-                                <ProductRow />
-                                <ProductRow />
+                                {productList.map((product) => (
+                                    <ProductRow key={product._id} product={product} />
+                                ))}
                             </tbody>
                         </table>
 
@@ -142,34 +134,50 @@ const ProductsTable = ({ products = [] }) => {
 };
 
 function ProductRow({ product }) {
+    console.log(product);
+
     return (
-        <tr className="hover:bg-gray-100">
+        <tr className="hover:bg-gray-50">
             <td className="p-4 text-left text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
                 <div className="flex items-center gap-4">
                     <Image
-                        src="https://www.fnp.com/images/pr/x/v20220606182615/choco-oreo-cake-half-kg_1.jpg"
+                        src={product.images[0]}
                         alt={"icon"}
                         height={48}
                         width={48}
                         className="h-10 w-10 min-w-[40px] rounded-xl object-cover lg:h-12 lg:w-12"
                     />
 
-                    <Typography className="">Choco Oreo Cake</Typography>
+                    <Typography className="">{product.name}</Typography>
                 </div>
             </td>
 
             <td className="p-4 text-left text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
-                <p className="">25 August 2022</p>
+                <p className="">{moment(product.createdAt).format("ll")}</p>
             </td>
 
             <td className="p-4 text-center text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
-                <span className="rounded-full bg-green-50 bg-opacity-60 py-1.5 px-8 text-xs text-green-500">
-                    In Stock
-                </span>
+                {product.stocks === 0 && (
+                    <span className="rounded-full bg-red-50 bg-opacity-60 py-1.5 px-8 text-xs text-red-600">
+                        Out of Stock
+                    </span>
+                )}
+
+                {product.stocks <= 10 && (
+                    <span className="rounded-full bg-orange-50 bg-opacity-60 py-1.5 px-8 text-xs text-orange-500">
+                        Low on Stock
+                    </span>
+                )}
+
+                {product.stocks > 10 && (
+                    <span className="rounded-full bg-green-50 bg-opacity-60 py-1.5 px-8 text-xs text-green-500">
+                        In Stock
+                    </span>
+                )}
             </td>
 
             <td className="p-4 text-center text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
-                599
+                <span>{numeral(product.price).format("($ 0.0a")}</span>
             </td>
 
             <td className="p-4 text-center text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
