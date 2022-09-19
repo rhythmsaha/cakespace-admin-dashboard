@@ -1,21 +1,22 @@
-import { Button, Input, Option, Select, Textarea, Typography } from "@material-tailwind/react";
+import { Button, Input, Option, Select, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BiRupee } from "react-icons/bi";
-import MarkDownEditor from "../editor/MarkDownEditor";
 import Card from "../ui/Card";
 import ImageForm from "./ImageForm";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
+import { Listbox, Transition } from "@headlessui/react";
+import { HiCheck, HiChevronDown } from "react-icons/hi";
 
-const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] }) => {
+const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
     const [selectedCategory, setSelectedCategory] = useState({ subCategories: [] });
     const [selectedSubcategory, setSelectedSubcategory] = useState();
     const [selectedFlavour, setSelectedFlavour] = useState();
-    const [images, setImages] = useState(existingImages);
+    const [images, setImages] = useState([]);
     const [description, setDescription] = useState("");
 
     const router = useRouter();
@@ -52,6 +53,16 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
         }
     };
 
+    useEffect(() => {
+        if (product?.images) {
+            setImages(product.images);
+        }
+
+        if (product?.description) {
+            setDescription(product?.description);
+        }
+    }, []);
+
     return (
         <form onSubmit={handleSubmit(submitHandler)} className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div className="lg:col-span-8">
@@ -63,6 +74,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                                 color="green"
                                 size="lg"
                                 name="name"
+                                defaultValue={product?.name}
                                 error={!!errors.name}
                                 {...register("name", { required: "Name is required!" })}
                             />
@@ -119,7 +131,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                                     setSelectedCategory(category);
                                 }}
                             >
-                                {categories?.map((category) => (
+                                {categories?.map((category, index) => (
                                     <Option key={category._id} value={category._id}>
                                         {category.name}
                                     </Option>
@@ -193,6 +205,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                                 size="lg"
                                 name="weight"
                                 min={1}
+                                defaultValue={product?.weight}
                                 error={!!errors.weight}
                                 {...register("weight")}
                             />
@@ -213,6 +226,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, existingImages = [] 
                                 size="lg"
                                 name="price"
                                 min={0}
+                                defaultValue={product?.price}
                                 error={!!errors.price}
                                 {...register("price", { required: "Price is required!" })}
                             />

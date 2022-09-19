@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, IconButton, Input, Menu, MenuHandler, MenuItem, MenuList, Typography } from "@material-tailwind/react";
 import { BiSearch } from "react-icons/bi";
-import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import Card from "../ui/Card";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
@@ -11,6 +10,7 @@ import { FiDelete, FiEdit } from "react-icons/fi";
 import { useEffect } from "react";
 import moment from "moment";
 import numeral from "numeral";
+import { useRouter } from "next/router";
 
 const ProductsTable = ({ products }) => {
     const [productList, setProductList] = useState([]);
@@ -67,6 +67,7 @@ const ProductsTable = ({ products }) => {
                         <Input
                             size="lg"
                             label="Search"
+                            color="green"
                             icon={<BiSearch />}
                             onChange={(e) => handleFilterByName(e.target.value)}
                         />
@@ -160,6 +161,8 @@ const ProductsTable = ({ products }) => {
 };
 
 function ProductRow({ product }) {
+    const router = useRouter();
+
     return (
         <tr className="hover:bg-gray-50">
             <td className="p-4 text-left text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
@@ -224,6 +227,7 @@ function ProductRow({ product }) {
                                 className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-green-500"
                                 variant="text"
                                 color="gray"
+                                onClick={() => router.push(`/products/edit/${product.slug}`)}
                             >
                                 <FiEdit className="" />
                                 <p>Edit</p>
@@ -249,6 +253,7 @@ function ProductRow({ product }) {
 
 export default ProductsTable;
 
+// -------------------------
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;

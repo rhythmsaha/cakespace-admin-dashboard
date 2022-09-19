@@ -1,6 +1,6 @@
 import { Button, Typography } from "@material-tailwind/react";
 import Image from "next/future/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineClose } from "react-icons/ai";
 import IllustrationUpload from "../../assets/illustrations/IllustrationUpload";
@@ -11,8 +11,12 @@ const maxSize = 2 * 1024 * 1024; //2 MB
 
 const ImageForm = ({ links, setLinks }) => {
     const [uploading, setUploading] = useState(false);
-    const [images, setImages] = useState(links || []);
+    const [images, setImages] = useState([]);
     const [imageFiles, setImageFiles] = useState([]);
+
+    useEffect(() => {
+        if (links?.length) setImages(links);
+    }, [links]);
 
     const createImageBlob = (file) => {
         try {
