@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, IconButton, Input, Menu, MenuHandler, MenuItem, MenuList, Typography } from "@material-tailwind/react";
 import { BiSearch } from "react-icons/bi";
-import { BsFilter } from "react-icons/bs";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import Card from "../ui/Card";
 import SimpleBar from "simplebar-react";
@@ -17,7 +16,6 @@ const ProductsTable = ({ products }) => {
     const [productList, setProductList] = useState([]);
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState("asc");
-    const [selected, setSelected] = useState([]);
     const [filterName, setFilterName] = useState("");
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [orderBy, setOrderBy] = useState("createdAt");
@@ -43,8 +41,22 @@ const ProductsTable = ({ products }) => {
 
     const handleDeleteProduct = (productId) => {
         const deleteProduct = productList.filter((product) => product.id !== productId);
-        setSelected([]);
         setProductList(deleteProduct);
+    };
+
+    const filteredProducts = applySortFilter(productList, getComparator(order, orderBy), filterName);
+
+    const isNotFound = !filteredProducts.length;
+
+    const handleNextPage = () => {
+        if (Math.ceil(filteredProducts.length / rowsPerPage) > page + 1) {
+            setPage((page) => (page += 1));
+        }
+    };
+    const handlePreviousPage = () => {
+        if (page > 0) {
+            setPage((page) => (page -= 1));
+        }
     };
 
     return (
@@ -52,12 +64,13 @@ const ProductsTable = ({ products }) => {
             <div className="select-none">
                 <header className="flex items-center justify-between gap-6">
                     <div className="max-w-xs">
-                        <Input size="lg" label="Search" icon={<BiSearch />} />
+                        <Input
+                            size="lg"
+                            label="Search"
+                            icon={<BiSearch />}
+                            onChange={(e) => handleFilterByName(e.target.value)}
+                        />
                     </div>
-
-                    <IconButton className="rounded-full" variant="text" color="gray">
-                        <BsFilter className="text-2xl" />
-                    </IconButton>
                 </header>
 
                 <div>
@@ -82,13 +95,15 @@ const ProductsTable = ({ products }) => {
                             </thead>
 
                             <tbody>
-                                {productList.map((product) => (
-                                    <ProductRow key={product._id} product={product} />
-                                ))}
+                                {filteredProducts
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((product, index) => (
+                                        <ProductRow key={index} product={product} />
+                                    ))}
                             </tbody>
                         </table>
 
-                        {/* {true && (
+                        {isNotFound && (
                             <div className="flex w-full flex-col items-center justify-center gap-4 p-6 py-10">
                                 <img
                                     src="/illustration_empty_content.svg"
@@ -97,7 +112,7 @@ const ProductsTable = ({ products }) => {
                                 />
                                 <p className="py-4 text-center font-bold text-gray-500 lg:text-xl">No Products Found</p>
                             </div>
-                        )} */}
+                        )}
                     </SimpleBar>
 
                     <div className="-my-4 flex w-full items-center justify-start gap-6 overflow-x-auto whitespace-nowrap border-t py-4 text-sm sm:justify-end sm:text-base">
@@ -115,14 +130,25 @@ const ProductsTable = ({ products }) => {
                         </div>
 
                         <div>
-                            <Typography>1-5 of 24</Typography>
+                            <Typography>
+                                {rowsPerPage * page + 1}-
+                                {rowsPerPage * (page + 1) > filteredProducts.length
+                                    ? filteredProducts.length
+                                    : rowsPerPage * (page + 1)}{" "}
+                                of {filteredProducts.length}
+                            </Typography>
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <IconButton className="rounded-full" variant="text" color="gray">
+                            <IconButton
+                                className="rounded-full"
+                                variant="text"
+                                color="gray"
+                                onClick={handlePreviousPage}
+                            >
                                 <HiChevronLeft className="text-xl" />
                             </IconButton>
-                            <IconButton className="rounded-full" variant="text" color="gray">
+                            <IconButton className="rounded-full" variant="text" color="gray" onClick={handleNextPage}>
                                 <HiChevronRight className="text-xl" />
                             </IconButton>
                         </div>
@@ -134,8 +160,6 @@ const ProductsTable = ({ products }) => {
 };
 
 function ProductRow({ product }) {
-    console.log(product);
-
     return (
         <tr className="hover:bg-gray-50">
             <td className="p-4 text-left text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
@@ -177,7 +201,9 @@ function ProductRow({ product }) {
             </td>
 
             <td className="p-4 text-center text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
-                <span>{numeral(product.price).format("($ 0.0a")}</span>
+                <span>
+                    {"\u20B9"} {numeral(product.price).format("(0,0.00")}
+                </span>
             </td>
 
             <td className="p-4 text-center text-xs text-gray-700 first:rounded-l-lg last:rounded-r-lg sm:text-sm lg:text-base">
@@ -222,3 +248,34 @@ function ProductRow({ product }) {
 }
 
 export default ProductsTable;
+
+function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+function getComparator(order, orderBy) {
+    return order === "desc"
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function applySortFilter(array, comparator, query) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
+    });
+
+    if (query) {
+        return array.filter((_product) => _product.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    }
+
+    return stabilizedThis.map((el) => el[0]);
+}
