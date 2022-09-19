@@ -1,4 +1,7 @@
-import { ThemeProvider } from "@material-tailwind/react";
+import type { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
+import type { AppProps } from "next/app";
+
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
@@ -7,8 +10,16 @@ import AuthProvider from "../context/AuthContext";
 import store from "../store";
 import "../styles/globals.css";
 
-export default function MyApp({ Component, pageProps }) {
-    const getLayout = Component.getLayout || ((page) => page);
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+    getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout;
+};
+
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+    const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
     return (
         <>
@@ -26,4 +37,6 @@ export default function MyApp({ Component, pageProps }) {
             </Portal>
         </>
     );
-}
+};
+
+export default MyApp;

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import { NextPageWithLayout } from "./_app";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -8,15 +8,9 @@ import useAuth from "../hooks/useAuth";
 import { API_URLS } from "../utils/config";
 import axios from "../utils/axios";
 import { Input, Checkbox, Typography, Button } from "@material-tailwind/react";
-import { useLocalStorage } from "react-use";
 import Spinner from "../components/ui/Spinner";
 
-Login.getLayout = function getLayout(page) {
-    return <GuestGuard>{page}</GuestGuard>;
-};
-
-export default function Login() {
-    const [credentials, setCredentials, removeCredentials] = useLocalStorage("credentials");
+const Login: NextPageWithLayout = () => {
     const { login } = useAuth();
 
     const {
@@ -24,26 +18,12 @@ export default function Login() {
         handleSubmit,
         setError,
         formState: { errors, isSubmitting },
-        setValue,
     } = useForm({});
-
-    useEffect(() => {
-        if (credentials) {
-            const { email, password } = JSON.parse(credentials);
-            setValue("email", email, { shouldValidate: true });
-            setValue("password", password, { shouldValidate: true });
-            setValue("remember", true);
-        }
-    }, [setValue, credentials]);
 
     // Login Handler
     const submitHandler = async ({ email, password, remember }) => {
         if (isSubmitting) return;
         toast.dismiss();
-
-        // Set Credentials to lcoalstorage if remember me is checked!
-        if (remember) setCredentials(JSON.stringify({ email, password }));
-        else removeCredentials();
 
         try {
             const response = await axios.post(API_URLS.login, { email, password });
@@ -69,7 +49,7 @@ export default function Login() {
         <div className="mx-auto w-11/12 max-w-md  pt-[10vh]">
             <div>
                 <img className="mx-auto h-32 object-contain " src="/logo.png" alt="Cakespace" />
-                <Typography variant="h4" className="font-extrabold px-1 text-xl sm:text-2xl text-center text-gray-700 ">
+                <Typography variant="h4" className="px-1 text-center text-xl font-extrabold text-gray-700 sm:text-2xl ">
                     Sign in to your account
                 </Typography>
             </div>
@@ -104,7 +84,7 @@ export default function Login() {
                     {!!errors.password && <span className="px-2 text-xs text-red-600">{errors.password?.message}</span>}
                 </div>
 
-                <div className="flex justify-between items-center py-2 select-none">
+                <div className="flex select-none items-center justify-between py-2">
                     <Checkbox label="Remember Me" color="green" {...register("remember")} />
 
                     <Link href="" className="text-xs font-medium text-green-500 transition  hover:underline sm:text-sm">
@@ -118,7 +98,7 @@ export default function Login() {
                         variant="filled"
                         type="submit"
                         fullWidth
-                        className="flex items-center justify-center tracking-wider text-sm capitalize "
+                        className="flex items-center justify-center text-sm capitalize tracking-wider "
                         color="green"
                         disabled={isSubmitting}
                     >
@@ -129,4 +109,10 @@ export default function Login() {
             </form>
         </div>
     );
-}
+};
+
+Login.getLayout = function getLayout(page) {
+    return <GuestGuard>{page}</GuestGuard>;
+};
+
+export default Login;

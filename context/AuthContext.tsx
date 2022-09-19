@@ -1,6 +1,27 @@
 import { createContext, useEffect, useReducer } from "react";
+import UserTypes from "../types/user";
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
+
+interface AuthContextType {
+    isAuthenticated: boolean;
+    isInitialized: boolean;
+    user: UserTypes | {};
+    login: (JWT_TOKEN: string, user: UserTypes) => void;
+    logout: () => void;
+    update: (user: UserTypes) => void;
+}
+
+interface AuthStateType {
+    isAuthenticated: boolean;
+    isInitialized: boolean;
+    user: UserTypes | null;
+}
+
+interface PayloadType {
+    isAuthenticated?: boolean;
+    user?: UserTypes;
+}
 
 const initialState = {
     isAuthenticated: false,
@@ -8,10 +29,14 @@ const initialState = {
     user: null,
 };
 
-const handlers = {
-    INITIALIZE: (state, action) => {
-        const { isAuthenticated, user } = action.payload;
+type ActionType =
+    | { type: "INITIALIZE"; payload: PayloadType }
+    | { type: "LOGIN"; payload: PayloadType }
+    | { type: "LOGOUT"; payload?: PayloadType };
 
+const handlers = {
+    INITIALIZE: (state: AuthStateType, action: ActionType): AuthStateType => {
+        const { isAuthenticated, user } = action.payload;
         return {
             ...state,
             isAuthenticated,
@@ -20,7 +45,7 @@ const handlers = {
         };
     },
 
-    LOGIN: (state, action) => {
+    LOGIN: (state: AuthStateType, action: ActionType): AuthStateType => {
         const { user } = action.payload;
 
         return {
@@ -30,31 +55,21 @@ const handlers = {
         };
     },
 
-    LOGOUT: (state) => ({
+    LOGOUT: (state: AuthStateType): AuthStateType => ({
         ...state,
         isAuthenticated: false,
         user: null,
     }),
-
-    REGISTER: (state, action) => {
-        const { user } = action.payload;
-
-        return {
-            ...state,
-            isAuthenticated: true,
-            user,
-        };
-    },
 };
 
-const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
+const reducer = (state: AuthStateType, action: ActionType) =>
+    handlers[action.type] ? handlers[action.type](state, action) : state;
 
-const AuthContext = createContext({
+const AuthContext = createContext<AuthContextType>({
     ...initialState,
     login: () => Promise.resolve(),
     logout: () => Promise.resolve(),
-    register: () => Promise.resolve(),
-    update: () => {},
+    update: () => Promise.resolve(),
 });
 
 function AuthProvider({ children }) {
@@ -106,33 +121,9 @@ function AuthProvider({ children }) {
         initialize();
     }, []);
 
-    const login = async (JWT_TOKEN, user) => {
+    const login = async (JWT_TOKEN: string, user: UserTypes) => {
         setSession(JWT_TOKEN);
-
-        dispatch({
-            type: "LOGIN",
-            payload: {
-                user,
-            },
-        });
-    };
-
-    const register = async (email, password, firstName, lastName) => {
-        const response = await axios.post("/api/account/register", {
-            email,
-            password,
-            firstName,
-            lastName,
-        });
-        const { accessToken, user } = response.data;
-
-        window.localStorage.setItem("accessToken", accessToken);
-        dispatch({
-            type: "REGISTER",
-            payload: {
-                user,
-            },
-        });
+        dispatch({ type: "LOGIN", payload: { user } });
     };
 
     const update = (user) => {
@@ -150,9 +141,7 @@ function AuthProvider({ children }) {
         dispatch({ type: "LOGOUT" });
     };
 
-    return (
-        <AuthContext.Provider value={{ ...state, login, logout, register, update }}>{children}</AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={{ ...state, login, logout, update }}>{children}</AuthContext.Provider>;
 }
 
 export default AuthProvider;

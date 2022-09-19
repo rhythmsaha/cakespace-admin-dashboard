@@ -1,17 +1,16 @@
-import jwtDecode from "jwt-decode";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import axios from "./axios";
 
-const isValidToken = (accessToken) => {
+const isValidToken = (accessToken: string) => {
     if (!accessToken) return false;
-    // if (!accessToken?.exp) return false;
 
-    const decoded = jwtDecode(accessToken);
+    const decoded = jwtDecode<JwtPayload>(accessToken);
     const currentTime = Date.now() / 1000;
 
     return decoded?.exp > currentTime;
 };
 
-const setSession = (accessToken) => {
+const setSession = (accessToken: string) => {
     if (accessToken) {
         localStorage.setItem("accessToken", accessToken);
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
