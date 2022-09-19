@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 
 import BlurredScreen from "../screens/BlurredScreen";
 import NotificationMenu from "./NotificationMenu";
-import MobileSidebar from "../sidebar/MobileSidebar";
+import { MobileSidebar } from "../sidebar";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import { IconButton } from "@material-tailwind/react";

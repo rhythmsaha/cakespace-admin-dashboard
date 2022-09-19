@@ -1,18 +1,28 @@
-/* eslint-disable @next/next/no-img-element */
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import { IconButton } from "@material-tailwind/react";
+import Image from "next/future/image";
+import { MouseEventHandler } from "react";
 
-function SidebarHeader({ onClose, expanded = true }) {
+interface PropTypes {
+    onClose: MouseEventHandler<HTMLButtonElement>;
+    expanded?: boolean;
+}
+
+function SidebarHeader({ onClose, expanded = true }: PropTypes) {
     return (
         <header className="flex items-center justify-between">
-            {expanded && <img src="/logo.png" alt="logo" className="h-10 w-10 object-contain" />}
-            <IconButton className="rounded-full" variant="text" color="blue-gray" onClick={onClose}>
-                {expanded ? (
-                    <HiChevronDoubleLeft className="text-xl " />
-                ) : (
+            {expanded ? (
+                <>
+                    <Image src="/logo.png" height={40} width={40} alt="logo" className="min-w-min object-contain" />
+                    <IconButton className="rounded-full" variant="text" color="gray" onClick={onClose}>
+                        <HiChevronDoubleLeft className="text-xl " />
+                    </IconButton>
+                </>
+            ) : (
+                <IconButton className="rounded-full" variant="text" color="gray" onClick={onClose}>
                     <HiChevronDoubleRight className="text-xl " />
-                )}
-            </IconButton>
+                </IconButton>
+            )}
         </header>
     );
 }

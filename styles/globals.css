@@ -21,3 +21,13 @@
 * {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
+
+@layer utilities {
+    .w-70 {
+        @apply w-[280px];
+    }
+
+    .w-22 {
+        @apply w-[88px];
+    }
+}

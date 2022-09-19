@@ -1,7 +1,7 @@
 import AuthGuard from "../guards/AuthGuard";
 import { useWindowSize } from "react-use";
 import { Header } from "../Header";
-import Sidebar from "../sidebar";
+import { Sidebar } from "../sidebar";
 
 const DashboardLayout = ({ children }) => {
     const { width } = useWindowSize();
