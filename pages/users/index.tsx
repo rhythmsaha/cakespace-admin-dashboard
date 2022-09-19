@@ -1,5 +1,5 @@
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import PageName from "../../components/PageName";
+import { PageName } from "../../components/ui";
 
 Users.getLayout = function getLayout(page) {
     return <DashboardLayout>{page}</DashboardLayout>;

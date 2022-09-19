@@ -22,7 +22,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "assets/illustration-no-data.js",
+    "assets/index.js",
   ],
   "exclude": [
     "node_modules"

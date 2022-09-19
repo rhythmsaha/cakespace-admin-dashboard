@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SubCategories from "../../../components/categories/subcategories/SubCategories";
 import SubCategorySkelaton from "../../../components/categories/subcategories/SubCategorySkelaton";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import PageName from "../../../components/PageName";
+import { PageName } from "../../../components/ui";
 import { fetchCategoriesAndFlavours } from "../../../store/actions/CategoriesAction";
 
 const Category = () => {

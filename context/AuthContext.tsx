@@ -6,7 +6,7 @@ import { isValidToken, setSession } from "../utils/jwt";
 interface AuthContextType {
     isAuthenticated: boolean;
     isInitialized: boolean;
-    user: UserTypes | {};
+    user: UserTypes;
     login: (JWT_TOKEN: string, user: UserTypes) => void;
     logout: () => void;
     update: (user: UserTypes) => void;

@@ -1,14 +1,28 @@
 import { NextPageWithLayout } from "./_app";
-import { useEffect } from "react";
-import { toast } from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import Link from "../components/ui/Link";
-import GuestGuard from "../components/guards/GuestGuard";
+import { useForm, Resolver } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
-import { API_URLS } from "../utils/config";
-import axios from "../utils/axios";
+import GuestGuard from "../components/guards/GuestGuard";
 import { Input, Checkbox, Typography, Button } from "@material-tailwind/react";
+import Link from "../components/ui/Link";
+import axios from "../utils/axios";
 import Spinner from "../components/ui/Spinner";
+import toast from "react-hot-toast";
+
+interface FormValues {
+    email: string;
+    password: string;
+    remember: boolean;
+}
+
+const resolver: Resolver<FormValues> = async (values) => {
+    return {
+        values: values.email && values.password ? values : {},
+        errors:
+            (!values.email && { email: { type: "required", message: "Email is required." } }) ||
+            (!values.password && { password: { type: "required", message: "Password is required." } }) ||
+            {},
+    };
+};
 
 const Login: NextPageWithLayout = () => {
     const { login } = useAuth();
@@ -18,7 +32,7 @@ const Login: NextPageWithLayout = () => {
         handleSubmit,
         setError,
         formState: { errors, isSubmitting },
-    } = useForm({});
+    } = useForm({ resolver });
 
     // Login Handler
     const submitHandler = async ({ email, password, remember }) => {
@@ -26,17 +40,13 @@ const Login: NextPageWithLayout = () => {
         toast.dismiss();
 
         try {
-            const response = await axios.post(API_URLS.login, { email, password });
-
+            const response = await axios.post("/auth/seller/login", { email, password });
             const { JWT_TOKEN, user, message } = await response.data;
-
             toast.success(message);
-
-            // Call the login method from auth context to update current user state
             login(JWT_TOKEN, user);
         } catch (error) {
             if (error?.fields && error.fields.length > 0) {
-                error.fields.forEach((field) => {
+                error.fields.forEach((field: { path: "email" | "password"; type: string; message: string }) => {
                     setError(field.path, { type: field.type, message: field.message });
                 });
             } else {
@@ -49,7 +59,7 @@ const Login: NextPageWithLayout = () => {
         <div className="mx-auto w-11/12 max-w-md  pt-[10vh]">
             <div>
                 <img className="mx-auto h-32 object-contain " src="/logo.png" alt="Cakespace" />
-                <Typography variant="h4" className="px-1 text-center text-xl font-extrabold text-gray-700 sm:text-2xl ">
+                <Typography variant="h4" className="px-1 text-center text-xl font-extrabold text-gray-700 sm:text-2xl">
                     Sign in to your account
                 </Typography>
             </div>
@@ -58,36 +68,30 @@ const Login: NextPageWithLayout = () => {
                 <div className="space-y-4 px-2">
                     <Input
                         name="Email"
-                        type="text"
                         variant="outlined"
                         label="Email address"
-                        color="green"
                         size="lg"
                         error={!!errors.email}
-                        {...register("email", {
-                            required: "Email is required!",
-                        })}
+                        {...register("email")}
                     />
-
-                    {!!errors.email && <span className="px-2 text-xs text-red-600">{errors.email?.message}</span>}
+                    {!!errors.email && <span className="px-2 text-xs text-red-600">{errors.email.message}</span>}
 
                     <Input
                         name="password"
                         type="password"
                         variant="outlined"
                         label="Password"
-                        color="green"
                         size="lg"
                         error={!!errors.password}
-                        {...register("password", { required: "Password is required!" })}
+                        {...register("password")}
                     />
-                    {!!errors.password && <span className="px-2 text-xs text-red-600">{errors.password?.message}</span>}
+                    {!!errors.password && <span className="px-2 text-xs text-red-600">{errors.password.message}</span>}
                 </div>
 
                 <div className="flex select-none items-center justify-between py-2">
-                    <Checkbox label="Remember Me" color="green" {...register("remember")} />
+                    <Checkbox label="Remember Me" {...register("remember")} />
 
-                    <Link href="" className="text-xs font-medium text-green-500 transition  hover:underline sm:text-sm">
+                    <Link href="" className="text-xs font-medium text-blue-500 transition  hover:underline sm:text-sm">
                         Forgot your password?
                     </Link>
                 </div>
@@ -99,7 +103,6 @@ const Login: NextPageWithLayout = () => {
                         type="submit"
                         fullWidth
                         className="flex items-center justify-center text-sm capitalize tracking-wider "
-                        color="green"
                         disabled={isSubmitting}
                     >
                         {isSubmitting && <Spinner />}

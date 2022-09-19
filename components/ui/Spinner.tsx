@@ -1,7 +1,11 @@
-function Spinner({ className }) {
+interface PropTypes {
+    className?: string;
+}
+
+function Spinner({ className }: PropTypes) {
     return (
         <svg
-            className={className ? className : "h-5 w-5 animate-spin text-white"}
+            className={className || "h-5 w-5 animate-spin text-white"}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useAuth from "../../hooks/useAuth";
-import LoadingScreen from "../LoadingScreen";
+import { LoadingScreen } from "../screens";
 
 function AuthGuard({ children }) {
     const { isAuthenticated, isInitialized } = useAuth();

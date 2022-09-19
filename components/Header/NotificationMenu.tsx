@@ -3,7 +3,11 @@ import { useRouter } from "next/router";
 import { FaBell } from "react-icons/fa";
 import { TbChecks } from "react-icons/tb";
 
-function NotificationMenu({ notifications }) {
+interface PropTypes {
+    notifications?: object[];
+}
+
+function NotificationMenu({ notifications }: PropTypes) {
     const router = useRouter();
 
     return (
@@ -25,13 +29,13 @@ function NotificationMenu({ notifications }) {
                         </Typography>
                     </div>
 
-                    {notifications && (
+                    {true && (
                         <Tooltip
                             content="Mark all as read"
                             className="bg-gray-800 text-xs text-white"
                             placement="bottom"
                         >
-                            <IconButton variant="text" color="green" className="rounded-full p-0">
+                            <IconButton variant="text" className="rounded-full p-0">
                                 <TbChecks className="text-lg " />
                             </IconButton>
                         </Tooltip>
@@ -45,7 +49,3 @@ function NotificationMenu({ notifications }) {
 }
 
 export default NotificationMenu;
-
-/* <MenuItem>Menu Item 1</MenuItem>
-<MenuItem>Menu Item 2</MenuItem>
-<MenuItem>Menu Item 3</MenuItem> */

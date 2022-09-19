@@ -1,4 +1,4 @@
-const uploadToCloudinary = async (file) => {
+const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "cakespace");

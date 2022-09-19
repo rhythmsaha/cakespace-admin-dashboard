@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
-import PageName from "../../../components/PageName";
 import ProductForm from "../../../components/products/ProductForm";
 import ProductFormSkelaton from "../../../components/products/ProductFormSkelaton";
+import { PageName } from "../../../components/ui";
 import { fetchCategoriesAndFlavours } from "../../../store/actions/CategoriesAction";
 import axios from "../../../utils/axios";
 

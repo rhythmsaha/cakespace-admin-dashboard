@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useAuth from "../../hooks/useAuth";
-import LoadingScreen from "../LoadingScreen";
+import { LoadingScreen } from "../screens";
 
 function GuestGuard({ children }) {
     const router = useRouter();
-    const { isAuthenticated, isInitialized } = useAuth();
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
         if (isAuthenticated) {
             router.replace("/");
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuthenticated]);
 
-    if ((isInitialized, isAuthenticated)) return <LoadingScreen />;
+    if (isAuthenticated) return <LoadingScreen />;
 
     return <>{children}</>;
 }

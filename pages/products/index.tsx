@@ -1,5 +1,5 @@
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import PageName from "../../components/PageName";
+import { PageName } from "../../components/ui";
 import { MdOutlineAdd } from "react-icons/md";
 import { useRouter } from "next/router";
 import { Button } from "@material-tailwind/react";

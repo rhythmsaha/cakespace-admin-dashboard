@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import PageName from "../../components/PageName";
+import { PageName } from "../../components/ui";
 import AddNewProduct from "../../components/products/AddNewProduct";
 import { fetchCategoriesAndFlavours } from "../../store/actions/CategoriesAction";
 
