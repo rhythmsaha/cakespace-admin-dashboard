@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
 import { toast } from "react-hot-toast";
@@ -10,11 +10,21 @@ import ChangePassword from "./ChangePassword";
 import Card from "../ui/Card";
 import axios from "../../utils/axios";
 import uploadToCloudinary from "../../utils/uploadToCloudinary";
-import Spinner from "../ui/Spinner";
+import { Spinner } from "../ui";
+
+interface FormValues {
+    fullName: string;
+}
+
+const resolver: Resolver<FormValues> = async (values) => {
+    return {
+        values: values.fullName ? values : {},
+        errors: !values.fullName ? { fullName: { type: "required", message: "Name is required." } } : {},
+    };
+};
 
 const PersonalInfo = () => {
-    const [passwordModal, setPasswordModal] = useState(false);
-    const [avatar, setAvatar] = useState();
+    const [avatar, setAvatar] = useState<File>();
 
     const { update, user } = useAuth();
 
@@ -23,13 +33,13 @@ const PersonalInfo = () => {
         handleSubmit,
         formState: { errors, isSubmitting },
         setError,
-    } = useForm();
+    } = useForm({ resolver });
 
-    const submitHandler = async ({ fullName }) => {
+    const submitHandler = async ({ fullName }: { fullName: string }): Promise<void> => {
         if (isSubmitting) return;
         toast.dismiss();
 
-        const body = { fullName };
+        const body: { fullName: string; avatar?: File } = { fullName };
         if (avatar) body.avatar = await uploadToCloudinary(avatar);
 
         try {
@@ -39,7 +49,7 @@ const PersonalInfo = () => {
             toast.success(data.message);
         } catch (error) {
             if (error?.fields && error.fields.length > 0) {
-                error.fields.forEach((field) => {
+                error.fields.forEach((field: { path: "fullName"; type: string; message: string }) => {
                     setError(field.path, { type: field.type, message: field.message });
                 });
             } else {
@@ -63,33 +73,20 @@ const PersonalInfo = () => {
                             size="lg"
                             label="Full Name"
                             name="fullName"
-                            color="green"
                             defaultValue={user.fullName}
                             error={!!errors.fullName}
                             {...register("fullName")}
                         />
                         {!!errors.fullName && (
-                            <span className="px-2 text-xs text-red-600">{errors.fullName?.message}</span>
+                            <span className="px-2 text-xs text-red-600">{errors.fullName.message}</span>
                         )}
 
-                        <Input
-                            size="lg"
-                            label="Email Address"
-                            name="email"
-                            type="email"
-                            onChange={null}
-                            color="green"
-                            value={user.email}
-                            {...register("email", {
-                                required: "Please enter a valid email address!",
-                            })}
-                        />
+                        <Input size="lg" label="Email Address" name="email" type="email" value={user.email} readOnly />
 
                         <div className="">
                             <Button
                                 size="md"
                                 variant="filled"
-                                color="green"
                                 className="flex h-11 w-52 items-center justify-center text-sm capitalize"
                                 type="submit"
                             >
@@ -99,7 +96,7 @@ const PersonalInfo = () => {
                     </form>
 
                     <div className="mt-2">
-                        <ChangePassword open={passwordModal} setOpen={setPasswordModal} />
+                        <ChangePassword />
                     </div>
                 </section>
             </section>

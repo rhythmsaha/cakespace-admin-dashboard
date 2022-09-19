@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { MdAddAPhoto } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -39,17 +39,20 @@ const UploadImage = ({ imageUrl, setFile }) => {
                 onMouseEnter={() => setHoverState(true)}
                 onMouseLeave={() => setHoverState(false)}
             >
-                {hoverState && (
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.25, type: "just" }}
-                        className="absolute inset-2 flex flex-col items-center justify-center gap-2 rounded-full bg-grey-900 bg-opacity-70 text-grey-300"
-                    >
-                        <MdAddAPhoto className="text-2xl" />
-                        <p className="text-xs">Update Photo</p>
-                    </motion.span>
-                )}
+                <AnimatePresence>
+                    {hoverState && (
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ type: "just" }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-2 flex flex-col items-center justify-center gap-2 rounded-full bg-grey-900 bg-opacity-70 text-grey-300"
+                        >
+                            <MdAddAPhoto className="text-2xl" />
+                            <p className="text-xs">Update Photo</p>
+                        </motion.span>
+                    )}
+                </AnimatePresence>
 
                 {image ? (
                     <img src={image} className="h-full w-full rounded-full border object-cover" alt="" />

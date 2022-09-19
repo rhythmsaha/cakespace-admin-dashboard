@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Spinner from "../ui/Spinner";
 import { toast } from "react-hot-toast";
 import axios from "../../utils/axios";
 import { Button, Input } from "@material-tailwind/react";
@@ -19,8 +18,8 @@ const ChangePassword = () => {
     } = useForm();
 
     const handleOpen = () => {
-        reset();
         setOpen((prev) => !prev);
+        reset();
     };
 
     const submitHandler = async ({ oldPassword, newPassword, confirmPassword }) => {
@@ -50,7 +49,7 @@ const ChangePassword = () => {
             <Button
                 variant="filled"
                 size="md"
-                color="pink"
+                color="light-blue"
                 className="flex h-11 w-52 items-center justify-center gap-2 capitalize"
                 onClick={handleOpen}
             >

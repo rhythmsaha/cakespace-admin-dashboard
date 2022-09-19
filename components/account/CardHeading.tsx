@@ -1,6 +1,11 @@
 import { Typography } from "@material-tailwind/react";
 
-const CardHeading = ({ heading, desc }) => {
+interface PropTypes {
+    heading: string;
+    desc: string;
+}
+
+const CardHeading = ({ heading, desc }: PropTypes) => {
     return (
         <div>
             <Typography variant="lead" className="font-medium text-gray-900">
