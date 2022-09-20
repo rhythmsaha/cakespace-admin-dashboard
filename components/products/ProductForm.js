@@ -38,8 +38,8 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
                 images,
                 description: description,
                 category: selectedCategory?._id,
-                subCategory: selectedSubcategory,
-                flavour: selectedFlavour,
+                subCategory: selectedSubcategory?._id,
+                flavour: selectedFlavour?._id,
             });
 
             router.push("/products");
