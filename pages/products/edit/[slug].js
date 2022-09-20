@@ -9,7 +9,7 @@ import { fetchCategoriesAndFlavours } from "../../../store/actions/CategoriesAct
 import axios from "../../../utils/axios";
 
 const EditProduct = () => {
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
     const categories = useSelector((state) => state.categories.list);
@@ -41,10 +41,6 @@ const EditProduct = () => {
 
     if (isLoading) return <ProductFormSkelaton />;
 
-    if (!isLoading && !product) {
-        return;
-    }
-
     return (
         <div>
             <div className="">
@@ -52,13 +48,15 @@ const EditProduct = () => {
             </div>
 
             <section className="mt-8 grid w-full">
-                <ProductForm
-                    categories={categories}
-                    flavours={flavours}
-                    existingImages={product.images}
-                    onSubmit={() => {}}
-                    product={product}
-                />
+                {product && (
+                    <ProductForm
+                        categories={categories}
+                        flavours={flavours}
+                        existingImages={product.images}
+                        onSubmit={() => {}}
+                        product={product}
+                    />
+                )}
             </section>
         </div>
     );
