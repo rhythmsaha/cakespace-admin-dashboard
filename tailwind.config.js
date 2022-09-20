@@ -3,7 +3,11 @@ const withMT = require("@material-tailwind/react/utils/withMT");
 /** @type {import('tailwindcss').Config} */
 module.exports = withMT({
     darkMode: "class",
-    content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx}",
+        "./components/**/*.{js,ts,jsx,tsx}",
+        "./node_modules/react-tailwindcss-select/dist/index.esm.js",
+    ],
     theme: {
         fontFamily: {
             sans: ["Public Sans", "sans-serif"],

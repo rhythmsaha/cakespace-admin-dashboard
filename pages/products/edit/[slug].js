@@ -48,15 +48,13 @@ const EditProduct = () => {
             </div>
 
             <section className="mt-8 grid w-full">
-                {product && (
-                    <ProductForm
-                        categories={categories}
-                        flavours={flavours}
-                        existingImages={product.images}
-                        onSubmit={() => {}}
-                        product={product}
-                    />
-                )}
+                <ProductForm
+                    categories={categories}
+                    flavours={flavours}
+                    existingImages={product.images}
+                    onSubmit={() => {}}
+                    product={product}
+                />
             </section>
         </div>
     );

@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import axiosInstance from "../../utils/axios";
+import axios from "../../utils/axios";
 import ProductForm from "./ProductForm";
 
 const AddNewProduct = () => {
@@ -16,9 +16,9 @@ const AddNewProduct = () => {
         images,
         stocks,
         category,
-        subCategory,
+        subCategories,
+        flavours,
         weight,
-        flavour,
     }) => {
         toast.dismiss();
 
@@ -27,11 +27,11 @@ const AddNewProduct = () => {
 
             if (images.length > 0) body.images = images;
             if (category) body.category = category;
-            if (subCategory) body.subCategory = subCategory;
-            if (flavour) body.flavour = flavour;
+            if (subCategories) body.subCategories = subCategories;
+            if (flavours) body.flavours = flavours;
             if (weight) body.weight = weight;
 
-            const response = await axiosInstance.post(`/products`, body);
+            const response = await axios.post(`/products`, body);
             const data = await response.data;
 
             console.log(data);

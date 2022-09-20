@@ -1,4 +1,4 @@
-import { Button, Input, Option, Select, Typography } from "@material-tailwind/react";
+import { Button, Input, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,16 +7,17 @@ import { BiRupee } from "react-icons/bi";
 import Card from "../ui/Card";
 import ImageForm from "./ImageForm";
 import dynamic from "next/dynamic";
+import Select from "react-tailwindcss-select";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import SelectCategory from "./SelectCategory";
 import SelectSubCategory from "./SelectSubCategory";
-import SelectFlavour from "./SelectFlavour";
 
 const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
-    const [selectedCategory, setSelectedCategory] = useState({ subCategories: [] });
-    const [selectedSubcategory, setSelectedSubcategory] = useState();
-    const [selectedFlavour, setSelectedFlavour] = useState();
+    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedSubcategories, setSelectedSubcategories] = useState();
+    const [selectedFlavours, setSelectedFlavours] = useState();
+
     const [images, setImages] = useState([]);
     const [description, setDescription] = useState("");
 
@@ -37,12 +38,12 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
                 ...data,
                 images,
                 description: description,
-                category: selectedCategory?._id,
-                subCategory: selectedSubcategory?._id,
-                flavour: selectedFlavour?._id,
+                category: selectedCategory,
+                subCategories: selectedSubcategories,
+                flavours: selectedFlavours,
             });
 
-            router.push("/products");
+            // router.push("/products");
         } catch (error) {
             if (error?.fields && error.fields.length > 0) {
                 error.fields.forEach((field) => {
@@ -55,25 +56,22 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
     };
 
     useEffect(() => {
-        if (product?.images) {
-            setImages(product.images);
-        }
-
-        if (product?.description) {
-            setDescription(product?.description);
-        }
-        if (product?.category) {
-            const category = categories.find((cat) => cat._id === product.category._id);
-            setSelectedCategory(category);
-        }
-
-        if (product?.subCategory) {
-            setSelectedSubcategory(product?.subCategory);
-        }
-
-        if (product?.flavour) {
-            setSelectedFlavour(product.flavour);
-        }
+        // if (product?.images) {
+        //     setImages(product.images);
+        // }
+        // if (product?.description) {
+        //     setDescription(product?.description);
+        // }
+        // if (product?.category) {
+        //     const category = categories.find((cat) => cat._id === product.category._id);
+        //     setSelectedCategory(category);
+        // }
+        // if (product?.subCategory) {
+        //     setSelectedSubcategory(product?.subCategory);
+        // }
+        // if (product?.flavour) {
+        //     setSelectedFlavour(product.flavour);
+        // }
     }, []);
 
     return (
@@ -139,24 +137,34 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
                                     label="Category"
                                 />
                             </div>
-
                             {selectedCategory?.subCategories.length > 0 && (
                                 <div>
-                                    <SelectSubCategory
-                                        label="Subcategory (Optional)"
-                                        items={selectedCategory?.subCategories}
-                                        selected={selectedSubcategory}
-                                        setSelected={setSelectedSubcategory}
+                                    <label className="text-xs font-medium text-gray-500">Subcategories</label>
+                                    <Select
+                                        placeholder="Select Subcategories"
+                                        isSearchable={false}
+                                        value={selectedSubcategories}
+                                        isMultiple={true}
+                                        onChange={(value) => setSelectedSubcategories(value)}
+                                        options={selectedCategory.subCategories.map((subcategory) => ({
+                                            value: subcategory._id,
+                                            label: subcategory.name,
+                                        }))}
                                     />
                                 </div>
                             )}
-
                             <div>
-                                <SelectFlavour
-                                    items={flavours}
-                                    label="Flavour"
-                                    selected={selectedFlavour}
-                                    setSelected={setSelectedFlavour}
+                                <label className="text-xs font-medium text-gray-500">Flavours</label>
+                                <Select
+                                    placeholder="Select Flavours"
+                                    isSearchable={false}
+                                    value={selectedFlavours}
+                                    isMultiple={true}
+                                    onChange={(value) => setSelectedFlavours(value)}
+                                    options={flavours.map((flavour) => ({
+                                        value: flavour._id,
+                                        label: flavour.name,
+                                    }))}
                                 />
                             </div>
                         </div>

@@ -47,7 +47,7 @@ const SelectCategory = ({ label, items, selected, setSelected }) => {
                             <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-y-auto rounded-lg bg-white py-1 text-sm shadow-0 ring-1 ring-gray-900 ring-opacity-5 focus:outline-none">
                                 {items.map((item) => (
                                     <Listbox.Option
-                                        key={item.id}
+                                        key={item._id}
                                         className={({ active, selected }) =>
                                             classNames(
                                                 selected
