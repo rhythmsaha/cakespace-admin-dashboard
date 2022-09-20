@@ -11,7 +11,7 @@ const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import SelectCategory from "./SelectCategory";
 
-const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
+const ProductForm = ({ categories, flavours = [], onSubmit, product, edit }) => {
     const [selectedCategory, setSelectedCategory] = useState();
     const [selectedSubcategories, setSelectedSubcategories] = useState();
     const [selectedFlavours, setSelectedFlavours] = useState();
@@ -50,22 +50,31 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
     };
 
     useEffect(() => {
-        // if (product?.images) {
-        //     setImages(product.images);
-        // }
-        // if (product?.description) {
-        //     setDescription(product?.description);
-        // }
-        // if (product?.category) {
-        //     const category = categories.find((cat) => cat._id === product.category._id);
-        //     setSelectedCategory(category);
-        // }
-        // if (product?.subCategory) {
-        //     setSelectedSubcategory(product?.subCategory);
-        // }
-        // if (product?.flavour) {
-        //     setSelectedFlavour(product.flavour);
-        // }
+        if (product?.images) {
+            setImages(product.images);
+        }
+        if (product?.description) {
+            setDescription(product.description);
+        }
+
+        if (product?.category) {
+            const category = categories.find((cat) => cat._id === product.category._id);
+            setSelectedCategory(category);
+        }
+
+        if (product?.subCategories) {
+            const _subCategories = product.subCategories.map((_subCategory) => ({
+                value: _subCategory._id,
+                label: _subCategory.name,
+            }));
+
+            setSelectedSubcategories(_subCategories);
+        }
+
+        if (product?.flavours) {
+            const _flavours = product.flavours.map((_flavour) => ({ value: _flavour._id, label: _flavour.name }));
+            setSelectedFlavours(_flavours);
+        }
     }, []);
 
     return (
@@ -171,7 +180,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
                                 size="lg"
                                 name="stocks"
                                 min={1}
-                                defaultValue={1}
+                                defaultValue={product?.stocks || 1}
                                 error={!!errors.stocks}
                                 {...register("stocks", { required: "Stocks is required!" })}
                             />
@@ -234,7 +243,7 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
                         size="md"
                         fullWidth
                     >
-                        Create Product
+                        {edit ? "Update" : "Create Product"}
                     </Button>
                 </div>
             </div>
