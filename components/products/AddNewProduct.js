@@ -2,12 +2,15 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import axios from "../../utils/axios";
 import ProductForm from "./ProductForm";
+import { useRouter } from "next/router";
 
 const AddNewProduct = () => {
     const categories = useSelector((state) => state.categories.list);
     const flavours = useSelector((state) => state.flavours.list);
     const categoriesError = useSelector((state) => state.categories.error);
     const flavoursError = useSelector((state) => state.flavours.error);
+
+    const router = useRouter();
 
     const submitHandler = async ({
         name,
@@ -34,7 +37,8 @@ const AddNewProduct = () => {
             const response = await axios.post(`/products`, body);
             const data = await response.data;
 
-            console.log(data);
+            router.push("/products");
+
             toast.success(data.message);
         } catch (error) {
             throw error;

@@ -1,5 +1,4 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -11,7 +10,6 @@ import Select from "react-tailwindcss-select";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import SelectCategory from "./SelectCategory";
-import SelectSubCategory from "./SelectSubCategory";
 
 const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
     const [selectedCategory, setSelectedCategory] = useState();
@@ -20,8 +18,6 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
 
     const [images, setImages] = useState([]);
     const [description, setDescription] = useState("");
-
-    const router = useRouter();
 
     const {
         register,
@@ -42,8 +38,6 @@ const ProductForm = ({ categories, flavours = [], onSubmit, product }) => {
                 subCategories: selectedSubcategories,
                 flavours: selectedFlavours,
             });
-
-            // router.push("/products");
         } catch (error) {
             if (error?.fields && error.fields.length > 0) {
                 error.fields.forEach((field) => {
