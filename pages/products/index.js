@@ -7,6 +7,7 @@ import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import ProductsTable from "../../components/products/ProductsTable";
+import CategoriesSkeleton from "../../components/categories/categories/CategoriesSkeleton";
 
 function Cakes() {
     const [isLoading, setIsLoading] = useState(true);
@@ -45,9 +46,12 @@ function Cakes() {
                 </Button>
             </div>
 
-            <section className="mt-10 w-full">
-                <ProductsTable products={products} />
-            </section>
+            {isLoading && <CategoriesSkeleton />}
+            {!isLoading && (
+                <section className="mt-10 w-full">
+                    <ProductsTable products={products} />
+                </section>
+            )}
         </div>
     );
 }
