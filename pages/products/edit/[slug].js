@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import PageName from "../../../components/PageName";
 import ProductForm from "../../../components/products/ProductForm";
 import ProductFormSkelaton from "../../../components/products/ProductFormSkelaton";
 import { fetchCategoriesAndFlavours } from "../../../store/actions/CategoriesAction";
+import axiosInstance from "../../../utils/axios";
 import axios from "../../../utils/axios";
 
 const EditProduct = () => {
@@ -23,6 +25,8 @@ const EditProduct = () => {
     }, []);
 
     useEffect(() => {
+        if (!router.query.slug) return;
+
         const fetchProduct = () => {
             setIsLoading(true);
             axios
@@ -37,7 +41,38 @@ const EditProduct = () => {
         };
 
         fetchProduct();
-    }, []);
+    }, [router.query]);
+
+    const submitHandler = async ({
+        name,
+        description,
+        price,
+        images,
+        stocks,
+        category,
+        subCategories,
+        flavours,
+        weight,
+    }) => {
+        toast.dismiss();
+
+        try {
+            const body = { name, description, price, images, stocks };
+
+            if (images.length > 0) body.images = images;
+            if (category) body.category = category;
+            if (subCategories) body.subCategories = subCategories;
+            if (flavours) body.flavours = flavours;
+            if (weight) body.weight = weight;
+
+            const response = await axiosInstance.put(`/products/${product._id}`, body);
+            const data = await response.data;
+
+            toast.success(data.message);
+        } catch (error) {
+            throw error;
+        }
+    };
 
     if (isLoading) return <ProductFormSkelaton />;
 
@@ -51,9 +86,9 @@ const EditProduct = () => {
                 <ProductForm
                     categories={categories}
                     flavours={flavours}
-                    existingImages={product.images}
-                    onSubmit={() => {}}
+                    onSubmit={submitHandler}
                     product={product}
+                    edit
                 />
             </section>
         </div>

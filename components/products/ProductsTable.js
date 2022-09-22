@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import moment from "moment";
 import numeral from "numeral";
 import { useRouter } from "next/router";
+import DeleteProduct from "./DeleteProduct";
 
 const ProductsTable = ({ products }) => {
     const [productList, setProductList] = useState([]);
@@ -24,12 +25,6 @@ const ProductsTable = ({ products }) => {
         setProductList(products);
     }, [products]);
 
-    const handleRequestSort = (property) => {
-        const isAsc = orderBy === property && order === "asc";
-        setOrder(isAsc ? "desc" : "asc");
-        setOrderBy(property);
-    };
-
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
@@ -39,8 +34,8 @@ const ProductsTable = ({ products }) => {
         setFilterName(filterName);
     };
 
-    const handleDeleteProduct = (productId) => {
-        const deleteProduct = productList.filter((product) => product.id !== productId);
+    const handleDeleteProduct = (product) => {
+        const deleteProduct = productList.filter((_product) => _product._id !== product._id);
         setProductList(deleteProduct);
     };
 
@@ -99,7 +94,7 @@ const ProductsTable = ({ products }) => {
                                 {filteredProducts
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((product, index) => (
-                                        <ProductRow key={index} product={product} />
+                                        <ProductRow key={index} product={product} onDelete={handleDeleteProduct} />
                                     ))}
                             </tbody>
                         </table>
@@ -160,7 +155,9 @@ const ProductsTable = ({ products }) => {
     );
 };
 
-function ProductRow({ product }) {
+function ProductRow({ product, onDelete }) {
+    const [deleteModal, setDeleteModal] = useState(false);
+
     const router = useRouter();
 
     return (
@@ -239,6 +236,7 @@ function ProductRow({ product }) {
                                 className="flex w-full items-center justify-start gap-2 px-3 py-2 text-sm capitalize text-red-500"
                                 variant="text"
                                 color="gray"
+                                onClick={() => setDeleteModal(true)}
                             >
                                 <FiDelete />
                                 Delete
@@ -247,6 +245,8 @@ function ProductRow({ product }) {
                     </MenuList>
                 </Menu>
             </td>
+
+            <DeleteProduct isOpen={deleteModal} setIsOpen={setDeleteModal} onDelete={onDelete} id={product._id} />
         </tr>
     );
 }
