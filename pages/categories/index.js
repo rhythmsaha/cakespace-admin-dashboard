@@ -10,40 +10,40 @@ import CategoriesTable from "../../components/categories/categories/CategoriesTa
 import FlavoursTable from "../../components/categories/flavours/FlavoursTable";
 
 function Categories() {
-    const [isLoading, setIsLoading] = useState(true);
-    const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
-    const categories = useSelector((state) => state.categories.list);
-    const flavours = useSelector((state) => state.flavours.list);
+  const categories = useSelector((state) => state.categories.list);
+  const flavours = useSelector((state) => state.flavours.list);
 
-    const categoriesError = useSelector((state) => state.categories.error);
-    const flavoursError = useSelector((state) => state.flavours.error);
+  const categoriesError = useSelector((state) => state.categories.error);
+  const flavoursError = useSelector((state) => state.flavours.error);
 
-    const fetchdata = useCallback(async () => {
-        await dispatch(fetchCategoriesAndFlavours(true));
-        setIsLoading(false);
-    }, [dispatch]);
+  const fetchdata = useCallback(async () => {
+    await dispatch(fetchCategoriesAndFlavours(true));
+    setIsLoading(false);
+  }, [dispatch]);
 
-    useEffect(() => {
-        fetchdata();
-    }, [fetchdata]);
+  useEffect(() => {
+    fetchdata();
+  }, [fetchdata]);
 
-    return (
-        <div>
-            <PageName name="Categories & Flavours" />
+  return (
+    <div>
+      <PageName name="Categories & Flavours" />
 
-            <section className="mt-8 w-full space-y-8 ">
-                {isLoading && <CategoriesSkeleton />}
-                {isLoading && <CategoriesSkeleton />}
+      <section className="mt-8 w-full space-y-8">
+        {isLoading && <CategoriesSkeleton />}
+        {isLoading && <CategoriesSkeleton />}
 
-                {!isLoading && <CategoriesTable categories={categories} categoriesError={categoriesError} />}
-                {!isLoading && <FlavoursTable flavours={flavours} flavoursError={flavoursError} />}
-            </section>
-        </div>
-    );
+        {!isLoading && <CategoriesTable categories={categories} categoriesError={categoriesError} />}
+        {!isLoading && <FlavoursTable flavours={flavours} flavoursError={flavoursError} />}
+      </section>
+    </div>
+  );
 }
 export default Categories;
 
 Categories.getLayout = function getLayout(page) {
-    return <DashboardLayout>{page}</DashboardLayout>;
+  return <DashboardLayout>{page}</DashboardLayout>;
 };
